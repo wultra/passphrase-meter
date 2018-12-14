@@ -1,6 +1,13 @@
 #ifndef ZXCVBN_WULTRA
 #define ZXCVBN_WULTRA
 
+#if defined(ANDROID)
+// "__USE_BDS" makes funopen() function visible. The define must be set before the first system
+// header is included, otherwise the configuration is ignored.
+#define __USE_BSD
+#include <stdio.h>
+#endif
+
 #ifndef __cplusplus
 /* C build. Use the standard malloc/free for heap memory */
 #include <stdlib.h>
