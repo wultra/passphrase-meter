@@ -17,20 +17,20 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |sub|
     sub.pod_target_xcconfig = {'SWIFT_INCLUDE_PATHS' => '$(PODS_TARGET_SRCROOT)/Source/src_native'}
     sub.preserve_paths = 'Source/src_native/module.modulemap'
-    sub.source_files = 'Source/src_native/*.{c,h}', 'Source/src_ios/StrengthTester.swift'
+    sub.source_files = 'Source/src_native/*.{c,h}', 'Source/src_ios/PasswordTester.swift'
     sub.private_header_files = 'Source/src_native/*.{h}'
   end
 
   
   s.subspec 'Dictionary_czsk' do |sub|
     sub.resources = 'dictionaries/czsk.dct'
-    sub.source_files = 'Source/src_ios/StrengthTester_czsk.swift'
+    sub.source_files = 'Source/src_ios/PasswordTester_czsk.swift'
     sub.dependency 'WultraPassMeter/Core'
   end
 
   s.subspec 'Dictionary_en' do |sub|
     sub.resources = 'dictionaries/en.dct'
-    sub.source_files = 'Source/src_ios/StrengthTester_en.swift'
+    sub.source_files = 'Source/src_ios/PasswordTester_en.swift'
     sub.dependency 'WultraPassMeter/Core'
   end
 
