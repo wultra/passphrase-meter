@@ -65,23 +65,28 @@ enum WPM_passcode_result_flags WPM_testPasscode(const char *passcode);
 
    @param assetName Name of the asset with password 'blacklist' dictionary.
    @param manager Asset manager where the asset is stored
-   @return Success of the operation. 1 is success, 0 failure
+   @return true if dictionary is set successfully
  */
-int WPM_setPasswordDictionary(const char *assetName, AAssetManager *manager);
+bool WPM_setPasswordDictionary(const char *assetName, AAssetManager *manager);
 #else
 /**
    Sets dictionary with poorly rated words. When dictionary is no longer needed, call `WPM_freePasswordDictionary` to free resources
 
    @param dictionary Path to the password 'blacklist' dictionary.
-   @return Success of the operation. 1 is success, 0 failure
+   @return true if dictionary is set successfully
  */
-int WPM_setPasswordDictionary(const char *dictionary);
+bool WPM_setPasswordDictionary(const char *dictionary);
 #endif
 
 /**
     Free resources needed for password classification
  */
 void WPM_freePasswordDictionary(void);
+	
+/**
+ 	Returns true if dictionary for passwords is loaded.
+ */
+bool WPM_hasPasswordDictionary(void);
 
 /**
     Returns strength of the given password

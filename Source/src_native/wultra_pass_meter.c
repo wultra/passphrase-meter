@@ -359,18 +359,27 @@ enum WPM_passcode_result_flags WPM_testPasscode(const char *pin) {
     return result;
 }
 
+static bool s_HasDictionary = false;
+
 #ifdef ANDROID
-int WPM_setPasswordDictionary(const char *dictionary, AAssetManager *manager) {
-    return ZxcvbnInit(dictionary, manager);
+bool WPM_setPasswordDictionary(const char *dictionary, AAssetManager *manager) {
+    return ZxcvbnInit(dictionary, manager) == 1;
 }
 #else
-int WPM_setPasswordDictionary(const char *dictionary) {
-    return ZxcvbnInit(dictionary);
+bool WPM_setPasswordDictionary(const char *dictionary) {
+	WPM_freePasswordDictionary();
+	s_HasDictionary = ZxcvbnInit(dictionary) == 1;
+	return s_HasDictionary;
 }
 #endif
 
 void WPM_freePasswordDictionary() {
     ZxcvbnUnInit();
+	s_HasDictionary = false;
+}
+
+bool WPM_hasPasswordDictionary() {
+	return s_HasDictionary;
 }
 
 enum WPM_password_check_score WPM_testPassword(const char *password) {
