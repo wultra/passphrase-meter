@@ -17,38 +17,13 @@
 #ifndef wultra_pass_meter_h
 #define wultra_pass_meter_h
 
+#include <stdio.h>
+#include <stdbool.h>
+#include "wpm_types.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <stdio.h>
-#include <stdbool.h>
-
-/// Result of WPM_testPasscode function that can result with multiple issues.
-typedef enum _WPM_passcode_result_flags {
-    /// Passcode is OK, no issues found
-    OK_WPM                   = 1 << 0,
-    /// Passcode doesn't have enough unique digits
-    NOT_UNIQUE_WPM           = 1 << 1,
-    /// There is significant amount of repeating characters in the passcode
-    REPEATING_CHARACTERS_WPM = 1 << 2,
-    /// Repeating pattern was found in the passcode
-    HAS_PATTERN_WPM          = 1 << 3,
-    /// This passcode can be date (and possible birthday of the user)
-    POSSIBLY_DATE_WPM        = 1 << 4,
-    /// Passcode is in most used passcodes
-    FREQUENTLY_USED_WPM      = 1 << 5
-	
-} WPM_passcode_result_flags;
-
-/// Classification of the password strength
-typedef enum _WPM_password_check_score {
-    VERY_WEAK_PASSWORD_SCORE_WPM = 0,
-    WEAK_PASSWORD_SCORE_WPM      = 1,
-    MODERATE_PASSWORD_SCORE_WPM  = 2,
-    GOOD_PASSWORD_SCORE_WPM      = 3,
-    STRONG_PASSWORD_SCORE_WPM    = 4
-} WPM_password_check_score;
 
 /**
  Checks, if the passcode has any possible issues in it.
