@@ -1,68 +1,42 @@
+/**********************************************************************************
+ * C implementation of the zxcvbn password strength estimation method.
+ * Copyright (c) 2015-2017 Tony Evans
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ **********************************************************************************/
+
 #include "zxcvbn.h"
 #include <ctype.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <math.h>
 #include <float.h>
 
-/* printf */
-#ifdef __cplusplus
-#include <cstdio>
-#endif
-
-// simulating "fopen" for android asset manager
-#if defined(ANDROID)
-
-    #include <errno.h>
-
-    static int android_read(void* cookie, char* buf, int size) {
-        return AAsset_read((AAsset*)cookie, buf, size);
-    }
-
-    static int android_write(void* cookie, const char* buf, int size) {
-        return EACCES; // can't provide write access to the apk
-    }
-
-    static fpos_t android_seek(void* cookie, fpos_t offset, int whence) {
-        return AAsset_seek((AAsset*)cookie, offset, whence);
-    }
-
-    static int android_close(void* cookie) {
-        AAsset_close((AAsset*)cookie);
-        return 0;
-    }
-
-    static AAssetManager* android_asset_manager = NULL;
-    void android_fopen_set_asset_manager(AAssetManager* manager) {
-        android_asset_manager = manager;
-    }
-
-    FILE* android_fopen(const char* fname, const char* mode) {
-        if(mode[0] == 'w') return NULL;
-
-        AAsset* asset = AAssetManager_open(android_asset_manager, fname, 0);
-        if(!asset) return NULL;
-
-        return funopen(asset, android_read, android_write, android_seek, android_close);
-    }
-
-    #define MyOpenFile(f, name)       (f = android_fopen(name, "rb"))
-
-#else
-    /* Use the FILE streams from stdio.h */
-    #define MyOpenFile(f, name)       (f = fopen(name, "rb"))
-
-#endif
-
+/* Custom read file macro */
 #define MyReadFile(f, buf, bytes) (fread(buf, 1, bytes, f) == (bytes))
-#define MyCloseFile(f)            fclose(f)
 
-#include <stdio.h>
+/* Custom malloc & free */
+#define MallocFn(T,N) ((T *)malloc((N) * sizeof(T)))
+#define FreeFn(P)      free(P)
 
-/* For pre-compiled headers under windows */
-#ifdef _WIN32
-#include "stdafx.h"
-#endif
 
 /* Minimum number of characters in a incrementing/decrementing sequence match */
 #define MIN_SEQUENCE_LEN 3
@@ -267,6 +241,7 @@ static void AddMatchRepeats(ZxcMatch_t **Result, ZxcMatch_t *Match, const uint8_
 #define BITS_CHILD_MAP_INDEX  18
 #define SHIFT_CHILD_MAP_INDEX BITS_CHILD_PATT_INDEX
 #define ROOT_NODE_LOC 0
+#define CHARSET_SIZE 65 // Maximum possible value. Depends on dictionary generator, which is using 8x8+1 bytes maximum.
 
 static const unsigned int MAGIC = 'z' + ('x'<< 8) + ('c' << 16) + ('v' << 24);
 
@@ -285,89 +260,85 @@ static char           *CharSet;
 /**********************************************************************************
  * Read the dictionary data from file.
  * Parameters:
- *  Filename    Name of the file to read.
+ *  f    File opened for read.
  * Returns 1 on success, 0 on error
  */
-int _ZxcvbnInit(const char *Filename)
+int _ZxcvbnInit(FILE * f)
 {
-    if (DictNodes)
-        return 1;
-
-    FILE* f;
-    MyOpenFile(f, Filename);
-    if (f)
-    {
-        unsigned int i, DictSize;
-
-        /* Get magic number */
-        if (!MyReadFile(f, &i, sizeof i))
-            i = 0;
-
-        /* Get header data */
-        if (!MyReadFile(f, &NumNodes, sizeof NumNodes))
-            i = 0;
-        if (!MyReadFile(f, &NumChildLocs, sizeof NumChildLocs))
-            i = 0;
-        if (!MyReadFile(f, &NumRanks, sizeof NumRanks))
-            i = 0;
-        if (!MyReadFile(f, &NumWordEnd, sizeof NumWordEnd))
-            i = 0;
-        if (!MyReadFile(f, &NumChildMaps, sizeof NumChildMaps))
-            i = 0;
-        if (!MyReadFile(f, &SizeChildMapEntry, sizeof SizeChildMapEntry))
-            i = 0;
-        if (!MyReadFile(f, &NumLargeCounts, sizeof NumLargeCounts))
-            i = 0;
-        if (!MyReadFile(f, &NumSmallCounts, sizeof NumSmallCounts))
-            i = 0;
-        if (!MyReadFile(f, &SizeCharSet, sizeof SizeCharSet))
-            i = 0;
-
-        /* Validate the header data */
-        if (NumNodes >= (1<<17))
-            i = 1;
-        if (NumChildLocs >= (1<<BITS_CHILD_MAP_INDEX))
-            i = 2;
-        if (NumChildMaps >= (1<<BITS_CHILD_PATT_INDEX))
-            i = 3;
-        if ((SizeChildMapEntry*8) < SizeCharSet)
-            i = 4;
-        if (NumLargeCounts >= (1<<9))
-            i = 5;
-        if (NumSmallCounts != NumNodes)
-            i = 6;
-
-        if (i != MAGIC)
-        {
-            MyCloseFile(f);
-            return 0;
-        }
-
-        DictSize = NumNodes*sizeof(*DictNodes) + NumChildLocs*sizeof(*ChildLocs) + NumRanks*sizeof(*Ranks) +
-                   NumWordEnd + NumChildMaps*SizeChildMapEntry + NumLargeCounts + NumSmallCounts + SizeCharSet;
-        DictNodes = MallocFn(unsigned int, DictSize / sizeof(unsigned int) + 1);
-        if (!MyReadFile(f, DictNodes, DictSize))
-        {
-            FreeFn(DictNodes);
-            DictNodes = 0;
-        }
-        MyCloseFile(f);
-
-        if (!DictNodes)
-            return 0;
-        fflush(stdout);
-        /* Set pointers to the data */
-        ChildLocs = DictNodes + NumNodes;
-        Ranks = (unsigned short *)(ChildLocs + NumChildLocs);
-        WordEndBits = (unsigned char *)(Ranks + NumRanks);
-        ChildMap = (unsigned char*)(WordEndBits + NumWordEnd);
-        EndCountLge = ChildMap + NumChildMaps*SizeChildMapEntry;
-        EndCountSml = EndCountLge + NumLargeCounts;
-        CharSet = (char *)EndCountSml + NumSmallCounts;
-        CharSet[SizeCharSet] = 0;
-        return 1;
+    if (!f) {
+        return 0;
     }
-    return 0;
+    if (DictNodes) {
+        return 0;
+    }
+    
+    unsigned int i, DictSize;
+
+    /* Get magic number */
+    if (!MyReadFile(f, &i, sizeof i))
+        i = 0;
+
+    /* Get header data */
+    if (!MyReadFile(f, &NumNodes, sizeof NumNodes))
+        i = 0;
+    if (!MyReadFile(f, &NumChildLocs, sizeof NumChildLocs))
+        i = 0;
+    if (!MyReadFile(f, &NumRanks, sizeof NumRanks))
+        i = 0;
+    if (!MyReadFile(f, &NumWordEnd, sizeof NumWordEnd))
+        i = 0;
+    if (!MyReadFile(f, &NumChildMaps, sizeof NumChildMaps))
+        i = 0;
+    if (!MyReadFile(f, &SizeChildMapEntry, sizeof SizeChildMapEntry))
+        i = 0;
+    if (!MyReadFile(f, &NumLargeCounts, sizeof NumLargeCounts))
+        i = 0;
+    if (!MyReadFile(f, &NumSmallCounts, sizeof NumSmallCounts))
+        i = 0;
+    if (!MyReadFile(f, &SizeCharSet, sizeof SizeCharSet))
+        i = 0;
+
+    /* Validate the header data */
+    if (NumNodes >= (1<<17))
+        i = 1;
+    if (NumChildLocs >= (1<<BITS_CHILD_MAP_INDEX))
+        i = 2;
+    if (NumChildMaps >= (1<<BITS_CHILD_PATT_INDEX))
+        i = 3;
+    if ((SizeChildMapEntry*8) < SizeCharSet)
+        i = 4;
+    if (NumLargeCounts >= (1<<9))
+        i = 5;
+    if (NumSmallCounts != NumNodes)
+        i = 6;
+
+    if (i != MAGIC)
+    {
+        return 0;
+    }
+
+    DictSize = NumNodes*sizeof(*DictNodes) + NumChildLocs*sizeof(*ChildLocs) + NumRanks*sizeof(*Ranks) +
+               NumWordEnd + NumChildMaps*SizeChildMapEntry + NumLargeCounts + NumSmallCounts + SizeCharSet;
+    DictNodes = MallocFn(unsigned int, DictSize / sizeof(unsigned int) + 1);
+    if (!MyReadFile(f, DictNodes, DictSize))
+    {
+        FreeFn(DictNodes);
+        DictNodes = 0;
+    }
+
+    if (!DictNodes)
+        return 0;
+    fflush(stdout);
+    /* Set pointers to the data */
+    ChildLocs = DictNodes + NumNodes;
+    Ranks = (unsigned short *)(ChildLocs + NumChildLocs);
+    WordEndBits = (unsigned char *)(Ranks + NumRanks);
+    ChildMap = (unsigned char*)(WordEndBits + NumWordEnd);
+    EndCountLge = ChildMap + NumChildMaps*SizeChildMapEntry;
+    EndCountSml = EndCountLge + NumLargeCounts;
+    CharSet = (char *)EndCountSml + NumSmallCounts;
+    CharSet[SizeCharSet] = 0;
+    return 1;
 }
 /**********************************************************************************
  * Free the data allocated by ZxcvbnInit().
@@ -414,7 +385,7 @@ typedef struct
     uint8_t UnLeet[sizeof L33TChr];
     uint8_t LeetCnv[sizeof L33TCnv / LEET_NORM_MAP_SIZE + 1];
     uint8_t First;
-    uint8_t *PossChars;
+    uint8_t PossChars[CHARSET_SIZE];
 } DictWork_t;
 
 /**********************************************************************************
@@ -614,7 +585,7 @@ static void DoDictMatch(const uint8_t *Passwd, int Start, int MaxLen, DictWork_t
                         w.Lower = Lower;
                         w.First = *r;
                         w.NumPossChrs = NumPossChrs;
-                        memcpy(w.PossChars, PossChars, sizeof &PossChars);
+                        memcpy(w.PossChars, PossChars, sizeof w.PossChars);
                         if (j)
                         {
                             w.LeetCnv[i] = *r;
@@ -832,8 +803,6 @@ static void DictionaryMatch(ZxcMatch_t **Result, const uint8_t *Passwd, int Star
     Wrk.Ordinal = 1;
     Wrk.StartLoc = ROOT_NODE_LOC;
     Wrk.Begin = Start;
-    uint8_t items[SizeCharSet];
-    Wrk.PossChars = items;
     DoDictMatch(Passwd+Start, 0, MaxLen, &Wrk, Result, &Extra, 0);
 }
 
@@ -1683,18 +1652,10 @@ double ZxcvbnMatch(const char *Pwd, const char *UserDict[], ZxcMatch_t **Info)
     return e;
 }
 
-#if defined(ANDROID)
-int ZxcvbnInit(const char *Filename, AAssetManager* manager)
+int ZxcvbnInit(FILE * file)
 {
-    android_fopen_set_asset_manager(manager);
-    return _ZxcvbnInit(Filename);
+    return _ZxcvbnInit(file);
 }
-#else
-int ZxcvbnInit(const char *Filename)
-{
-    return _ZxcvbnInit(Filename);
-}
-#endif
 
 /**********************************************************************************
  * Free the path info returned by ZxcvbnMatch().

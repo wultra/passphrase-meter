@@ -25,7 +25,7 @@ extern "C" {
 #include <stdbool.h>
 
 /// Result of WPM_testPasscode function that can result with multiple issues.
-enum WPM_passcode_result_flags {
+typedef enum _WPM_passcode_result_flags {
     /// Passcode is OK, no issues found
     OK_WPM                   = 1 << 0,
     /// Passcode doesn't have enough unique digits
@@ -38,63 +38,66 @@ enum WPM_passcode_result_flags {
     POSSIBLY_DATE_WPM        = 1 << 4,
     /// Passcode is in most used passcodes
     FREQUENTLY_USED_WPM      = 1 << 5
-};
+	
+} WPM_passcode_result_flags;
 
 /// Classification of the password strength
-enum WPM_password_check_score {
+typedef enum _WPM_password_check_score {
     VERY_WEAK_PASSWORD_SCORE_WPM = 0,
     WEAK_PASSWORD_SCORE_WPM      = 1,
     MODERATE_PASSWORD_SCORE_WPM  = 2,
     GOOD_PASSWORD_SCORE_WPM      = 3,
     STRONG_PASSWORD_SCORE_WPM    = 4
-};
+} WPM_password_check_score;
 
 /**
-   Checks, if the passcode has any possible issues in it.
+ Checks, if the passcode has any possible issues in it.
 
-   @param passcode String with the passcode (needs to be degits only)
-   @return Returns issues found in the passcode
+ @param passcode String with the passcode (needs to be degits only)
+ @return Returns issues found in the passcode
 */
-enum WPM_passcode_result_flags WPM_testPasscode(const char *passcode);
+WPM_passcode_result_flags WPM_testPasscode(const char * passcode);
 
 #ifdef ANDROID
+/* AAssetManager forward declaration */
+struct AAssetManager;
+typedef struct AAssetManager AAssetManager;
 
-#include <android/asset_manager.h>
 /**
-   Sets dictionary with poorly rated words. When dictionary is no longer needed, call `WPM_freePasswordDictionary` to free resources
+ Sets dictionary with poorly rated words. When dictionary is no longer needed, call `WPM_freePasswordDictionary` to free resources
 
-   @param assetName Name of the asset with password 'blacklist' dictionary.
-   @param manager Asset manager where the asset is stored
-   @return true if dictionary is set successfully
+ @param assetName Name of the asset with password 'blacklist' dictionary.
+ @param manager Asset manager where the asset is stored
+ @return true if dictionary is set successfully
  */
-bool WPM_setPasswordDictionary(const char *assetName, AAssetManager *manager);
+bool WPM_setPasswordDictionary(AAssetManager *manager, const char * assetName);
 #else
 /**
-   Sets dictionary with poorly rated words. When dictionary is no longer needed, call `WPM_freePasswordDictionary` to free resources
+ Sets dictionary with poorly rated words. When dictionary is no longer needed, call `WPM_freePasswordDictionary` to free resources
 
-   @param dictionary Path to the password 'blacklist' dictionary.
-   @return true if dictionary is set successfully
+ @param dictionary Path to the password 'blacklist' dictionary.
+ @return true if dictionary is set successfully
  */
-bool WPM_setPasswordDictionary(const char *dictionary);
+bool WPM_setPasswordDictionary(const char * dictionary);
 #endif
 
 /**
-    Free resources needed for password classification
+ Free resources needed for password classification
  */
 void WPM_freePasswordDictionary(void);
 	
 /**
- 	Returns true if dictionary for passwords is loaded.
+ Returns true if dictionary for passwords is loaded.
  */
 bool WPM_hasPasswordDictionary(void);
 
 /**
-    Returns strength of the given password
+ Returns strength of the given password
  
-    @param password Passwords that you want to classify
-    @return Strength classification
+ @param password Passwords that you want to classify
+ @return Strength classification
  */
-enum WPM_password_check_score WPM_testPassword(const char *password);
+WPM_password_check_score WPM_testPassword(const char * password);
 
 #ifdef __cplusplus
 }
