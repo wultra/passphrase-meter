@@ -61,38 +61,34 @@ public class PasswordTester {
             return .pinFormatError
         }
         
-        return pin.data(using: .utf8)!.withUnsafeBytes({ (ptr: UnsafePointer<Int8>) -> PinTestResult in
-            
-            let result = WPM_testPasscode(ptr)
-            
-            var cr: PinTestResult = []
-            
-            if result.rawValue & NOT_UNIQUE_WPM.rawValue != 0 {
-                cr.insert(.notUnique)
-            }
-            
-            if result.rawValue & HAS_PATTERN_WPM.rawValue != 0 {
-                cr.insert(.patternFound)
-            }
-            
-            if result.rawValue & REPEATING_CHARACTERS_WPM.rawValue != 0 {
-                cr.insert(.repeatingCharacters)
-            }
-            
-            if result.rawValue & POSSIBLY_DATE_WPM.rawValue != 0 {
-                cr.insert(.possiblyDate)
-            }
-            
-            if result.rawValue & FREQUENTLY_USED_WPM.rawValue != 0 {
-                cr.insert(.frequentlyUsed)
-            }
-            
-            if cr.isEmpty {
-                cr.insert(.ok)
-            }
-            
-            return cr
-        })
+        let result = WPM_testPasscode(pin)
+        var cr: PinTestResult = []
+        
+        if result.rawValue & NOT_UNIQUE_WPM.rawValue != 0 {
+            cr.insert(.notUnique)
+        }
+        
+        if result.rawValue & HAS_PATTERN_WPM.rawValue != 0 {
+            cr.insert(.patternFound)
+        }
+        
+        if result.rawValue & REPEATING_CHARACTERS_WPM.rawValue != 0 {
+            cr.insert(.repeatingCharacters)
+        }
+        
+        if result.rawValue & POSSIBLY_DATE_WPM.rawValue != 0 {
+            cr.insert(.possiblyDate)
+        }
+        
+        if result.rawValue & FREQUENTLY_USED_WPM.rawValue != 0 {
+            cr.insert(.frequentlyUsed)
+        }
+        
+        if cr.isEmpty {
+            cr.insert(.ok)
+        }
+        
+        return cr
     }
     
     /// Tests strength of the password.
@@ -103,7 +99,7 @@ public class PasswordTester {
     /// - Returns: Strength of the password
     public func testPassword(_ password: String) -> PasswordStrength {
         guard password.count > 0 else { return .veryWeak }
-        return PasswordStrength(password.data(using: .utf8)!.withUnsafeBytes{ return WPM_testPassword($0) })
+        return PasswordStrength(WPM_testPassword(password))
     }
 }
 
