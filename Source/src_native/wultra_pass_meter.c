@@ -19,6 +19,10 @@
 #include <time.h>
 #include <string.h>
 
+#if defined(ANDROID)
+#include "android_file.h"
+#endif
+
 #pragma mark - PRIVATE
 
 static const char* mostUsedPin[] = {"1234","1111","0000","1212","7777","1004","2000","4444","2222","6969","9999","3333","5555","6666","1122","1313","8888","2001","4321","1010","0909","2580","0007","1818","1230","1984","1986","0070","1985","0987","1000","1231","1987","1999","2468","2002","2323","0123","1123","1233","1357","1221","1324","1988","2112","2121","5150","1024","1112","1224","1969","1225","1235","1982","1983","1001","1978","1979","7410","1020","1223","1974","1975","1977","1980","1981","1029","1121","1213","1973","1976","2020","2345","2424","2525","1515","1970","1972","1989","0001","1023","1414","9876","0101","0907","1245","1966","1967","1971","8520","1964","1968","4545","1318","5678","1011","1124","1211","1963","4200","12345","123456","1234567","12345678","123456789","1234567890","11111","123123","7777777","11111111","987654321","0123456789","55555","111111","1111111","88888888","123123123","0987654321","00000","121212","8675309","87654321","789456123","1111111111","54321","123321","1234321","00000000","999999999","1029384756","13579","666666","0000000","12341234","147258369","9876543210","77777","000000","4830033","69696969","741852963","0000000000","22222","654321","7654321","12121212","111111111","1357924680","12321","696969","5201314","11223344","123454321","1122334455","99999","112233","0123456","12344321","123654789","1234512345","33333","159753","2848048","77777777","147852369","1234554321","00700","292513","7005425","99999999","111222333","5555555555","90210","131313","1080413","22222222","963852741","1212121212","88888","123654","7895123","55555555","321654987","9999999999","38317","222222","1869510","33333333","420420420","2222222222","09876","789456","3223326","44444444","007007007","7777777777","44444","999999","1212123","66666666","135792468","3141592654","98765","101010","1478963","11112222","397029049","3333333333","01234","777777","2222222","13131313","012345678","7894561230","42069","007007","5555555","10041004","123698745","1234567891"};
@@ -323,11 +327,12 @@ bool isFrequentlyUsed(const char *pin) {
 #pragma mark - PUBLIC
 
 
-enum WPM_passcode_result_flags WPM_testPasscode(const char *pin) {
+WPM_passcode_result_flags WPM_testPasscode(const char *pin)
+{
     
     int pinLength = (int)strlen(pin);
     
-    enum WPM_passcode_result_flags result = 0;
+    WPM_passcode_result_flags result = 0;
     
     int digits[pinLength];
     convertDigits(digits, pin, pinLength);
@@ -359,30 +364,8 @@ enum WPM_passcode_result_flags WPM_testPasscode(const char *pin) {
     return result;
 }
 
-static bool s_HasDictionary = false;
-
-#ifdef ANDROID
-bool WPM_setPasswordDictionary(const char *dictionary, AAssetManager *manager) {
-    return ZxcvbnInit(dictionary, manager) == 1;
-}
-#else
-bool WPM_setPasswordDictionary(const char *dictionary) {
-	WPM_freePasswordDictionary();
-	s_HasDictionary = ZxcvbnInit(dictionary) == 1;
-	return s_HasDictionary;
-}
-#endif
-
-void WPM_freePasswordDictionary() {
-    ZxcvbnUnInit();
-	s_HasDictionary = false;
-}
-
-bool WPM_hasPasswordDictionary() {
-	return s_HasDictionary;
-}
-
-enum WPM_password_check_score WPM_testPassword(const char *password) {
+WPM_password_check_score WPM_testPassword(const char *password)
+{
     double e = ZxcvbnMatch(password, NULL, NULL);
     double log = e * 0.301029996;
     if (log < 3) return VERY_WEAK_PASSWORD_SCORE_WPM;
@@ -391,3 +374,42 @@ enum WPM_password_check_score WPM_testPassword(const char *password) {
     if (log < 10) return GOOD_PASSWORD_SCORE_WPM;
     return STRONG_PASSWORD_SCORE_WPM;
 }
+
+static bool s_HasDictionary = false;
+
+static bool WPM_setPasswordDictionaryFile(FILE * file) {
+    WPM_freePasswordDictionary();
+    if (file) {
+        s_HasDictionary = ZxcvbnInit(file) == 1;
+        fclose(file);
+    }
+    return s_HasDictionary;
+}
+
+void WPM_freePasswordDictionary()
+{
+    ZxcvbnUnInit();
+	s_HasDictionary = false;
+}
+
+bool WPM_hasPasswordDictionary()
+{
+	return s_HasDictionary;
+}
+
+#if defined(ANDROID)
+// Android version, needs to use custom file open routine.
+bool WPM_setPasswordDictionary(AAssetManager *manager, const char * assetName)
+{
+    FILE * file = android_fopen(manager, assetName, "rb");
+    return WPM_setPasswordDictionaryFile(file);
+}
+#else
+// POSIX version can use fopen()
+bool WPM_setPasswordDictionary(const char * dictionary)
+{
+    FILE * file = fopen(dictionary, "rb");
+    return WPM_setPasswordDictionaryFile(file);
+}
+#endif
+

@@ -1,26 +1,30 @@
 #ifndef ZXCVBN_WULTRA
 #define ZXCVBN_WULTRA
+/**********************************************************************************
+ * C implementation of the zxcvbn password strength estimation method.
+ * Copyright (c) 2015-2017 Tony Evans
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ **********************************************************************************/
 
-#if defined(ANDROID)
-// "__USE_BDS" makes funopen() function visible. The define must be set before the first system
-// header is included, otherwise the configuration is ignored.
-#define __USE_BSD
 #include <stdio.h>
-#endif
-
-#ifndef __cplusplus
-/* C build. Use the standard malloc/free for heap memory */
-#include <stdlib.h>
-#define MallocFn(T,N) ((T *)malloc((N) * sizeof(T)))
-#define FreeFn(P)      free(P)
-
-#else
-
-/* C++ build. Use the new/delete operators for heap memory */
-#define MallocFn(T,N)   (new T[N])
-#define FreeFn(P)       (delete [] P)
-
-#endif
 
 /* Enum for the types of match returned in the Info arg to ZxcvbnMatch */
 typedef enum
@@ -60,12 +64,7 @@ extern "C" {
  * Read the dictionnary data from the given file. Returns 1 if OK, 0 if error.
  * Called once at program startup.
  */
-#if defined(ANDROID)
-#include <android/asset_manager.h>
-    int ZxcvbnInit(const char *Filename, AAssetManager* manager);
-#else
-    int ZxcvbnInit(const char *);
-#endif
+int ZxcvbnInit(FILE * file);
 
 /**********************************************************************************
  * Free the dictionnary data after use. Called once at program shutdown.
