@@ -16,7 +16,7 @@
 
 import Foundation
 
-public extension StrengthTesterDictionary  {
+public extension PasswordTesterDictionary  {
     /// Dictionary with english common words for password testing
-	public static var en: StrengthTesterDictionary { return StrengthTesterDictionary(Bundle(for: StrengthTester.self).path(forResource: "en", ofType: "dct")!) }
+	public static var en: PasswordTesterDictionary { return PasswordTesterDictionary(Bundle(for: PasswordTester.self).path(forResource: "en", ofType: "dct")!) }
 }

@@ -17,39 +17,39 @@
 import Foundation
 import PasswordMeter
 
-/// Class that provides functionality for testing strngth of passwords and PINs.
-///
-/// Warning: Only one insttance of this class can exist. Init will return nil if you'll try to create 2nd instance.
-public class StrengthTester {
+/// Class that provides functionality for testing strength of passwords and PINs.
+/// Only `sharedInstance` singleton is available.
+public class PasswordTester {
     
-    private static weak var instance: StrengthTester?
+    /**
+     Singleton instance
+     
+     Consider proper usage of `loadDictionary` and `freeLoadedDictionary`.
+     */
+    public static var sharedInstance = PasswordTester()
     
-    /// Will create instance of the tester. Only one instance can be created, otherwise will return nil.
-    /// If dictionary setup fails, init will also return nil.
-    ///
-    /// - Parameter dictionary: language dictionary for password checking
-    public init?(dictionary: StrengthTesterDictionary? = nil) {
-        
-        guard StrengthTester.instance == nil else {
-            print("[StrengthTester] WARNING: Only one instance of StrengthChecker can exist")
-            return nil
-        }
-        
-        if let dictionary = dictionary {
-            guard WPM_setPasswordDictionary(dictionary.path) else {
-                print("[StrengthTester] WARNING: Instance with give dict cannot be configured.")
-                return nil
-            }
-        }
-        
-        StrengthTester.instance = self
+    /// If password dictionary was loaded via `loadDictionary`
+    public var hasLoadedDictionary: Bool { return WPM_hasPasswordDictionary() }
+    
+    init() {
     }
     
     deinit {
-        WPM_freePasswordDictionary()
-        StrengthTester.instance = nil
+        freeLoadedDictionary()
     }
     
+    /// Sets dictionary of poorly rated words for `testPassword` method
+    ///
+    /// - Parameter dictionary: Dictionary with words
+    /// - Returns: true if dictionary was loaded
+    @discardableResult public func loadDictionary(_ dictionary: PasswordTesterDictionary) -> Bool {
+        return WPM_setPasswordDictionary(dictionary.path)
+    }
+    
+    /// Free all resources tied to loaded dictionary
+    public func freeLoadedDictionary() {
+        WPM_freePasswordDictionary()
+    }
     
     /// Tests strength of the PIN.
     ///
@@ -108,7 +108,7 @@ public class StrengthTester {
 }
 
 /// Specific language dictionary for password strength checking. Note that implementation for each language is provided in separated podspec.
-public struct StrengthTesterDictionary {
+public struct PasswordTesterDictionary {
     let path: String
     init(_ path: String) {
         self.path = path
