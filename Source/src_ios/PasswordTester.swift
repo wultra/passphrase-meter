@@ -56,14 +56,14 @@ public class PasswordTester {
     /// - Parameter pin: PIN to evaluate. This needs to be digits only.
     /// - Returns: Optionset of found issues.
     public func testPin(_ pin: String) -> PinTestResult {
-        
-        guard Int(pin) != nil else {
-            return .pinFormatError
-        }
-        
+		
         let result = WPM_testPasscode(pin)
         var cr: PinTestResult = []
-        
+		
+		if result.rawValue & WRONG_INPUT_WPM.rawValue != 0 {
+			cr.insert(.pinFormatError)
+		}
+		
         if result.rawValue & NOT_UNIQUE_WPM.rawValue != 0 {
             cr.insert(.notUnique)
         }
