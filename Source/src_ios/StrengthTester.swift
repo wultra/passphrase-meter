@@ -36,11 +36,9 @@ public class StrengthTester {
         }
         
         if let dictionary = dictionary {
-            guard
-                let result = dictionary.path.data(using: .utf8)?.withUnsafeBytes({ WPM_setPasswordDictionary($0) }),
-                result == 1 else {
-                    print("[StrengthTester] WARNING: Instance with give dict cannot be configured.")
-                    return nil
+            guard WPM_setPasswordDictionary(dictionary.path) else {
+                print("[StrengthTester] WARNING: Instance with give dict cannot be configured.")
+                return nil
             }
         }
         
