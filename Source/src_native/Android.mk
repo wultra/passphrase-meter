@@ -14,5 +14,22 @@
 # limitations under the License.
 # -------------------------------------------------------------------------
 
-APP_ABI := armeabi-v7a arm64-v8a x86 x86_64
-APP_STL := c++_static
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+NDK_TOOLCHAIN_VERSION := clang
+LOCAL_MODULE := libWultraPasswordTester
+
+LOCAL_C_INCLUDES += . jni
+		            
+LOCAL_SRC_FILES  := zxcvbn.c \
+                    pin_tester.c \
+                    wultra_pass_meter.c \
+                    jni/android_file.c \
+		            jni/PasswordTester.cpp
+
+LOCAL_CFLAGS	 := $(EXTERN_CFLAGS) -DANDROID
+LOCAL_CPPFLAGS   := $(LOCAL_CFLAGS) -std=c++11
+LOCAL_LDLIBS     += -landroid -llog
+
+include $(BUILD_SHARED_LIBRARY)

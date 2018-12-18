@@ -36,7 +36,7 @@ typedef enum _WPM_passcode_result_flags {
     /// Passcode is in most used passcodes
     FREQUENTLY_USED_WPM      = 1 << 5,
     /// Wrong input
-    WRONG_INPUT_WPM          = 1 << 6
+    WRONG_INPUT_PIN_WPM      = 1 << 6
     
 } WPM_passcode_result_flags;
 
@@ -46,7 +46,8 @@ typedef enum _WPM_password_check_score {
     WEAK_PASSWORD_SCORE_WPM      = 1,
     MODERATE_PASSWORD_SCORE_WPM  = 2,
     GOOD_PASSWORD_SCORE_WPM      = 3,
-    STRONG_PASSWORD_SCORE_WPM    = 4
+    STRONG_PASSWORD_SCORE_WPM    = 4,
+	WRONG_INPUT_PASSWORD_WPM     = 5,
 } WPM_password_check_score;
 
 #ifdef __cplusplus

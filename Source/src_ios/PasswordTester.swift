@@ -60,7 +60,7 @@ public class PasswordTester {
         let result = WPM_testPasscode(pin)
         var cr: PinTestResult = []
 		
-		if result.rawValue & WRONG_INPUT_WPM.rawValue != 0 {
+		if result.rawValue & WRONG_INPUT_PIN_WPM.rawValue != 0 {
 			cr.insert(.pinFormatError)
 		}
 		

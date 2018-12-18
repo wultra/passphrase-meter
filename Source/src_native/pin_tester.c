@@ -375,12 +375,12 @@ static bool isInvalidPIN(const char * pin, size_t pinLength) {
 WPM_passcode_result_flags PinTester_testPasscode(const char *pin)
 {
     if (!pin) {
-        return WRONG_INPUT_WPM;
+        return WRONG_INPUT_PIN_WPM;
     }
     const size_t pinLength = strlen(pin);
     
     if (isInvalidPIN(pin, pinLength)) {
-        return WRONG_INPUT_WPM;
+        return WRONG_INPUT_PIN_WPM;
     }
     
     
