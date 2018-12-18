@@ -27,10 +27,10 @@
 
 static int android_read(void* cookie, char* buf, int size)
 {
-	if (!cookie || !buf) {
-		errno = EFAULT;
-		return -1;
-	}
+    if (!cookie || !buf) {
+        errno = EFAULT;
+        return -1;
+    }
     return AAsset_read((AAsset*)cookie, buf, size);
 }
 
@@ -38,24 +38,24 @@ static int android_write(void * cookie, const char* buf, int size)
 {
     // can't provide write access
     errno = EACCES;
-	return -1;
+    return -1;
 }
 
 static fpos_t android_seek(void * cookie, fpos_t offset, int whence)
 {
-	if (!cookie) {
-		errno = EFAULT;
-		return -1;
-	}
+    if (!cookie) {
+        errno = EFAULT;
+        return -1;
+    }
     return AAsset_seek((AAsset*)cookie, offset, whence);
 }
 
 static int android_close(void * cookie)
 {
-	if (!cookie) {
-		errno = EFAULT;
-		return -1;
-	}
+    if (!cookie) {
+        errno = EFAULT;
+        return -1;
+    }
     AAsset_close((AAsset*)cookie);
     return 0;
 }
@@ -67,7 +67,7 @@ FILE * android_fopen(AAssetManager* manager, const char* filename, const char* m
         return NULL;
     }
     if (mode[0] == 'w' || mode[0] == 'a') {
-    	// can't write or append to the file
+        // can't write or append to the file
         errno = EACCES;
         return NULL;
     }
