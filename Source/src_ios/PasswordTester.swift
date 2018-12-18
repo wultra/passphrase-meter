@@ -103,10 +103,11 @@ public class PasswordTester {
     }
 }
 
-/// Specific language dictionary for password strength checking. Note that implementation for each language is provided in separated podspec.
+/// Specific language dictionary for password strength checking.
+/// Note that implementation for each language is provided in separated podspec.
 public struct PasswordTesterDictionary {
-    let path: String
-    init(_ path: String) {
+    public let path: String
+    public init(_ path: String) {
         self.path = path
     }
 }

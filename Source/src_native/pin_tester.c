@@ -141,6 +141,8 @@ static bool isUniqueOK(const char *digits, size_t pinLength)
     return uniqueDigitsCount(digits, pinLength) >= (pinLength <= 7 ? 3 : 4);
 }
 
+#define MAX_PIN_LENGTH 100
+
 /**
  Searches for repeating digits in the pin.
  For example 692692 is repeating.
@@ -157,7 +159,7 @@ static bool isRepeatingOK(const char *digits, size_t pinLength) {
     struct {
         size_t start;
         size_t length;
-    } groupsTested[100];
+    } groupsTested[MAX_PIN_LENGTH/2];
     
     // this is biggest length of possible repeating pattern
     const size_t maxLength = pinLength / 2;
@@ -181,7 +183,6 @@ static bool isRepeatingOK(const char *digits, size_t pinLength) {
                 }
             }
             if (groupWasTested) {
-                start+=length;
                 break;
             }
             
@@ -189,11 +190,15 @@ static bool isRepeatingOK(const char *digits, size_t pinLength) {
             groupsTested[groupsTestedCount].start  = start;
             groupsTested[groupsTestedCount].length = length;
             groupsTestedCount++;
+			
+			if (groupsTestedCount >= MAX_PIN_LENGTH/2) {
+				return false;
+			}
             
             bool lastRepeatingFound = false;
             
             // now start moving after first group to search for repeating patterns
-            size_t searchStart=start+length;
+            size_t searchStart = start + length;
             while (searchStart + length <= pinLength) {
                 
                 // now check, if the two groups are equals
@@ -378,7 +383,10 @@ WPM_passcode_result_flags PinTester_testPasscode(const char *pin)
         return WRONG_INPUT_PIN_WPM;
     }
     const size_t pinLength = strlen(pin);
-    
+	
+	if (pinLength > MAX_PIN_LENGTH) {
+		return WRONG_INPUT_PIN_WPM;
+	}
     if (isInvalidPIN(pin, pinLength)) {
         return WRONG_INPUT_PIN_WPM;
     }
