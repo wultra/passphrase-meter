@@ -47,7 +47,7 @@ typedef enum _WPM_password_check_score {
     MODERATE_PASSWORD_SCORE_WPM  = 2,
     GOOD_PASSWORD_SCORE_WPM      = 3,
     STRONG_PASSWORD_SCORE_WPM    = 4,
-	WRONG_INPUT_PASSWORD_WPM     = 5,
+    WRONG_INPUT_PASSWORD_WPM     = 5,
 } WPM_password_check_score;
 
 #ifdef __cplusplus

@@ -26,7 +26,7 @@ LOCAL_SRC_FILES  := zxcvbn.c \
                     pin_tester.c \
                     wultra_pass_meter.c \
                     jni/android_file.c \
-		            jni/PasswordTester.cpp
+                    jni/PasswordTester.cpp
 
 LOCAL_CFLAGS	 := $(EXTERN_CFLAGS) -DANDROID
 LOCAL_CPPFLAGS   := $(LOCAL_CFLAGS) -std=c++11
