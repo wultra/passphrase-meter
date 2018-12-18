@@ -21,10 +21,6 @@ package com.wultra.android.passwordtester;
  */
 public enum PinTestResult {
     /**
-     * PIN is OK, no issues found
-     */
-    OK,
-    /**
      * PIN doesn't have enough unique digits
      */
     NOT_UNIQUE,

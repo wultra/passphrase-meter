@@ -124,9 +124,7 @@ public class PasswordTester {
 
         final EnumSet<PinTestResult> set = EnumSet.noneOf(PinTestResult.class);
 
-        if ((result & PinResultCode.OK) != 0) {
-            set.add(PinTestResult.OK);
-        } else {
+        if ((result & PinResultCode.OK) == 0) {
             if ((result & PinResultCode.NOT_UNIQUE) != 0) {
                 set.add(PinTestResult.NOT_UNIQUE);
             }
