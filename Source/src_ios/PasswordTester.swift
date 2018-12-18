@@ -26,7 +26,7 @@ public class PasswordTester {
      
      Consider proper usage of `loadDictionary` and `freeLoadedDictionary`.
      */
-    public static var sharedInstance = PasswordTester()
+    public static var shared = PasswordTester()
     
     /// If password dictionary was loaded via `loadDictionary`
     public var hasLoadedDictionary: Bool { return WPM_hasPasswordDictionary() }
