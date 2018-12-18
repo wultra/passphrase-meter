@@ -21,7 +21,14 @@
 
 #pragma mark - PRIVATE
 
-static const char* mostUsedPin[] = {
+/**
+ Defines maximum acceptable length of the PIN. We need this constant to limit
+ a buffers, created on the stack.
+ */
+#define MAX_PIN_LENGTH 100
+
+static const char* mostUsedPin[] =
+{
     "1234","1111","0000","1212","7777","1004","2000","4444","2222","6969","9999","3333","5555","6666","1122","1313","8888",
     "2001","4321","1010","0909","2580","0007","1818","1230","1984","1986","0070","1985","0987","1000","1231","1987","1999",
     "2468","2002","2323","0123","1123","1233","1357","1221","1324","1988","2112","2121","5150","1024","1112","1224","1969",
@@ -141,8 +148,6 @@ static bool isUniqueOK(const char *digits, size_t pinLength)
     return uniqueDigitsCount(digits, pinLength) >= (pinLength <= 7 ? 3 : 4);
 }
 
-#define MAX_PIN_LENGTH 100
-
 /**
  Searches for repeating digits in the pin.
  For example 692692 is repeating.
@@ -187,13 +192,12 @@ static bool isRepeatingOK(const char *digits, size_t pinLength) {
             }
             
             // remember the group as tested
-            groupsTested[groupsTestedCount].start  = start;
-            groupsTested[groupsTestedCount].length = length;
-            groupsTestedCount++;
-			
 			if (groupsTestedCount >= MAX_PIN_LENGTH/2) {
 				return false;
 			}
+            groupsTested[groupsTestedCount].start  = start;
+            groupsTested[groupsTestedCount].length = length;
+            groupsTestedCount++;
             
             bool lastRepeatingFound = false;
             
@@ -365,6 +369,9 @@ static bool isFrequentlyUsed(const char *pin)
  @return true if PIN is not valid.
  */
 static bool isInvalidPIN(const char * pin, size_t pinLength) {
+	if (pinLength > MAX_PIN_LENGTH) {
+		return true;
+	}
     for (size_t index = 0; index < pinLength; index++) {
         char c = pin[index];
         if (c < '0' || c > '9') {
@@ -384,9 +391,6 @@ WPM_passcode_result_flags PinTester_testPasscode(const char *pin)
     }
     const size_t pinLength = strlen(pin);
 	
-	if (pinLength > MAX_PIN_LENGTH) {
-		return WRONG_INPUT_PIN_WPM;
-	}
     if (isInvalidPIN(pin, pinLength)) {
         return WRONG_INPUT_PIN_WPM;
     }
@@ -395,23 +399,23 @@ WPM_passcode_result_flags PinTester_testPasscode(const char *pin)
     WPM_passcode_result_flags result = 0;
     
     if(isFrequentlyUsed(pin)) {
-        result = result | FREQUENTLY_USED_WPM;
+        result |= FREQUENTLY_USED_WPM;
     }
     
     if (!isUniqueOK(pin, pinLength)) {
-        result = result | NOT_UNIQUE_WPM;
+        result |= NOT_UNIQUE_WPM;
     }
     
     if (!isPatternOK(pin, pinLength)) {
-        result = result | HAS_PATTERN_WPM;
+        result |= HAS_PATTERN_WPM;
     }
     
     if (!isRepeatingOK(pin, pinLength)) {
-        result = result | REPEATING_CHARACTERS_WPM;
+        result |= REPEATING_CHARACTERS_WPM;
     }
     
     if (!isDateOK(pin, pinLength)) {
-        result = result | POSSIBLY_DATE_WPM;
+        result |= POSSIBLY_DATE_WPM;
     }
     
     if (!result) {
