@@ -57,38 +57,31 @@ public class PasswordTester {
     /// - Returns: Optionset of found issues.
     public func testPin(_ pin: String) -> PinTestResult {
 		
-        let result = WPM_testPasscode(pin)
-        var cr: PinTestResult = []
+        let code = WPM_testPasscode(pin).rawValue
+        var result: PinTestResult = []
 		
-        if result.rawValue & WRONG_INPUT_PIN_WPM.rawValue != 0 {
-            cr.insert(.pinFormatError)
-        }
-		
-        if result.rawValue & NOT_UNIQUE_WPM.rawValue != 0 {
-            cr.insert(.notUnique)
-        }
-        
-        if result.rawValue & HAS_PATTERN_WPM.rawValue != 0 {
-            cr.insert(.patternFound)
-        }
-        
-        if result.rawValue & REPEATING_CHARACTERS_WPM.rawValue != 0 {
-            cr.insert(.repeatingCharacters)
-        }
-        
-        if result.rawValue & POSSIBLY_DATE_WPM.rawValue != 0 {
-            cr.insert(.possiblyDate)
-        }
-        
-        if result.rawValue & FREQUENTLY_USED_WPM.rawValue != 0 {
-            cr.insert(.frequentlyUsed)
+        if code & OK_WPM.rawValue == 0 {
+            if code & WRONG_INPUT_PIN_WPM.rawValue != 0 {
+                result.insert(.pinFormatError)
+            }
+            if code & NOT_UNIQUE_WPM.rawValue != 0 {
+                result.insert(.notUnique)
+            }
+            if code & HAS_PATTERN_WPM.rawValue != 0 {
+                result.insert(.patternFound)
+            }
+            if code & REPEATING_CHARACTERS_WPM.rawValue != 0 {
+                result.insert(.repeatingCharacters)
+            }
+            if code & POSSIBLY_DATE_WPM.rawValue != 0 {
+                result.insert(.possiblyDate)
+            }
+            if code & FREQUENTLY_USED_WPM.rawValue != 0 {
+                result.insert(.frequentlyUsed)
+            }
         }
         
-        if cr.isEmpty {
-            cr.insert(.ok)
-        }
-        
-        return cr
+        return result
     }
     
     /// Tests strength of the password.
@@ -121,8 +114,6 @@ public struct PinTestResult: OptionSet {
         self.rawValue = rawValue
     }
     
-    /// No issues found
-    public static let ok = PinTestResult(rawValue: 1 << 0)
     /// Not enough unique digits found
     public static let notUnique = PinTestResult(rawValue: 1 << 1)
     /// Too much repeating characters
