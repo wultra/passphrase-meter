@@ -17,11 +17,14 @@
 package com.wultra.android.passwordtester;
 
 import android.content.res.AssetManager;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 
 import com.wultra.android.passwordtester.exceptions.WrongPasswordException;
 import com.wultra.android.passwordtester.exceptions.WrongPinException;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.EnumSet;
 
 /**
@@ -116,7 +119,7 @@ public class PasswordTester {
      */
     public EnumSet<PinTestResult> testPin(@NonNull String pin) throws WrongPinException {
 
-        final int result = testPinJNI(pin);
+        final @PinResultCode int result = testPinJNI(pin);
 
         if ((result & PinResultCode.WRONG_INPUT_PIN) != 0) {
             throw new WrongPinException();
@@ -148,15 +151,18 @@ public class PasswordTester {
     // Private methods & constants
 
     /**
-     * Constants returned from {@link #testPasswordJNI(String)} method.
+     * Defines constants returned from {@link #testPasswordJNI(String)} method.
      */
-    private static class PassResultCode {
-        static final int VERY_WEAK      = 0;
-        static final int WEAK           = 1;
-        static final int MODERATE       = 2;
-        static final int GOOD           = 3;
-        static final int STRONG         = 4;
-        static final int WRONG_INPUT    = 5;
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({PassResultCode.VERY_WEAK, PassResultCode.WEAK, PassResultCode.MODERATE,
+             PassResultCode.GOOD, PassResultCode.STRONG, PassResultCode.WRONG_INPUT})
+    private @interface PassResultCode {
+        int VERY_WEAK      = 0;
+        int WEAK           = 1;
+        int MODERATE       = 2;
+        int GOOD           = 3;
+        int STRONG         = 4;
+        int WRONG_INPUT    = 5;
     }
 
     /**
@@ -165,27 +171,34 @@ public class PasswordTester {
      * @param password Password to test
      * @return Integer comparable to constants from {@link PassResultCode} private class.
      */
+    @PassResultCode
     private native int testPasswordJNI(@NonNull String password);
 
 
     /**
-     * Constants returned from {@link #testPinJNI(String)} method.
+     * Defines constants returned from {@link #testPinJNI(String)} method.
      */
-    private static class PinResultCode {
-        static final int OK                     = 1;
-        static final int NOT_UNIQUE             = 1 << 1;
-        static final int REPEATING_CHARACTERS   = 1 << 2;
-        static final int HAS_PATTERN            = 1 << 3;
-        static final int POSSIBLY_DATE          = 1 << 4;
-        static final int FREQUENTLY_USED        = 1 << 5;
-        static final int WRONG_INPUT_PIN        = 1 << 6;
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(flag = true,
+            value = {PinResultCode.OK, PinResultCode.NOT_UNIQUE, PinResultCode.REPEATING_CHARACTERS,
+                     PinResultCode.HAS_PATTERN, PinResultCode.POSSIBLY_DATE,
+                     PinResultCode.FREQUENTLY_USED, PinResultCode.WRONG_INPUT_PIN})
+    private @interface PinResultCode {
+        int OK                     = 1;
+        int NOT_UNIQUE             = 1 << 1;
+        int REPEATING_CHARACTERS   = 1 << 2;
+        int HAS_PATTERN            = 1 << 3;
+        int POSSIBLY_DATE          = 1 << 4;
+        int FREQUENTLY_USED        = 1 << 5;
+        int WRONG_INPUT_PIN        = 1 << 6;
     }
 
     /**
      * Tests the PIN properties.
      *
      * @param pin String with PIN
-     * @return Integer with combination of factors from {@link PinResultCode} private class.
+     * @return Integer with combination of factors from {@link PinResultCode} private interface.
      */
+    @PinResultCode
     private native int testPinJNI(@NonNull String pin);
 }
