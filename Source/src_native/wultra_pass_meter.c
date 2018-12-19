@@ -20,7 +20,7 @@
 
 #pragma mark - PIN
 
-WPM_passcode_result_flags WPM_testPasscode(const char *pin)
+WPM_PasscodeResult WPM_testPasscode(const char *pin)
 {
     return PinTester_testPasscode(pin);
 }
@@ -28,15 +28,18 @@ WPM_passcode_result_flags WPM_testPasscode(const char *pin)
 
 #pragma mark - Password
 
-WPM_password_check_score WPM_testPassword(const char *password)
+WPM_PasswordResult WPM_testPassword(const char *password)
 {
+    if (!password) {
+        return WPM_PasswordResult_WrongInput;
+    }
     double e = ZxcvbnMatch(password, NULL, NULL);
     double log = e * 0.301029996;
-    if (log < 3) return VERY_WEAK_PASSWORD_SCORE_WPM;
-    if (log < 6) return WEAK_PASSWORD_SCORE_WPM;
-    if (log < 8) return MODERATE_PASSWORD_SCORE_WPM;
-    if (log < 10) return GOOD_PASSWORD_SCORE_WPM;
-    return STRONG_PASSWORD_SCORE_WPM;
+    if (log < 3) return WPM_PasswordResult_VeryWeak;
+    if (log < 6) return WPM_PasswordResult_Weak;
+    if (log < 8) return WPM_PasswordResult_Moderate;
+    if (log < 10) return WPM_PasswordResult_Good;
+    return  WPM_PasswordResult_Strong;
 }
 
 /**

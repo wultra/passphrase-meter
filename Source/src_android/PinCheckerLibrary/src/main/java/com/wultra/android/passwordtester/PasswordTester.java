@@ -152,6 +152,7 @@ public class PasswordTester {
 
     /**
      * Defines constants returned from {@link #testPasswordJNI(String)} method.
+     * The constants must match values from {@code WPM_PasswordResult} C enumeration.
      */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({PassResultCode.VERY_WEAK, PassResultCode.WEAK, PassResultCode.MODERATE,
@@ -177,6 +178,7 @@ public class PasswordTester {
 
     /**
      * Defines constants returned from {@link #testPinJNI(String)} method.
+     * The constants must match values from {@code WPM_PasscodeResult} C enumeration.
      */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = true,

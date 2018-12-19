@@ -384,42 +384,42 @@ static bool isInvalidPIN(const char * pin, size_t pinLength) {
 
 #pragma mark - PUBLIC
 
-WPM_passcode_result_flags PinTester_testPasscode(const char *pin)
+WPM_PasscodeResult PinTester_testPasscode(const char *pin)
 {
     if (!pin) {
-        return WRONG_INPUT_PIN_WPM;
+        return WPM_PasscodeResult_WrongInput;
     }
     const size_t pinLength = strlen(pin);
 	
     if (isInvalidPIN(pin, pinLength)) {
-        return WRONG_INPUT_PIN_WPM;
+        return WPM_PasscodeResult_WrongInput;
     }
     
     
-    WPM_passcode_result_flags result = 0;
+    WPM_PasscodeResult result = 0;
     
     if(isFrequentlyUsed(pin)) {
-        result |= FREQUENTLY_USED_WPM;
+        result |= WPM_PasscodeResult_FrequentlyUsed;
     }
     
     if (!isUniqueOK(pin, pinLength)) {
-        result |= NOT_UNIQUE_WPM;
+        result |= WPM_PasscodeResult_NotUnique;
     }
     
     if (!isPatternOK(pin, pinLength)) {
-        result |= HAS_PATTERN_WPM;
+        result |= WPM_PasscodeResult_HasPattern;
     }
     
     if (!isRepeatingOK(pin, pinLength)) {
-        result |= REPEATING_CHARACTERS_WPM;
+        result |= WPM_PasscodeResult_RepeatingChars;
     }
     
     if (!isDateOK(pin, pinLength)) {
-        result |= POSSIBLY_DATE_WPM;
+        result |= WPM_PasscodeResult_PossiblyDate;
     }
     
     if (!result) {
-        result = OK_WPM;
+        result = WPM_PasscodeResult_Ok;
     }
     
     return result;

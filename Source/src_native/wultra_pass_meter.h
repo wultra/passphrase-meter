@@ -31,7 +31,7 @@ extern "C" {
  @param passcode String with the passcode (needs to be degits only)
  @return Returns issues found in the passcode
 */
-WPM_passcode_result_flags WPM_testPasscode(const char * passcode);
+WPM_PasscodeResult WPM_testPasscode(const char * passcode);
 
 #ifdef ANDROID
 /* AAssetManager forward declaration */
@@ -72,7 +72,7 @@ bool WPM_hasPasswordDictionary(void);
  @param password Passwords that you want to classify
  @return Strength classification
  */
-WPM_password_check_score WPM_testPassword(const char * password);
+WPM_PasswordResult WPM_testPassword(const char * password);
 
 #ifdef __cplusplus
 }

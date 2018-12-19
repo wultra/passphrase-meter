@@ -58,7 +58,7 @@ JNIEXPORT jboolean JNICALL Java_com_wultra_android_passwordtester_PasswordTester
 
 JNIEXPORT jint JNICALL Java_com_wultra_android_passwordtester_PasswordTester_testPasswordJNI(JNIEnv *jenv, jobject self, jstring password)
 {
-    jint result = WRONG_INPUT_PIN_WPM;
+    jint result = WPM_PasscodeResult_WrongInput;
     if (password != NULL) {
         const char * cppPassword = jenv->GetStringUTFChars(password, JNI_FALSE);
         if (cppPassword != NULL) {
@@ -77,7 +77,7 @@ JNIEXPORT jint JNICALL Java_com_wultra_android_passwordtester_PasswordTester_tes
         result = WPM_testPasscode(cppPin);
         jenv->ReleaseStringUTFChars(pin, cppPin);
     } else {
-        result = WRONG_INPUT_PASSWORD_WPM;
+        result = WPM_PasswordResult_WrongInput;
     }
     return result;
 }

@@ -24,7 +24,7 @@
 extern "C" {
 #endif
     
-WPM_passcode_result_flags PinTester_testPasscode(const char * pin);
+WPM_PasscodeResult PinTester_testPasscode(const char * pin);
 
 #ifdef __cplusplus
 }

@@ -60,23 +60,23 @@ public class PasswordTester {
         let code = WPM_testPasscode(pin).rawValue
         var result: PinTestResult = []
 		
-        if code & OK_WPM.rawValue == 0 {
-            if code & WRONG_INPUT_PIN_WPM.rawValue != 0 {
+        if code & WPM_PasscodeResult_Ok.rawValue == 0 {
+            if code & WPM_PasscodeResult_WrongInput.rawValue != 0 {
                 result.insert(.pinFormatError)
             }
-            if code & NOT_UNIQUE_WPM.rawValue != 0 {
+            if code & WPM_PasscodeResult_NotUnique.rawValue != 0 {
                 result.insert(.notUnique)
             }
-            if code & HAS_PATTERN_WPM.rawValue != 0 {
+            if code & WPM_PasscodeResult_HasPattern.rawValue != 0 {
                 result.insert(.patternFound)
             }
-            if code & REPEATING_CHARACTERS_WPM.rawValue != 0 {
+            if code & WPM_PasscodeResult_RepeatingChars.rawValue != 0 {
                 result.insert(.repeatingCharacters)
             }
-            if code & POSSIBLY_DATE_WPM.rawValue != 0 {
+            if code & WPM_PasscodeResult_PossiblyDate.rawValue != 0 {
                 result.insert(.possiblyDate)
             }
-            if code & FREQUENTLY_USED_WPM.rawValue != 0 {
+            if code & WPM_PasscodeResult_FrequentlyUsed.rawValue != 0 {
                 result.insert(.frequentlyUsed)
             }
         }
@@ -136,14 +136,15 @@ public enum PasswordStrength {
     case good
     case strong
     
-    fileprivate init(_ score: WPM_password_check_score) {
+    fileprivate init(_ score: WPM_PasswordResult) {
         switch score {
-        case VERY_WEAK_PASSWORD_SCORE_WPM: self = .veryWeak
-        case WEAK_PASSWORD_SCORE_WPM: self = .weak
-        case MODERATE_PASSWORD_SCORE_WPM: self = .modetrate
-        case GOOD_PASSWORD_SCORE_WPM: self = .good
-        case STRONG_PASSWORD_SCORE_WPM: self = .strong
-        default: fatalError("Uncovered password check case", file: "StrengthTester.swift")
+        case WPM_PasswordResult_WrongInput: self = .veryWeak
+        case WPM_PasswordResult_VeryWeak: self = .veryWeak
+        case WPM_PasswordResult_Weak: self = .weak
+        case WPM_PasswordResult_Moderate: self = .modetrate
+        case WPM_PasswordResult_Good: self = .good
+        case WPM_PasswordResult_Strong: self = .strong
+        default: fatalError("Uncovered password check case", file: "PasswordTester.swift")
         }
     }
 }
