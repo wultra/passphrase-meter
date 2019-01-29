@@ -1,1 +1,2 @@
 include ':PinCheckerLibrary'
+include ':PinCheckerDictionary'
