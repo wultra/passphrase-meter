@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionName VERSION_NAME
+        versionCode 1
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    dependencies {
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    // TODO currently doesn't work through flavors
+    // it doesn't release all artifacts, adjustments needed
+//    def dictionaryFlavors = [
+//            "en.dct"
+//    ]
+//    flavorDimensions "language"
+//    productFlavors {
+//        dictionaryFlavors.each { dictionaryFile ->
+//            def flavorName = "${dictionaryFile.replace(".dct","")}"
+//            "${flavorName}" {
+//                dimension "language"
+//                ext.artifactId = "ARTIFACT_ID_PREFIX${flavorName}"
+//            }
+//        }
+//    }
+
+    sourceSets {
+        main.assets.srcDirs = ["../../../dictionaries"]
+    }
+
+    aaptOptions {
+        ignoreAssetsPattern "!czsk.dct"
+    }
+}
+
+apply from: '../android-release-aar.gradle'

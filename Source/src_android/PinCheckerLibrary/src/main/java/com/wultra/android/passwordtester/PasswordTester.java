@@ -19,6 +19,7 @@ package com.wultra.android.passwordtester;
 import android.content.res.AssetManager;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.WorkerThread;
 
 import com.wultra.android.passwordtester.exceptions.WrongPasswordException;
 import com.wultra.android.passwordtester.exceptions.WrongPinException;
@@ -69,6 +70,7 @@ public class PasswordTester {
      * @param dictionaryAsset name of dictionary asset
      * @return {@code true} if dictionary was loaded successfully.
      */
+    @WorkerThread
     public native boolean loadDictionary(@NonNull AssetManager manager, @NonNull String dictionaryAsset);
 
     /**

@@ -1,1 +1,3 @@
 include ':PinCheckerLibrary'
+include ':PinCheckerDictionary'
+include ':PinCheckerDictionaryCzsk'
