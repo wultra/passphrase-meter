@@ -26,7 +26,9 @@ import com.wultra.android.passwordtester.exceptions.WrongPinException;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * Class that provides methods for testing strength of passwords and PINs. You cannot instantiate
@@ -49,7 +51,7 @@ public class PasswordTester {
     /**
      * @return Unique instance of {@link PasswordTester}
      */
-    public @NonNull PasswordTester getInstance() {
+    public static @NonNull PasswordTester getInstance() {
         return SingletonHelper.instance;
     }
 
@@ -116,10 +118,11 @@ public class PasswordTester {
      * Scans PIN for possible issues.
      *
      * @param pin PIN to scan.
-     * @return Set of issues.
-     * @throws WrongPinException if provided PIN contains some invalid characters, or is too long.
+     * @return Immutable set of issues.
+     * @throws WrongPinException if provided PIN contains some invalid characters,
+     * or is too long (there's a hard limit of 100 characters).
      */
-    public EnumSet<PinTestResult> testPin(@NonNull String pin) throws WrongPinException {
+    public Set<PinTestResult> testPin(@NonNull String pin) throws WrongPinException {
 
         final @PinResultCode int result = testPinJNI(pin);
 
@@ -147,7 +150,7 @@ public class PasswordTester {
             }
         }
 
-        return set;
+        return Collections.unmodifiableSet(set);
     }
 
     // Private methods & constants
