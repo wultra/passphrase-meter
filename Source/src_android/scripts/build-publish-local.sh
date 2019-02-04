@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-DIR=`dirname $0`
-$DIR/../gradlew clean build install "$@"
+cd "$( dirname "$0" )/.."
+./gradlew clean build install "$@"
