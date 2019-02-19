@@ -1,0 +1,383 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE29810AF0FEB989B1E01DA2 /* libPods-PassMeterTester.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13548682A9C66EDB96E7DDC1 /* libPods-PassMeterTester.a */; };
+		DC0C4D60221C45DA0058963D /* PinGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0C4D5F221C45DA0058963D /* PinGenerator.swift */; };
+		DC0C4D62221C5DA20058963D /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0C4D61221C5DA20058963D /* Pin.swift */; };
+		DC0C4D64221C5EA10058963D /* PinTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0C4D63221C5EA10058963D /* PinTester.swift */; };
+		DC870D08221B128E009E89DC /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC870D07221B128E009E89DC /* main.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DC870D02221B128E009E89DC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		13548682A9C66EDB96E7DDC1 /* libPods-PassMeterTester.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PassMeterTester.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8430FE5B627BB0DB9CD67731 /* Pods-PassMeterGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassMeterGenerator.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassMeterGenerator/Pods-PassMeterGenerator.release.xcconfig"; sourceTree = "<group>"; };
+		9D45C46D081F0E946CD9AB2A /* libPods-PassMeterGenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PassMeterGenerator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFF4FDA6C07497AF9B233B10 /* Pods-PassMeterTester.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassMeterTester.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassMeterTester/Pods-PassMeterTester.debug.xcconfig"; sourceTree = "<group>"; };
+		BD4AE4346E4EC826DD29B9C4 /* Pods-PassMeterGenerator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassMeterGenerator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassMeterGenerator/Pods-PassMeterGenerator.debug.xcconfig"; sourceTree = "<group>"; };
+		DC0C4D5F221C45DA0058963D /* PinGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinGenerator.swift; sourceTree = "<group>"; };
+		DC0C4D61221C5DA20058963D /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
+		DC0C4D63221C5EA10058963D /* PinTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTester.swift; sourceTree = "<group>"; };
+		DC870D04221B128E009E89DC /* PassMeterTester */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PassMeterTester; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC870D07221B128E009E89DC /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		EC18866A86B5E3E42C260F0F /* Pods-PassMeterTester.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassMeterTester.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassMeterTester/Pods-PassMeterTester.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DC870D01221B128E009E89DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE29810AF0FEB989B1E01DA2 /* libPods-PassMeterTester.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6518827210C80DD5258E3B86 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AFF4FDA6C07497AF9B233B10 /* Pods-PassMeterTester.debug.xcconfig */,
+				EC18866A86B5E3E42C260F0F /* Pods-PassMeterTester.release.xcconfig */,
+				BD4AE4346E4EC826DD29B9C4 /* Pods-PassMeterGenerator.debug.xcconfig */,
+				8430FE5B627BB0DB9CD67731 /* Pods-PassMeterGenerator.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8F96DE30722A719C2B36A8DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9D45C46D081F0E946CD9AB2A /* libPods-PassMeterGenerator.a */,
+				13548682A9C66EDB96E7DDC1 /* libPods-PassMeterTester.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DC870CFB221B128E009E89DC = {
+			isa = PBXGroup;
+			children = (
+				DC870D06221B128E009E89DC /* PassMeterTester */,
+				DC870D05221B128E009E89DC /* Products */,
+				6518827210C80DD5258E3B86 /* Pods */,
+				8F96DE30722A719C2B36A8DF /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DC870D05221B128E009E89DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC870D04221B128E009E89DC /* PassMeterTester */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC870D06221B128E009E89DC /* PassMeterTester */ = {
+			isa = PBXGroup;
+			children = (
+				DC870D07221B128E009E89DC /* main.swift */,
+				DC0C4D5F221C45DA0058963D /* PinGenerator.swift */,
+				DC0C4D63221C5EA10058963D /* PinTester.swift */,
+				DC0C4D61221C5DA20058963D /* Pin.swift */,
+			);
+			path = PassMeterTester;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC870D03221B128E009E89DC /* PassMeterTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC870D0B221B128E009E89DC /* Build configuration list for PBXNativeTarget "PassMeterTester" */;
+			buildPhases = (
+				A4B188272773CA75E645F9CF /* [CP] Check Pods Manifest.lock */,
+				DC870D00221B128E009E89DC /* Sources */,
+				DC870D01221B128E009E89DC /* Frameworks */,
+				DC870D02221B128E009E89DC /* CopyFiles */,
+				C0242F133B62EC017CE03323 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PassMeterTester;
+			productName = PassMeterTester;
+			productReference = DC870D04221B128E009E89DC /* PassMeterTester */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DC870CFC221B128E009E89DC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Wultra s.r.o.";
+				TargetAttributes = {
+					DC870D03221B128E009E89DC = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = DC870CFF221B128E009E89DC /* Build configuration list for PBXProject "PassMeterTester" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DC870CFB221B128E009E89DC;
+			productRefGroup = DC870D05221B128E009E89DC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC870D03221B128E009E89DC /* PassMeterTester */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A4B188272773CA75E645F9CF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PassMeterTester-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0242F133B62EC017CE03323 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PassMeterTester/Pods-PassMeterTester-resources.sh",
+				"${PODS_ROOT}/../../../../../dictionaries/czsk.dct",
+				"${PODS_ROOT}/../../../../../dictionaries/en.dct",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/czsk.dct",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.dct",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PassMeterTester/Pods-PassMeterTester-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DC870D00221B128E009E89DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC0C4D62221C5DA20058963D /* Pin.swift in Sources */,
+				DC0C4D60221C45DA0058963D /* PinGenerator.swift in Sources */,
+				DC0C4D64221C5EA10058963D /* PinTester.swift in Sources */,
+				DC870D08221B128E009E89DC /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DC870D09221B128E009E89DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DC870D0A221B128E009E89DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		DC870D0C221B128E009E89DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AFF4FDA6C07497AF9B233B10 /* Pods-PassMeterTester.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KTT9G859MR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		DC870D0D221B128E009E89DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC18866A86B5E3E42C260F0F /* Pods-PassMeterTester.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KTT9G859MR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC870CFF221B128E009E89DC /* Build configuration list for PBXProject "PassMeterTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC870D09221B128E009E89DC /* Debug */,
+				DC870D0A221B128E009E89DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC870D0B221B128E009E89DC /* Build configuration list for PBXNativeTarget "PassMeterTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC870D0C221B128E009E89DC /* Debug */,
+				DC870D0D221B128E009E89DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DC870CFC221B128E009E89DC /* Project object */;
+}
