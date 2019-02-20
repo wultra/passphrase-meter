@@ -1,3 +1,5 @@
 build
 Pods
 .DS_Store
+.xcuserstate
+xcuserdata

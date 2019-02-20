@@ -9,3 +9,7 @@ end
 target 'PassMeterExample' do
   shared_pods
 end
+
+target 'PassMeterExampleTests' do
+  shared_pods
+end
