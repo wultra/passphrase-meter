@@ -1,0 +1,11 @@
+platform :osx, '10.10'
+
+def shared_pods
+  pod 'WultraPassMeter', :path => '../../../'
+  pod 'WultraPassMeter/Dictionary_czsk', :path => '../../../'
+  pod 'WultraPassMeter/Dictionary_en', :path => '../../../'
+end
+
+target 'PassMeterTester' do
+  shared_pods
+end

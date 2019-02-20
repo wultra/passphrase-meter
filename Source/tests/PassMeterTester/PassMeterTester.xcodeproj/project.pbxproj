@@ -187,8 +187,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PassMeterTester/Pods-PassMeterTester-resources.sh",
-				"${PODS_ROOT}/../../../../../dictionaries/czsk.dct",
-				"${PODS_ROOT}/../../../../../dictionaries/en.dct",
+				"${PODS_ROOT}/../../../../dictionaries/czsk.dct",
+				"${PODS_ROOT}/../../../../dictionaries/en.dct",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
