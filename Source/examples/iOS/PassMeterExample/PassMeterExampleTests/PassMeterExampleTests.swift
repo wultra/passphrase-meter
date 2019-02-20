@@ -15,6 +15,7 @@
 //
 
 import XCTest
+import WultraPassMeter
 @testable import PassMeterExample
 
 class PassMeterExampleTests: XCTestCase {
@@ -24,19 +25,107 @@ class PassMeterExampleTests: XCTestCase {
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        PasswordTester.shared.freeLoadedDictionary()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testLibraryLoad() {
+        XCTAssert(PasswordTester.shared.hasLoadedDictionary == false)
+        PasswordTester.shared.loadDictionary(.czsk)
+        XCTAssert(PasswordTester.shared.hasLoadedDictionary)
+        PasswordTester.shared.freeLoadedDictionary()
+        XCTAssert(PasswordTester.shared.hasLoadedDictionary == false)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testWrongInputPin() {
+        let result = PasswordTester.shared.testPin("asdf")
+        XCTAssert(result == .pinFormatError)
+    }
+    
+    func testPinIssues() {
+        let frequent = PasswordTester.shared.testPin("1111")
+        XCTAssert(frequent.contains(.frequentlyUsed))
+        let pattern = PasswordTester.shared.testPin("1357")
+        XCTAssert(pattern.contains(.patternFound))
+        let date = PasswordTester.shared.testPin("1990")
+        XCTAssert(date.contains(.possiblyDate))
+        let unique = PasswordTester.shared.testPin("1112")
+        XCTAssert(unique.contains(.notUnique))
+        let repeating = PasswordTester.shared.testPin("1111")
+        XCTAssert(repeating.contains(.repeatingCharacters))
+    }
+    
+    func testOKPin() {
+        let pin = PasswordTester.shared.testPin("9562")
+        XCTAssert(pin.isEmpty)
+    }
+    
+    func testEnglishDictionary() {
+        
+        let words = [
+            "international",
+            "january",
+            "development",
+            "different",
+            "television",
+            "established",
+            "championship",
+            "performance",
+            "municipality",
+            "approximately",
+            "background",
+            "administrative"
+        ]
+        
+        for word in words {
+            let result = PasswordTester.shared.testPassword(word)
+            XCTAssert(result == .good || result == .strong, word)
         }
+        
+        PasswordTester.shared.loadDictionary(.en)
+        
+        for word in words {
+            let result = PasswordTester.shared.testPassword(word)
+            XCTAssert(result == .weak || result == .veryWeak, word)
+        }
+    }
+    
+    func testCzskDictionary() {
+        
+        let words = [
+            "spolecnosti",
+            "rozcestnik",
+            "rimskokatolicka",
+            "ceskoslovenske",
+            "historicke",
+            "ostrava",
+            "bratislava",
+            "organizacie",
+            "juhovychodnej",
+            "demokratickej",
+            "vydavatelstvo",
+            "svajciarsko"
+        ]
+        
+        for word in words {
+            let result = PasswordTester.shared.testPassword(word)
+            XCTAssert(result == .good || result == .strong, word)
+        }
+        
+        PasswordTester.shared.loadDictionary(.czsk)
+        
+        for word in words {
+            let result = PasswordTester.shared.testPassword(word)
+            XCTAssert(result == .weak || result == .veryWeak, word)
+        }
+    }
+    
+    func testPasswords()  {
+        XCTAssert(PasswordTester.shared.testPassword("qwerty") == .weak) // keyboard pattern
+        XCTAssert(PasswordTester.shared.testPassword("12345678") == .veryWeak) // keyboard pattern
+        XCTAssert(PasswordTester.shared.testPassword("ap") == .veryWeak) // too short
+        XCTAssert(PasswordTester.shared.testPassword("apwu") == .weak) // short
+        XCTAssert(PasswordTester.shared.testPassword("apwunb") == .good) // OK
+        XCTAssert(PasswordTester.shared.testPassword("ap,wu92nbSm;#/") == .strong) // Strong
     }
 
 }

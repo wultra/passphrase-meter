@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63ADED5D31454E9983E33CF1 /* libPods-PassMeterExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2FF1167077C49388910C570 /* libPods-PassMeterExampleTests.a */; };
 		DC0C4D72221D5D690058963D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0C4D71221D5D690058963D /* AppDelegate.swift */; };
 		DC0C4D74221D5D690058963D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0C4D73221D5D690058963D /* ViewController.swift */; };
 		DC0C4D77221D5D690058963D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC0C4D75221D5D690058963D /* Main.storyboard */; };
@@ -29,7 +30,10 @@
 /* Begin PBXFileReference section */
 		14E601E9877E29CA08DB541F /* Pods-PassMeterExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassMeterExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassMeterExample/Pods-PassMeterExample.release.xcconfig"; sourceTree = "<group>"; };
 		2763EF678351CB6CD0A07D76 /* Pods-PassMeterExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassMeterExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassMeterExample/Pods-PassMeterExample.debug.xcconfig"; sourceTree = "<group>"; };
+		55401D63BB5DC047EA0C2FA8 /* Pods-PassMeterExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassMeterExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		92E51456AE14C89EFDC25670 /* libPods-PassMeterExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PassMeterExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2FF1167077C49388910C570 /* libPods-PassMeterExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PassMeterExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB7E4EE5BCC0AA7BD89CFC32 /* Pods-PassMeterExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassMeterExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC0C4D6E221D5D690058963D /* PassMeterExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassMeterExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0C4D71221D5D690058963D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC0C4D73221D5D690058963D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63ADED5D31454E9983E33CF1 /* libPods-PassMeterExampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				92E51456AE14C89EFDC25670 /* libPods-PassMeterExample.a */,
+				B2FF1167077C49388910C570 /* libPods-PassMeterExampleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -74,6 +80,8 @@
 			children = (
 				2763EF678351CB6CD0A07D76 /* Pods-PassMeterExample.debug.xcconfig */,
 				14E601E9877E29CA08DB541F /* Pods-PassMeterExample.release.xcconfig */,
+				DB7E4EE5BCC0AA7BD89CFC32 /* Pods-PassMeterExampleTests.debug.xcconfig */,
+				55401D63BB5DC047EA0C2FA8 /* Pods-PassMeterExampleTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -146,9 +154,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC0C4D8E221D5D6A0058963D /* Build configuration list for PBXNativeTarget "PassMeterExampleTests" */;
 			buildPhases = (
+				9ED17EE9FBE751C9BB40562F /* [CP] Check Pods Manifest.lock */,
 				DC0C4D7E221D5D6A0058963D /* Sources */,
 				DC0C4D7F221D5D6A0058963D /* Frameworks */,
 				DC0C4D80221D5D6A0058963D /* Resources */,
+				9774ED82AD3F5608AC659722 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -259,6 +269,52 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-PassMeterExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9774ED82AD3F5608AC659722 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests-resources.sh",
+				"${PODS_ROOT}/../../../../../dictionaries/czsk.dct",
+				"${PODS_ROOT}/../../../../../dictionaries/en.dct",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/czsk.dct",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.dct",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9ED17EE9FBE751C9BB40562F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PassMeterExampleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -471,6 +527,7 @@
 		};
 		DC0C4D8F221D5D6A0058963D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB7E4EE5BCC0AA7BD89CFC32 /* Pods-PassMeterExampleTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -492,6 +549,7 @@
 		};
 		DC0C4D90221D5D6A0058963D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55401D63BB5DC047EA0C2FA8 /* Pods-PassMeterExampleTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SIH-8G-BoD">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,6 +10,34 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="GY2-X9-ptX">
+            <objects>
+                <viewController id="SIH-8G-BoD" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vm7-6X-mem">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DgZ-Fh-X9J">
+                                <rect key="frame" x="105" y="318.5" width="165" height="30"/>
+                                <state key="normal" title="Show passphrase tester"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="NMA-Zz-R3f"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DgZ-Fh-X9J" firstAttribute="centerY" secondItem="Vm7-6X-mem" secondAttribute="centerY" id="7NU-tm-Tw7"/>
+                            <constraint firstItem="DgZ-Fh-X9J" firstAttribute="centerX" secondItem="Vm7-6X-mem" secondAttribute="centerX" id="Ve7-b3-l8z"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="26M-Kv-UE5"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mXG-om-YVw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-649" y="134"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
