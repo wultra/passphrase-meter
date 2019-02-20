@@ -1,0 +1,24 @@
+PODS:
+  - WultraPassMeter (1.0.0):
+    - WultraPassMeter/Core (= 1.0.0)
+  - WultraPassMeter/Core (1.0.0)
+  - WultraPassMeter/Dictionary_czsk (1.0.0):
+    - WultraPassMeter/Core
+  - WultraPassMeter/Dictionary_en (1.0.0):
+    - WultraPassMeter/Core
+
+DEPENDENCIES:
+  - WultraPassMeter (from `../../../../`)
+  - WultraPassMeter/Dictionary_czsk (from `../../../../`)
+  - WultraPassMeter/Dictionary_en (from `../../../../`)
+
+EXTERNAL SOURCES:
+  WultraPassMeter:
+    :path: "../../../../"
+
+SPEC CHECKSUMS:
+  WultraPassMeter: ce1d56ff62d5e341ed814a40637096aeae1baef5
+
+PODFILE CHECKSUM: 35f520a8444ea720d731f888ea0cf616d9a7d18a
+
+COCOAPODS: 1.5.3
