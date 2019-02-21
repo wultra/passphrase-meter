@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     @IBOutlet private weak var pinLabel: UILabel!
     @IBOutlet private weak var passwordHeader: UILabel!
     @IBOutlet private weak var pinHeader: UILabel!
+    @IBOutlet private weak var pinWarning: UILabel!
     
     private var queue: OperationQueue =  {
        let q = OperationQueue()
@@ -44,9 +45,10 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // When screns will appear, load english dictionary
-        // Only one dictionary can be loaded at the time
+        // Only one dictionary can be loaded
         PasswordTester.shared.loadDictionary(.en)
         processText("")
+        textField.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -94,6 +96,7 @@ class ViewController: UIViewController {
     private func processPin(_ pin: String) {
         
         var text = ""
+        var warnUser = false
         
         if pin.count < 4 {
             
@@ -125,6 +128,16 @@ class ViewController: UIViewController {
                 }
             }
             
+            // We want to warn the user only in some cases. Otherwise, we could eliminate too much pin codes and that could be anoying
+            
+            if pin.count == 4 {
+                warnUser = result.contains(.frequentlyUsed) || result.contains(.notUnique)
+            } else if pin.count <= 6 {
+                warnUser = result.contains(.frequentlyUsed) || result.contains(.notUnique) || result.contains(.repeatingCharacters)
+            } else {
+                warnUser = result.contains(.frequentlyUsed) || result.contains(.notUnique) || result.contains(.repeatingCharacters) || result.contains(.patternFound)
+            }
+            
         } else {
             
             text = "Not a PIN"
@@ -132,6 +145,7 @@ class ViewController: UIViewController {
         }
         
         DispatchQueue.main.sync {
+            self.pinWarning.isHidden = !warnUser
             self.pinLabel.text = text
         }
     }
