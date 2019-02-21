@@ -47,7 +47,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0h5-cC-S6q">
-                                <rect key="frame" x="50" y="152" width="275" height="172"/>
+                                <rect key="frame" x="50" y="152" width="275" height="195"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type password or pin " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HnG-dS-xwE">
                                         <rect key="frame" x="0.0" y="0.0" width="275" height="20.5"/>
@@ -92,6 +92,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Consider using different pin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cI5-H3-A5f">
+                                        <rect key="frame" x="0.0" y="177" width="275" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WULTRA PASSPHRASE TESTER" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfS-Gw-HTw">
@@ -118,11 +124,13 @@
                         <outlet property="passwordLabel" destination="aMf-TU-bWS" id="4ob-Sx-of9"/>
                         <outlet property="pinHeader" destination="2XE-Xf-UH9" id="dcN-x1-5cX"/>
                         <outlet property="pinLabel" destination="FHm-7R-pOk" id="Kvj-GP-Zjj"/>
+                        <outlet property="pinWarning" destination="cI5-H3-A5f" id="iCL-dH-FJL"/>
                         <outlet property="textField" destination="38u-5b-dJ2" id="tZ3-bd-YKB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="353" y="134"/>
         </scene>
     </scenes>
 </document>
