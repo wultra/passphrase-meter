@@ -28,6 +28,31 @@ You can evaluate any PIN. The result of the testing is a collection of issues th
 - **Frequently Used** _(Passcode is in most used passcodes)_
 - **Wrong Input** _(Wrong input - passcode must be digits only)_
 
+> **NOTE:** You should implement your own logic (based on the sensitivity of the data you're protecting with this passcode and other security measures) on top of this evaluation to decide when is a good time to warn the user. Sample logic could be:
+
+```swift
+let passphrase = "1456"
+let result = PasswordTester.shared.testPin(passphrase)
+            
+// We want different classification for different pin length
+// to not eliminate too much pins (too keep good pins around 95%)
+    
+if passphrase.count <= 4 {
+    if result.contains(.frequentlyUsed) || result.contains(.notUnique) {
+        // warn the user
+    }
+} else if passphrase.count <= 6 {
+    if result.contains(.frequentlyUsed) || result.contains(.notUnique) || result.contains(.repeatingCharacters) {
+        // warn the user
+    } 
+} else {
+    if result.contains(.frequentlyUsed) || result.contains(.notUnique) || result.contains(.repeatingCharacters) || result.contains(.patternFound) {
+        // warn the user
+    }
+}
+
+```
+
 ## Password testing
 
 You can evaluate any password. The result of such operation is a strength of the password. Strength levels are:
