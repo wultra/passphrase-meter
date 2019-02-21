@@ -132,7 +132,7 @@ public struct PinTestResult: OptionSet {
 public enum PasswordStrength {
     case veryWeak
     case weak
-    case modetrate
+    case moderate
     case good
     case strong
     
@@ -141,7 +141,7 @@ public enum PasswordStrength {
         case WPM_PasswordResult_WrongInput: self = .veryWeak
         case WPM_PasswordResult_VeryWeak: self = .veryWeak
         case WPM_PasswordResult_Weak: self = .weak
-        case WPM_PasswordResult_Moderate: self = .modetrate
+        case WPM_PasswordResult_Moderate: self = .moderate
         case WPM_PasswordResult_Good: self = .good
         case WPM_PasswordResult_Strong: self = .strong
         default: fatalError("Uncovered password check case", file: "PasswordTester.swift")

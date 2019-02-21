@@ -78,7 +78,7 @@ class ViewController: UIViewController {
             switch result {
             case .strong: text = "Strong 💪"
             case .good: text = "Good 👍"
-            case .modetrate: text = "Moderate 🤔"
+            case .moderate: text = "Moderate 🤔"
             case .weak: text = "Weak 🙄"
             case .veryWeak: text = "Very Weak 🤦‍♂️"
             }
