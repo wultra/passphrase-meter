@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         pinIssues = findViewById(R.id.issuesText)
         warningText = findViewById(R.id.warning)
 
-        Log.i("", PasswordTester.getInstance().loadDictionary(assets, "en.dct").toString())
+        PasswordTester.getInstance().loadDictionary(assets, "en.dct")
 
         processText("")
 

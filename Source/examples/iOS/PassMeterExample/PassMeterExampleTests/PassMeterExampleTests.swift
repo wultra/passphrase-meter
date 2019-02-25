@@ -59,6 +59,19 @@ class PassMeterExampleTests: XCTestCase {
         XCTAssert(pin.isEmpty)
     }
     
+    func testPinDates() {
+        let dates = ["0304", "1012", "3101", "1998", "2005", "150990", "241065", "16021998", "03122001"]
+        let noDates = ["1313", "0028", "1287", "9752", "151590", "001297", "41121987"]
+        
+        for date in dates {
+            XCTAssert(PasswordTester.shared.testPin(date).contains(.possiblyDate), date)
+        }
+        
+        for nodate in noDates {
+            XCTAssert(PasswordTester.shared.testPin(nodate).contains(.possiblyDate) == false, nodate)
+        }
+    }
+    
     func testEnglishDictionary() {
         
         let words = [
