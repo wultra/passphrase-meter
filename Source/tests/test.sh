@@ -5,33 +5,27 @@
 
 testfile=$(pwd)/testfile.txt
 
-function section
-{
+function section {
     echo -e "\033[0;32m${1}\033[0m"
 }
 
-function success
-{
+function success {
     echo -e "\033[0;32m${1}\033[0m"
 }
 
-function error
-{
+function error {
     echo -e "\033[0;31m${1}\033[0m"
 }
 
-function qpopd
-{
+function qpopd {
     popd > /dev/null
 }
 
-function qpushd 
-{
+function qpushd {
     pushd "$1" > /dev/null
 }
 
-function consistencytest
-{
+function consistencytest {
     qpushd "PassMeterTester"
     section "BUILDING CONSISTENCY TEST PROJECT"
     xcodebuild -workspace PassMeterTester.xcworkspace -scheme PassMeterTester clean > /dev/null 2>&1
@@ -53,8 +47,7 @@ function consistencytest
     qpopd
 }
 
-function iostest
-{
+function iostest {
     qpushd "../examples/iOS/PassMeterExample"
     section "RUNNING iOS TESTS"
     xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample clean > /dev/null 2>&1
@@ -68,5 +61,22 @@ function iostest
     qpopd
 }
 
-consistencytest
+function androidtest {
+    section "RUNNING ANDROID TESTS"
+    sh "../src_android/scripts/build-publish-local.sh" > /dev/null 2>&1
+    if [[ $? != 0 ]]; then
+        error "ANDROID LIB BUILD FAILED"
+        exit 1
+    fi
+    qpushd "../examples/Android/PassMeterExample"
+    ./gradlew "clean" "cAT"  > /dev/null 2>&1
+    if [[ $? != 0 ]]; then
+        error "ANDROID TESTS FAILED"
+    else
+        success "ANDROID TESTS OK"
+    fi
+}
+
+consistencytest $1
 iostest
+androidtest
