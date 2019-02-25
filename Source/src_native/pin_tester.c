@@ -98,12 +98,36 @@ static bool arrayEqualsInv(const char *ar1, const size_t ar1start, const char *a
  @param date Date with year
  @return Is the year ok?
  */
-static bool isYearOK(const struct tm *date)
+static bool isYearOK(const struct tm *date, bool fromShortFormat)
 {
     time_t t = time(NULL);
     struct tm *currentDate = localtime(&t);
+    int year = date->tm_year;
+    // when short format for date was used (for example 90 for 1990)
+    // and date is bigger than current, just assume user thinks about date in past
+    if (fromShortFormat && year > currentDate->tm_year) {
+        year -= 100;
+    }
     // check if year is more than curreny year on less then current-90
-    return date->tm_year < currentDate->tm_year - 90 || date->tm_year > currentDate->tm_year;
+    return year < currentDate->tm_year - 90 || year > currentDate->tm_year;
+}
+
+
+/**
+ Parsing given date in chosen format. Parsing is sucessful only when
+ whole string is used.
+
+ @param format format of date
+ @param date date  string
+ @param r structure to fill
+ @return if parsing was successful
+ */
+static bool parseDate(const char *format, const char *date, struct tm *r) {
+    char *ptr = strptime(date, format, r);
+    if (ptr == NULL || ptr[0] != '\0' || r->tm_mday == 0) { // r->tm_mday == 0 is check because of a bug in iOS that can parse 00 day
+        return false;
+    }
+    return true;
 }
 
 
@@ -312,13 +336,14 @@ static bool isDateOK(const char *pin, const size_t pinLength) {
     if (pinLength == 4) {
         
         struct tm r;
+        
         // if pin could be date like 0304 (3rd of April or 4th of March)
-        if (strptime(pin, "%d%m", &r) != NULL || strptime(pin, "%d%m", &r) != NULL) {
+        if (parseDate("%d%m", pin, &r) || parseDate("%d%m", pin, &r)) {
             return false;
         }
         
         // if pin could be valid year (like 1982), that could be year of birth
-        if (strptime(pin, "%Y",&r) != NULL && !isYearOK(&r)) {
+        if (parseDate("%Y", pin, &r) && !isYearOK(&r, false)) {
             return false;
         }
         
@@ -326,7 +351,7 @@ static bool isDateOK(const char *pin, const size_t pinLength) {
         
         struct tm r;
         // if pin could be date with year (like 121091 that could be 12th of October or 10th of December 1991)
-        if ((strptime(pin, "%d%m%y", &r) != NULL || strptime(pin, "%m%d%y", &r) != NULL) && !isYearOK(&r)) {
+        if ((parseDate("%d%m%y", pin, &r) || parseDate("%m%d%y", pin, &r)) && !isYearOK(&r, true)) {
             return false;
         }
         
@@ -334,7 +359,7 @@ static bool isDateOK(const char *pin, const size_t pinLength) {
         
         struct tm r;
         // if pin could be date with year (like 12101991 that could be 12th of October or 10th of December 1991)
-        if ((strptime(pin, "%d%m%Y", &r) != NULL || strptime(pin, "%m%d%Y", &r) != NULL) && !isYearOK(&r)) {
+        if ((parseDate("%d%m%Y", pin, &r) || parseDate("%m%d%Y", pin, &r)) && !isYearOK(&r, false)) {
             return false;
         }
     }

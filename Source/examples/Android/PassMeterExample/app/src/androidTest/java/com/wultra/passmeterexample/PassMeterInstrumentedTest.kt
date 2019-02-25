@@ -21,40 +21,49 @@ class PassMeterInstrumentedTest {
     @Test
     fun testLibraryLoad() {
         assertFalse(PasswordTester.getInstance().hasLoadedDictionary())
-        PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getTargetContext().assets, "czsk")
-        assert(PasswordTester.getInstance().hasLoadedDictionary())
+        assertTrue(PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getTargetContext().assets, "czsk.dct"))
+        assertTrue(PasswordTester.getInstance().hasLoadedDictionary())
         PasswordTester.getInstance().freeLoadedDictionary()
         assertFalse(PasswordTester.getInstance().hasLoadedDictionary())
     }
 
-    @Test
+    @Test(expected=WrongPinException::class)
     fun testWrongInputPin() {
-        try {
-            PasswordTester.getInstance().testPin("asdf")
-            fail()
-        } catch (e: WrongPinException) {
-            assert(true)
-        }
+        PasswordTester.getInstance().testPin("asdf")
     }
 
     @Test
     fun testPinIssues() {
         val frequent = PasswordTester.getInstance().testPin("1111")
-        assert(frequent.contains(PinTestResult.FREQUENTLY_USED))
+        assertTrue(frequent.contains(PinTestResult.FREQUENTLY_USED))
         val pattern = PasswordTester.getInstance().testPin("1357")
-        assert(pattern.contains(PinTestResult.HAS_PATTERN))
+        assertTrue(pattern.contains(PinTestResult.HAS_PATTERN))
         val date = PasswordTester.getInstance().testPin("1990")
-        assert(date.contains(PinTestResult.POSSIBLY_DATE))
+        assertTrue(date.contains(PinTestResult.POSSIBLY_DATE))
         val unique = PasswordTester.getInstance().testPin("1112")
-        assert(unique.contains(PinTestResult.NOT_UNIQUE))
+        assertTrue(unique.contains(PinTestResult.NOT_UNIQUE))
         val repeating = PasswordTester.getInstance().testPin("1111")
-        assert(repeating.contains(PinTestResult.REPEATING_CHARACTERS))
+        assertTrue(repeating.contains(PinTestResult.REPEATING_CHARACTERS))
     }
 
     @Test
     fun testOKPin() {
         val pin = PasswordTester.getInstance().testPin("9562")
-        assert(pin.isEmpty())
+        assertTrue(pin.isEmpty())
+    }
+
+    @Test
+    fun testPinDates() {
+        val dates = arrayOf("0304", "1012", "0101", "1998", "2005", "150990", "241065", "16021998", "03122001")
+        val noDates = arrayOf("1313", "0028", "1287", "9752", "151590", "001297", "41121987")
+
+        for (date in dates) {
+            assertTrue(date, PasswordTester.getInstance().testPin(date).contains(PinTestResult.POSSIBLY_DATE))
+        }
+
+        for (nodate in noDates) {
+            assertTrue(nodate, PasswordTester.getInstance().testPin(nodate).contains(PinTestResult.POSSIBLY_DATE) == false)
+        }
     }
 
     @Test
@@ -77,15 +86,17 @@ class PassMeterInstrumentedTest {
 
         for (word in words) {
             val result = PasswordTester.getInstance().testPassword(word)
-            assert(result == PasswordStrength.GOOD || result == PasswordStrength.STRONG)
+            assertTrue(word, result == PasswordStrength.GOOD || result == PasswordStrength.STRONG)
         }
 
-        PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getTargetContext().assets,"czsk.dct")
+        PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getTargetContext().assets,"en.dct")
 
         for (word in words) {
             val result = PasswordTester.getInstance().testPassword(word)
-            assert(result == PasswordStrength.VERY_WEAK || result == PasswordStrength.WEAK)
+            assertTrue(word, result == PasswordStrength.VERY_WEAK || result == PasswordStrength.WEAK)
         }
+
+        PasswordTester.getInstance().freeLoadedDictionary()
     }
 
     @Test
@@ -108,24 +119,26 @@ class PassMeterInstrumentedTest {
 
         for (word in words) {
             val result = PasswordTester.getInstance().testPassword(word)
-            assert(result == PasswordStrength.GOOD || result == PasswordStrength.STRONG)
+            assertTrue(result == PasswordStrength.GOOD || result == PasswordStrength.STRONG)
         }
 
         PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getTargetContext().assets,"czsk.dct")
 
         for (word in words) {
             val result = PasswordTester.getInstance().testPassword(word)
-            assert(result == PasswordStrength.VERY_WEAK || result == PasswordStrength.WEAK)
+            assertTrue(result == PasswordStrength.VERY_WEAK || result == PasswordStrength.WEAK)
         }
+
+        PasswordTester.getInstance().freeLoadedDictionary()
     }
 
     @Test
     fun testPasswords()  {
-        assert(PasswordTester.getInstance().testPassword("qwerty") == PasswordStrength.WEAK) // keyboard pattern
-        assert(PasswordTester.getInstance().testPassword("12345678") == PasswordStrength.VERY_WEAK) // keyboard pattern
-        assert(PasswordTester.getInstance().testPassword("ap") == PasswordStrength.VERY_WEAK) // too short
-        assert(PasswordTester.getInstance().testPassword("apwu") == PasswordStrength.WEAK) // short
-        assert(PasswordTester.getInstance().testPassword("apwunb") == PasswordStrength.GOOD) // OK
-        assert(PasswordTester.getInstance().testPassword("ap,wu92nbSm;#/") == PasswordStrength.STRONG) // Strong
+        assertTrue(PasswordTester.getInstance().testPassword("qwerty") == PasswordStrength.WEAK) // keyboard pattern
+        assertTrue(PasswordTester.getInstance().testPassword("12345678") == PasswordStrength.VERY_WEAK) // keyboard pattern
+        assertTrue(PasswordTester.getInstance().testPassword("ap") == PasswordStrength.VERY_WEAK) // too short
+        assertTrue(PasswordTester.getInstance().testPassword("apwu") == PasswordStrength.WEAK) // short
+        assertTrue(PasswordTester.getInstance().testPassword("apwunb") == PasswordStrength.GOOD) // OK
+        assertTrue(PasswordTester.getInstance().testPassword("ap,wu92nbSm;#/") == PasswordStrength.STRONG) // Strong
     }
 }
