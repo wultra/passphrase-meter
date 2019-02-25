@@ -5,27 +5,29 @@
 
 testfile=$(pwd)/testfile.txt
 
-function section {
+function section { # prints section header
     echo -e "\033[0;32m${1}\033[0m"
 }
 
-function success {
+function success { # prints success text to console
     echo -e "\033[0;32m${1}\033[0m"
 }
 
-function error {
+function error { # prints failed text to console and exits
     echo -e "\033[0;31m${1}\033[0m"
+    exit 1
 }
 
-function qpopd {
+function qpopd { # quiet popd
     popd > /dev/null
 }
 
-function qpushd {
+function qpushd { # quiet pushd
     pushd "$1" > /dev/null
 }
 
-function consistencytest {
+# This tests tests pins between 0000 - 1999999 if there was any change with current implementation
+function consistencytest { 
     qpushd "PassMeterTester"
     section "BUILDING CONSISTENCY TEST PROJECT"
     xcodebuild -workspace PassMeterTester.xcworkspace -scheme PassMeterTester clean > /dev/null 2>&1
@@ -47,6 +49,7 @@ function consistencytest {
     qpopd
 }
 
+# Builds and runs ios test
 function iostest {
     qpushd "../examples/iOS/PassMeterExample"
     section "RUNNING iOS TESTS"
@@ -61,12 +64,12 @@ function iostest {
     qpopd
 }
 
+# Builds and runs android test
 function androidtest {
     section "RUNNING ANDROID TESTS"
     sh "../src_android/scripts/build-publish-local.sh" > /dev/null 2>&1
     if [[ $? != 0 ]]; then
         error "ANDROID LIB BUILD FAILED"
-        exit 1
     fi
     qpushd "../examples/Android/PassMeterExample"
     ./gradlew "clean" "cAT"  > /dev/null 2>&1
