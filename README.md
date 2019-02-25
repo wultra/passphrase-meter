@@ -30,6 +30,9 @@ You can evaluate any PIN. The result of the testing is a collection of issues th
 
 > **NOTE:** You should implement your own logic (based on the sensitivity of the data you're protecting with this passcode and other security measures) on top of this evaluation to decide when is a good time to warn the user. Sample logic could be:
 
+--
+> Custom alert logic in `swift`: 
+
 ```swift
 let passphrase = "1456"
 let result = PasswordTester.shared.testPin(passphrase)
@@ -72,28 +75,50 @@ Available dictionaries
 
 ## Android integration (via Maven Central)
 
-To be added
+##### 1. Add dependencies to your `build.gradle`
+```kotlin
+implementation "com.wultra.android.pinchecker:pinchecker-core:1.0.0"
+```
+
+##### 2. _(OPTIONAL)_ You can add dictionaries for more precise password testing
+
+```kotlin
+implementation "com.wultra.android.pinchecker:pinchecker-dictionary-en:1.0.0"
+implementation "com.wultra.android.pinchecker:pinchecker-dictionary-czsk:1.0.0"
+```
+
+##### 3. import passwordtester in your code
+```kotlin
+import com.wultra.android.passwordtester.*;
+```
+##### 4. Test that things work _(kotlin)_
+``` kotlin
+PasswordTester.getInstance().loadDictionary(assets, "en.dct") // if english dependency added
+val result = PasswordTester.getInstance().testPassword("test")
+```
 
 ## iOS integration (via Cocoapods)
 
 ##### 1. Add following pod to your `Podfile`.
 
-```
+```ruby
 pod 'WultraPassMeter'
 ```
 
-##### 2. You can add dictionaries for more precise password testing
-```
+##### 2. _(OPTIONAL)_ You can add dictionaries for more precise password testing
+```ruby
 pod 'WultraPassMeter/Dictionary_en'
 pod 'WultraPassMeter/Dictionary_czsk'
 ```
+##### 3. Run `pod install`
 
-##### 3. import WultraPassMeter module in your code
-```
+##### 4. import WultraPassMeter module in your code
+```swift
 import WultraPassMeter
 ```
-##### 4. Test that things work
-```
+##### 5. Test that things work _(swift)_
+```swift
+PasswordTester.shared.loadDictionary(.en) // if en dictionary dependency was added
 let strength = PasswordTester.shared.testPassword("test")
 print(strength)
 ```

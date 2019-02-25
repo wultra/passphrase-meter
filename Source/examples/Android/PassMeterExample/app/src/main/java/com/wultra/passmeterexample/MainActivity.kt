@@ -1,26 +1,21 @@
 package com.wultra.passmeterexample
 
-import android.content.res.AssetManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import com.wultra.android.passwordtester.PasswordStrength
-import com.wultra.android.passwordtester.PasswordTester
-import com.wultra.android.passwordtester.PinTestResult
-import com.wultra.android.passwordtester.exceptions.WrongPasswordException
-import com.wultra.android.passwordtester.exceptions.WrongPinException
+import com.wultra.android.passwordtester.*;
+import com.wultra.android.passwordtester.exceptions.*;
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var input: EditText
-    lateinit var passStrength: TextView
-    lateinit var pinIssues: TextView
-    lateinit var warningText: TextView
+    private lateinit var input: EditText
+    private lateinit var passStrength: TextView
+    private lateinit var pinIssues: TextView
+    private lateinit var warningText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
