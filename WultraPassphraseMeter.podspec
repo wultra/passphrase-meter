@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
-  s.name             = 'WultraPassMeter'
-  s.version          = '%DEPLOY_VERSION%'
+  s.name             = 'WultraPassphraseMeter'
+  s.version          = '1.0.0'
   s.summary          = 'Streng tester for passwords and passcodes.'
   s.description      = 'A library that checks the strength of a pin or a password.'
   s.social_media_url = 'https://twitter.com/wultra'
@@ -26,13 +26,13 @@ Pod::Spec.new do |s|
   s.subspec 'Dictionary_czsk' do |sub|
     sub.resources = 'dictionaries/czsk.dct'
     sub.source_files = 'Source/src_ios/PasswordTester_czsk.swift'
-    sub.dependency 'WultraPassMeter/Core'
+    sub.dependency 'WultraPassphraseMeter/Core'
   end
 
   s.subspec 'Dictionary_en' do |sub|
     sub.resources = 'dictionaries/en.dct'
     sub.source_files = 'Source/src_ios/PasswordTester_en.swift'
-    sub.dependency 'WultraPassMeter/Core'
+    sub.dependency 'WultraPassphraseMeter/Core'
   end
 
 end

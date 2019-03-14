@@ -237,7 +237,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PassMeterExample/Pods-PassMeterExample-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PassMeterExample/Pods-PassMeterExample-resources.sh",
 				"${PODS_ROOT}/../../../../../dictionaries/czsk.dct",
 				"${PODS_ROOT}/../../../../../dictionaries/en.dct",
 			);
@@ -250,7 +250,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PassMeterExample/Pods-PassMeterExample-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassMeterExample/Pods-PassMeterExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2F37276397317C06EBDCB903 /* [CP] Check Pods Manifest.lock */ = {
@@ -283,7 +283,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests-resources.sh",
 				"${PODS_ROOT}/../../../../../dictionaries/czsk.dct",
 				"${PODS_ROOT}/../../../../../dictionaries/en.dct",
 			);
@@ -296,7 +296,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9ED17EE9FBE751C9BB40562F /* [CP] Check Pods Manifest.lock */ = {

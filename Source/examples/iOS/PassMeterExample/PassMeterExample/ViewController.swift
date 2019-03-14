@@ -15,7 +15,7 @@
 //
 
 import UIKit
-import WultraPassMeter
+import WultraPassphraseMeter
 
 class ViewController: UIViewController {
     

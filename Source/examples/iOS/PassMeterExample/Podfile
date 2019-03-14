@@ -1,9 +1,9 @@
 platform :ios, '10.0'
 
 def shared_pods
-  pod 'WultraPassMeter', :path => '../../../../'
-  pod 'WultraPassMeter/Dictionary_czsk', :path => '../../../../'
-  pod 'WultraPassMeter/Dictionary_en', :path => '../../../../'
+  pod 'WultraPassphraseMeter', :path => '../../../../'
+  pod 'WultraPassphraseMeter/Dictionary_czsk', :path => '../../../../'
+  pod 'WultraPassphraseMeter/Dictionary_en', :path => '../../../../'
 end
 
 target 'PassMeterExample' do
