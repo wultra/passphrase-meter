@@ -14,16 +14,30 @@
  * limitations under the License.
  */
 
-package com.wultra.android.passwordtester.exceptions;
+package com.wultra.android.passphrasemeter;
 
 /**
- * Thrown in case that tested password cannot be converted to C-string.
+ * Result of PIN testing
  */
-public class WrongPasswordException extends Exception {
-    public WrongPasswordException() {
-        super();
-    }
-    public WrongPasswordException(String message) {
-        super(message);
-    }
+public enum PinTestResult {
+    /**
+     * PIN doesn't have enough unique digits
+     */
+    NOT_UNIQUE,
+    /**
+     * There is significant amount of repeating characters in the PIN
+     */
+    REPEATING_CHARACTERS,
+    /**
+     * Repeating pattern was found in the PIN
+     */
+    HAS_PATTERN,
+    /**
+     * This PIN can be date (and possible birthday of the user)
+     */
+    POSSIBLY_DATE,
+    /**
+     * PIN is in database of the most used PINs
+     */
+    FREQUENTLY_USED
 }

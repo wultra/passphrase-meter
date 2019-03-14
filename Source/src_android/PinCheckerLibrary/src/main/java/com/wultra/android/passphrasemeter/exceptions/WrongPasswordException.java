@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.wultra.android.passwordtester.exceptions;
+package com.wultra.android.passphrasemeter.exceptions;
 
 /**
- * Thrown in case that tested PIN contains invalid characters, or it's too long.
+ * Thrown in case that tested password cannot be converted to C-string.
  */
-public class WrongPinException extends Exception {
-    public WrongPinException() {
+public class WrongPasswordException extends Exception {
+    public WrongPasswordException() {
         super();
     }
-    public WrongPinException(String message) {
+    public WrongPasswordException(String message) {
         super(message);
     }
 }

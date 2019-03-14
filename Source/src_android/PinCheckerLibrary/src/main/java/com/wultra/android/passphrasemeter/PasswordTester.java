@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.wultra.android.passwordtester;
+package com.wultra.android.passphrasemeter;
 
 import android.content.res.AssetManager;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
-import com.wultra.android.passwordtester.exceptions.WrongPasswordException;
-import com.wultra.android.passwordtester.exceptions.WrongPinException;
+import com.wultra.android.passphrasemeter.exceptions.WrongPasswordException;
+import com.wultra.android.passphrasemeter.exceptions.WrongPinException;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
