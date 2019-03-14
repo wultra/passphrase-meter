@@ -1,4 +1,4 @@
-# Wultra Passphrase Strength Meter
+# Wultra Passphrase Meter
 
 Choosing weak passphrase in security apps (like mobile banking) can be potentially dangerous. In mobile apps, it is **good UX** to warn the user, when he chooses such passphrase.
 
