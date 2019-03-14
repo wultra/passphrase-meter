@@ -1,0 +1,3 @@
+DEPLOY_POD_NAME='WultraPassMeter'
+DEPLOY_VERSIONING_FILES=( "Deploy/WultraPassMeter.podspec,WultraPassMeter.podspec" )
+DEPLOY_MODE='swift-cocoapods'
