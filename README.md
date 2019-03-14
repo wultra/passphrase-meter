@@ -34,17 +34,17 @@ You can evaluate any PIN. The result of the testing is a collection of issues th
 > Custom alert logic in `swift`: 
 
 ```swift
-let passphrase = "1456"
-let result = PasswordTester.shared.testPin(passphrase)
+let passcode = "1456"
+let result = PasswordTester.shared.testPin(passcode)
             
 // We want different classification for different pin length
 // to not eliminate too much pins (too keep good pins around 95%)
     
-if passphrase.count <= 4 {
+if passcode.count <= 4 {
     if result.contains(.frequentlyUsed) || result.contains(.notUnique) {
         // warn the user
     }
-} else if passphrase.count <= 6 {
+} else if passcode.count <= 6 {
     if result.contains(.frequentlyUsed) || result.contains(.notUnique) || result.contains(.repeatingCharacters) {
         // warn the user
     } 
@@ -77,19 +77,19 @@ Available dictionaries
 
 ##### 1. Add dependencies to your `build.gradle`
 ```kotlin
-implementation "com.wultra.android.pinchecker:pinchecker-core:1.0.0"
+implementation "com.wultra.android.passphrasemeter:passphrasemeter-core:1.0.0"
 ```
 
 ##### 2. _(OPTIONAL)_ You can add dictionaries for more precise password testing
 
 ```kotlin
-implementation "com.wultra.android.pinchecker:pinchecker-dictionary-en:1.0.0"
-implementation "com.wultra.android.pinchecker:pinchecker-dictionary-czsk:1.0.0"
+implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-en:1.0.0"
+implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-czsk:1.0.0"
 ```
 
-##### 3. import passwordtester in your code
+##### 3. import passphrasemeter in your code
 ```kotlin
-import com.wultra.android.passwordtester.*;
+import com.wultra.android.passphrasemeter.*;
 ```
 ##### 4. Test that things work _(kotlin)_
 ``` kotlin
@@ -102,19 +102,19 @@ val result = PasswordTester.getInstance().testPassword("test")
 ##### 1. Add following pod to your `Podfile`.
 
 ```ruby
-pod 'WultraPassMeter'
+pod 'WultraPassphraseMeter'
 ```
 
 ##### 2. _(OPTIONAL)_ You can add dictionaries for more precise password testing
 ```ruby
-pod 'WultraPassMeter/Dictionary_en'
-pod 'WultraPassMeter/Dictionary_czsk'
+pod 'WultraPassphraseMeter/Dictionary_en'
+pod 'WultraPassphraseMeter/Dictionary_czsk'
 ```
 ##### 3. Run `pod install`
 
-##### 4. import WultraPassMeter module in your code
+##### 4. import WultraPassphraseMeter module in your code
 ```swift
-import WultraPassMeter
+import WultraPassphraseMeter
 ```
 ##### 5. Test that things work _(swift)_
 ```swift
