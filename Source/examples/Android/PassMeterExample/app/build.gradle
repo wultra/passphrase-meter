@@ -31,7 +31,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation "com.wultra.android.pinchecker:pinchecker-core:${wultraPassphraseMeterVersion}"
-    implementation "com.wultra.android.pinchecker:pinchecker-dictionary-en:${wultraPassphraseMeterVersion}"
-    implementation "com.wultra.android.pinchecker:pinchecker-dictionary-czsk:${wultraPassphraseMeterVersion}"
+    implementation "com.wultra.android.passphrasemeter:passphrasemeter-core:${wultraPassphraseMeterVersion}"
+    implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-en:${wultraPassphraseMeterVersion}"
+    implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-czsk:${wultraPassphraseMeterVersion}"
 }

@@ -16,7 +16,7 @@ buildscript {
 }
 
 ext {
-    wultraPassphraseMeterVersion = "0.1.0"
+    wultraPassphraseMeterVersion = "1.0.0"
 }
 
 allprojects {

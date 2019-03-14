@@ -7,8 +7,8 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import com.wultra.android.passwordtester.*;
-import com.wultra.android.passwordtester.exceptions.*;
+import com.wultra.android.passphrasemeter.*;
+import com.wultra.android.passphrasemeter.exceptions.*;
 
 class MainActivity : AppCompatActivity() {
 

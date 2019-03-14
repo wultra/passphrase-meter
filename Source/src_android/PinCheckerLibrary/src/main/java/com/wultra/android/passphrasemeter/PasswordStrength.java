@@ -14,30 +14,30 @@
  * limitations under the License.
  */
 
-package com.wultra.android.passwordtester;
+package com.wultra.android.passphrasemeter;
 
 /**
- * Result of PIN testing
+ * Result of password testing.
  */
-public enum PinTestResult {
+public enum PasswordStrength {
     /**
-     * PIN doesn't have enough unique digits
+     * Password is considered to be a very weak.
      */
-    NOT_UNIQUE,
+    VERY_WEAK,
     /**
-     * There is significant amount of repeating characters in the PIN
+     * Password is considered to be a weak.
      */
-    REPEATING_CHARACTERS,
+    WEAK,
     /**
-     * Repeating pattern was found in the PIN
+     * Password has moderate strength.
      */
-    HAS_PATTERN,
+    MODERATE,
     /**
-     * This PIN can be date (and possible birthday of the user)
+     * Password is considered to be a good password.
      */
-    POSSIBLY_DATE,
+    GOOD,
     /**
-     * PIN is in database of the most used PINs
+     * Password is considered to be a strong.
      */
-    FREQUENTLY_USED
+    STRONG
 }

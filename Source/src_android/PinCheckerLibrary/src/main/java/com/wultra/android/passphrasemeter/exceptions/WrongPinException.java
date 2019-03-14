@@ -14,30 +14,16 @@
  * limitations under the License.
  */
 
-package com.wultra.android.passwordtester;
+package com.wultra.android.passphrasemeter.exceptions;
 
 /**
- * Result of password testing.
+ * Thrown in case that tested PIN contains invalid characters, or it's too long.
  */
-public enum PasswordStrength {
-    /**
-     * Password is considered to be a very weak.
-     */
-    VERY_WEAK,
-    /**
-     * Password is considered to be a weak.
-     */
-    WEAK,
-    /**
-     * Password has moderate strength.
-     */
-    MODERATE,
-    /**
-     * Password is considered to be a good password.
-     */
-    GOOD,
-    /**
-     * Password is considered to be a strong.
-     */
-    STRONG
+public class WrongPinException extends Exception {
+    public WrongPinException() {
+        super();
+    }
+    public WrongPinException(String message) {
+        super(message);
+    }
 }
