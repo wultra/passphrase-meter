@@ -18,5 +18,5 @@ import Foundation
 
 public extension PasswordTesterDictionary  {
     /// Dictionary with czech and slovak common words for password testing
-	public static var czsk: PasswordTesterDictionary { return PasswordTesterDictionary(Bundle(for: PasswordTester.self).path(forResource: "czsk", ofType: "dct")!) }
+	static var czsk: PasswordTesterDictionary { return PasswordTesterDictionary(Bundle(for: PasswordTester.self).path(forResource: "czsk", ofType: "dct")!) }
 }

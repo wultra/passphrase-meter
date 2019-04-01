@@ -15,8 +15,8 @@
 //
 
 import XCTest
-import WultraPassMeter
-@testable import PassMeterExample
+import WultraPassphraseMeter
+@testable import PasswordMeter
 
 class PassMeterExampleTests: XCTestCase {
 
