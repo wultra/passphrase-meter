@@ -2,10 +2,8 @@ package com.wultra.passmeterexample
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.wultra.android.passwordtester.PasswordStrength
-import com.wultra.android.passwordtester.PasswordTester
-import com.wultra.android.passwordtester.PinTestResult
-import com.wultra.android.passwordtester.exceptions.WrongPinException
+import com.wultra.android.passphrasemeter.*
+import com.wultra.android.passphrasemeter.exceptions.*
 
 import org.junit.Test
 import org.junit.runner.RunWith
