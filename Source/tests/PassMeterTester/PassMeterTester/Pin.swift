@@ -15,7 +15,7 @@
 //
 
 import Foundation
-import WultraPassMeter
+import WultraPassphraseMeter
 
 struct Pin {
     
