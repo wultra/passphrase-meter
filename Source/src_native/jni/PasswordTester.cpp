@@ -26,10 +26,10 @@
 
 extern "C" {
 	
-// Java package : com.wultra.android.passwordtester
+// Java package : com.wultra.android.passphrasemeter
 // Java class   : PasswordTester
 
-JNIEXPORT jboolean JNICALL Java_com_wultra_android_passwordtester_PasswordTester_loadDictionary(JNIEnv *jenv, jobject self, jobject manager, jstring dictionaryAsset)
+JNIEXPORT jboolean JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_loadDictionary(JNIEnv *jenv, jobject self, jobject manager, jstring dictionaryAsset)
 {
     bool result = false;
     if (dictionaryAsset != NULL &&  manager != NULL) {
@@ -45,18 +45,18 @@ JNIEXPORT jboolean JNICALL Java_com_wultra_android_passwordtester_PasswordTester
     return (jboolean) result;
 }
 
-JNIEXPORT void JNICALL Java_com_wultra_android_passwordtester_PasswordTester_freeLoadedDictionary(JNIEnv *jenv, jobject self)
+JNIEXPORT void JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_freeLoadedDictionary(JNIEnv *jenv, jobject self)
 {
     WPM_freePasswordDictionary();
 }
 
-JNIEXPORT jboolean JNICALL Java_com_wultra_android_passwordtester_PasswordTester_hasLoadedDictionary(JNIEnv *jenv, jobject self)
+JNIEXPORT jboolean JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_hasLoadedDictionary(JNIEnv *jenv, jobject self)
 {
     return (jboolean) WPM_hasPasswordDictionary();
 }
 
 
-JNIEXPORT jint JNICALL Java_com_wultra_android_passwordtester_PasswordTester_testPasswordJNI(JNIEnv *jenv, jobject self, jstring password)
+JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPasswordJNI(JNIEnv *jenv, jobject self, jstring password)
 {
     jint result = WPM_PasscodeResult_WrongInput;
     if (password != NULL) {
@@ -69,7 +69,7 @@ JNIEXPORT jint JNICALL Java_com_wultra_android_passwordtester_PasswordTester_tes
     return result;
 }
 
-JNIEXPORT jint JNICALL Java_com_wultra_android_passwordtester_PasswordTester_testPinJNI(JNIEnv *jenv, jobject self, jstring pin)
+JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPinJNI(JNIEnv *jenv, jobject self, jstring pin)
 {
     const char * cppPin = jenv->GetStringUTFChars(pin, JNI_FALSE);
     jint result;
