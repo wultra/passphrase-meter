@@ -1,3 +1,14 @@
-DEPLOY_POD_NAME='WultraPassphraseMeter'
-DEPLOY_VERSIONING_FILES=( "Deploy/WultraPassphraseMeter.podspec,WultraPassphraseMeter.podspec" )
-DEPLOY_MODE='swift-cocoapods'
+# Common params
+DEPLOY_LIB_NAME='WultraPassphraseMeter'
+DEPLOY_MODE="more"
+DEPLOY_MORE_TARGETS="cocoapods gradle"
+
+# Cocoapods
+DEPLOY_POD_NAME=${DEPLOY_LIB_NAME}
+
+# Gradle
+DEPLOY_GRADLE_PATH="Source/src_android"
+DEPLOY_GRADLE_PARAMS="clean build install bintrayUpload"
+
+# Versioning files
+DEPLOY_VERSIONING_FILES=( "Deploy/WultraPassphraseMeter.podspec,WultraPassphraseMeter.podspec" "Deploy/gradle.properties,Source/src_android/gradle.properties" )
