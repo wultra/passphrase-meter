@@ -99,12 +99,12 @@ if result.isEmpty {
 
 You can evaluate any PIN. The result of the testing is a collection of issues that were found in PIN. This issues can be:
 
-- **Not Unique** _(Passcode doesn't have enough unique digits)_
-- **Repeating Digits** _(There is a significant amount of repeating digits in the passcode)_
-- **Has Pattern** _(Repeating pattern was found in the passcode - 1357 for example)_
-- **Possibly Date** _(This passcode can be a date (and possibly birthday of the user))_
-- **Frequently Used** _(Passcode is in most used passcodes)_
-- **Wrong Input** _(Wrong input - passcode must be digits only)_
+- **Not Unique** - the passcode doesn't have enough unique digits.
+- **Repeating Digits** - there is a significant amount of repeating digits in the passcode.
+- **Has Pattern** - repeating pattern was found in the passcode - 1357 for example.
+- **Possibly Date** - this passcode can be a date and possibly birthday of the user.
+- **Frequently Used** - the passcode is in list of most used passcodes.
+- **Wrong Input** - wrong input - the passcode must contain digits only.
 
 Note that you should implement your own additional logic, based on the sensitivity of the data you're protecting with the passcode and on other security measures. Here's an example how such evaluation may look like:
 
