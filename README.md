@@ -1,4 +1,4 @@
-# Wultra Passphrase Meter
+# Passphrase Meter
 
 Wultra Passphrase Meter is a multi-platform library implementing offline passphrase strength validation. Choosing a weak passphrase in applications with high-security demands can be potentially dangerous, so the primary purpose of this library is to let you **warn the user** when he tries to use such passphrase in your mobile application. The validation code itself is based on a slightly modified version of [zxcvbn-c](https://github.com/tsyrogit/zxcvbn-c).
 

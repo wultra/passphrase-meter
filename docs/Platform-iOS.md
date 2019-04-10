@@ -1,4 +1,4 @@
-# Wultra Passphrase Meter for iOS Apps
+# Passphrase Meter for iOS Apps
 
 ## Installation 
 

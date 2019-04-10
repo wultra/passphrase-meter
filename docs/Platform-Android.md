@@ -1,4 +1,4 @@
-# Wultra Passphrase Meter for Android Apps
+# Passphrase Meter for Android Apps
 
 ## Installation 
 

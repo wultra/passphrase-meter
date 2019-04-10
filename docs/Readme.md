@@ -1,4 +1,4 @@
-# Wultra Passphrase Meter
+# Passphrase Meter
 
 Wultra Passphrase Meter is a multi-platform library implementing offline passphrase strength validation. The validation code itself is based on a slightly modified version of [zxcvbn-c](https://github.com/tsyrogit/zxcvbn-c).
 
