@@ -141,7 +141,7 @@ def addArtifactReleasing(artifactName, flavorName) {
                 websiteUrl = siteUrl
                 vcsUrl = gitUrl
                 licenses = allLicenses
-                dryRun = true
+                dryRun = false
                 publish = true
                 publicDownloadNumbers = false
                 override = false
