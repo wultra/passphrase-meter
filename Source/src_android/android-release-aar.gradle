@@ -40,7 +40,7 @@ def addArtifactReleasing(artifactName, flavorName) {
         artifact = artifactName
         libraryVersion = project.VERSION_NAME
 
-        libraryDescription = "Android library implementing checking passphase complexity"
+        libraryDescription = "Android library implementing passphrase complexity validation"
         siteUrl = "https://github.com/wultra/passphrase-meter"
         gitUrl = "https://github.com/wultra/passphrase-meter.git"
         developerId = "wultra"
