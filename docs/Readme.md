@@ -31,7 +31,7 @@ Wultra Passphrase Meter provides two different algorithms for validating passwor
   - You can also validate PINs with this routine, but that more likely will always lead to treating such passwords as weak.
   
 - PIN validation implementation is highly inspired by findings from [PIN analysis](http://www.datagenetics.com/blog/september32012/) blog post. 
-  - We designed this validation to achieve our own purposes, and we use it for applications that are already using our [PowerAuth stack](https://github.com/wultra/powerauth-crypto/blob/develop/docs/Readme.md).
+  - We designed this validation to achieve our own purposes, and we use it for applications that are already using our [PowerAuth stack](https://github.com/wultra/powerauth-crypto).
   - The validation routine returns a list of findings which may have a different meaning for a PIN with different length. For example, if you're pretty sure that 4-digits long PINs are OK for your purposes, then you can ignore several findings. We discuss this in detail in the per-platform integration tutorials.
 
 
@@ -53,9 +53,9 @@ The library is licensed using Apache 2.0 license with a small portion of code li
   - All future source codes will be licensed under Apache 2.0.
   
 - MIT licensed files:
-  - [Source/src_native/zxcvbn.h](https://github.com/wultra/passphrase-meter/blob/develop/Source/src_native/zxcvbn.h)
-  - [Source/src_native/zxcvbn.c](https://github.com/wultra/passphrase-meter/blob/develop/Source/src_native/zxcvbn.c)
-  - [dict_generator/src/dict-generate.cpp](https://github.com/wultra/passphrase-meter/blob/develop/dict_generator/src/dict-generate.cpp) 
+  - [Source/src_native/zxcvbn.h](../Source/src_native/zxcvbn.h)
+  - [Source/src_native/zxcvbn.c](../Source/src_native/zxcvbn.c)
+  - [dict_generator/src/dict-generate.cpp](../dict_generator/src/dict-generate.cpp) 
 
 You can use them with no restriction. If you are using this library, please let us know. We will be happy to share and promote your project.
 
