@@ -4,7 +4,7 @@
 
 To get Wultra Passphrase Meter for Android up and running in your app, add following dependency in your `gradle.build` file:
 
-```gradle
+```groovy
 repositories {
     jcenter() // if not defined elsewhere...
 }

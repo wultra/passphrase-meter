@@ -120,7 +120,7 @@ public class PasswordTester {
      * @param pin PIN to scan.
      * @return Immutable set of issues.
      * @throws WrongPinException if provided PIN contains some invalid characters,
-     * or is too long (there's a hard limit of 100 characters).
+     * is too short or long (minimum length for PIN is 4 and maximum 100).
      */
     public Set<PinTestResult> testPin(@NonNull String pin) throws WrongPinException {
 
