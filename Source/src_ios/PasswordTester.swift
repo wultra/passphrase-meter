@@ -53,8 +53,10 @@ public class PasswordTester {
     
     /// Tests strength of the PIN.
     ///
-    /// - Parameter pin: PIN to evaluate. This needs to be digits only.
-    /// - Returns: Optionset of found issues.
+    /// Minimum length for PIN is 4 and maximum 100.
+    ///
+    /// - Parameter pin: PIN to evaluate..
+    /// - Returns: OptionSet of found issues.
     public func testPin(_ pin: String) -> PinTestResult {
 		
         let code = WPM_testPasscode(pin).rawValue

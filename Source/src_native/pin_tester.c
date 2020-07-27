@@ -27,6 +27,11 @@
  */
 #define MAX_PIN_LENGTH 100
 
+/**
+ Minimum PIN length to be able to get reasonable result.
+ */
+#define MIN_PIN_LENGTH 4
+
 static const char* mostUsedPin[] =
 {
     "1234","1111","0000","1212","7777","1004","2000","4444","2222","6969","9999","3333","5555","6666","1122","1313","8888",
@@ -387,14 +392,14 @@ static bool isFrequentlyUsed(const char *pin)
 }
 
 /**
- Validates input string whether contains only digits.
+ Validates input string whether contains only digits and is within the "string size limit".
 
  @param pin string with PIN
  @param pinLength length of provided PIN
  @return true if PIN is not valid.
  */
 static bool isInvalidPIN(const char * pin, size_t pinLength) {
-	if (pinLength > MAX_PIN_LENGTH) {
+	if (pinLength > MAX_PIN_LENGTH || pinLength < MIN_PIN_LENGTH) {
 		return true;
 	}
     for (size_t index = 0; index < pinLength; index++) {

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'WultraPassphraseMeter'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'Streng tester for passwords and passcodes.'
   s.description      = 'A library that checks the strength of a pin or a password.'
   s.social_media_url = 'https://twitter.com/wultra'

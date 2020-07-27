@@ -39,7 +39,7 @@ WPM_PasswordResult WPM_testPassword(const char *password)
     if (log < 6) return WPM_PasswordResult_Weak;
     if (log < 8) return WPM_PasswordResult_Moderate;
     if (log < 10) return WPM_PasswordResult_Good;
-    return  WPM_PasswordResult_Strong;
+    return WPM_PasswordResult_Strong;
 }
 
 /**

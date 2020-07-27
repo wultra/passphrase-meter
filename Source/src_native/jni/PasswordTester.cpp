@@ -77,7 +77,7 @@ JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_te
         result = WPM_testPasscode(cppPin);
         jenv->ReleaseStringUTFChars(pin, cppPin);
     } else {
-        result = WPM_PasswordResult_WrongInput;
+        result = WPM_PasscodeResult_WrongInput;
     }
     return result;
 }
