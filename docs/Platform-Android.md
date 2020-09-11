@@ -136,10 +136,8 @@ The repository contains a simple example application, showing usage of the libra
 1. Build and run an example application
 
 If everything works fine, then you can test your passwords in the simulator (or on a real device):
+
 ![Android Example App](./images/android-tester.png)
-
-
----
 
 ## Contact
 
