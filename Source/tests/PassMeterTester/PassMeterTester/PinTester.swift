@@ -19,32 +19,43 @@ import Foundation
 final class PinTester {
     private init() { }
     
-    static func test(_ url: URL) {
+    static func test(_ url: URL) -> Int32 {
         
         guard var loadedPins = loadFromFile(url) else {
             print("Failed to load pin file")
-            return
+            return 1
         }
         
         var badPins = 0
+        var tested = 0.0
+        let total = Double(loadedPins.count)
         
         PinGenerator.pins(maxLength: testingPinLength) { pin, percent in
             
+            tested += 1
+            
+            if tested.truncatingRemainder(dividingBy: 100000) == 0 {
+                print("  \((tested/total).rounded(toPlaces: 2))% done \r", terminator: "")
+                fflush(stdout)
+            }
+            
             if let filePin = loadedPins.removeValue(forKey: pin.value) {
                 if pin.result != filePin.result {
-                    print("\(pin.value) changed from \(filePin.result) to \(pin.result)")
+                    print("\(pin.value) changed from \(filePin.result) to \(pin.result)", terminator: ", ")
                     badPins += 1
                 }
             } else if pin.result.isEmpty == false {
-                print("\(pin.value) changed from OK to \(pin.result)")
+                print("\(pin.value) changed from OK to \(pin.result)", terminator: ", ")
                 badPins += 1
             }
         }
         
         if badPins > 0 {
             print("\(badPins) has changed from testing set.")
+            return 1
         } else {
             print("Everything looks 👌")
+            return 0
         }
     }
     
@@ -67,5 +78,13 @@ final class PinTester {
         let items = content.split(separator: ",").map { Pin(fromFileFormat: String($0)) }
         
         return Dictionary(uniqueKeysWithValues: items.map({ ($0.value, $0) }))
+    }
+}
+
+extension Double {
+    /// Rounds the double to decimal places value
+    func rounded(toPlaces places :Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
     }
 }

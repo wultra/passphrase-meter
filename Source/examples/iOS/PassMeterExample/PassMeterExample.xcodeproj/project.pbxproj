@@ -235,18 +235,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PassMeterExample/Pods-PassMeterExample-resources.sh",
-				"${PODS_ROOT}/../../../../../dictionaries/czsk.dct",
-				"${PODS_ROOT}/../../../../../dictionaries/en.dct",
+				"${PODS_ROOT}/Target Support Files/Pods-PassMeterExample/Pods-PassMeterExample-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/czsk.dct",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.dct",
+				"${PODS_ROOT}/Target Support Files/Pods-PassMeterExample/Pods-PassMeterExample-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -281,18 +274,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests-resources.sh",
-				"${PODS_ROOT}/../../../../../dictionaries/czsk.dct",
-				"${PODS_ROOT}/../../../../../dictionaries/en.dct",
+				"${PODS_ROOT}/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/czsk.dct",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.dct",
+				"${PODS_ROOT}/Target Support Files/Pods-PassMeterExampleTests/Pods-PassMeterExampleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

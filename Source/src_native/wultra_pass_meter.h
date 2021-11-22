@@ -28,7 +28,7 @@ extern "C" {
 /**
  Checks, if the passcode has any possible issues in it.
 
- @param passcode String with the passcode (needs to be degits only)
+ @param passcode String with the passcode (needs to be digits only)
  @return Returns issues found in the passcode
 */
 WPM_PasscodeResult WPM_testPasscode(const char * passcode);
@@ -39,19 +39,19 @@ struct AAssetManager;
 typedef struct AAssetManager AAssetManager;
 
 /**
- Sets dictionary with poorly rated words. When dictionary is no longer needed, call `WPM_freePasswordDictionary` to free resources
+ Sets dictionary with poorly rated words. When the dictionary is no longer needed, call `WPM_freePasswordDictionary` to free resources.
 
  @param assetName Name of the asset with password 'blacklist' dictionary.
  @param manager Asset manager where the asset is stored
- @return true if dictionary is set successfully
+ @return true If the dictionary is set successfully
  */
 bool WPM_setPasswordDictionary(AAssetManager *manager, const char * assetName);
 #else
 /**
- Sets dictionary with poorly rated words. When dictionary is no longer needed, call `WPM_freePasswordDictionary` to free resources
+ Sets dictionary with poorly rated words. When the dictionary is no longer needed, call `WPM_freePasswordDictionary` to free resources
 
  @param dictionary Path to the password 'blacklist' dictionary.
- @return true if dictionary is set successfully
+ @return True if the dictionary is set successfully
  */
 bool WPM_setPasswordDictionary(const char * dictionary);
 #endif
@@ -69,7 +69,7 @@ bool WPM_hasPasswordDictionary(void);
 /**
  Returns strength of the given password
  
- @param password Passwords that you want to classify
+ @param password A password that you want to classify
  @return Strength classification
  */
 WPM_PasswordResult WPM_testPassword(const char * password);

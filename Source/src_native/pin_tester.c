@@ -22,13 +22,12 @@
 #pragma mark - PRIVATE
 
 /**
- Defines maximum acceptable length of the PIN. We need this constant to limit
- a buffers, created on the stack.
+ Defines the maximum acceptable length of the PIN. We need this constant to limit buffers, created on the stack.
  */
 #define MAX_PIN_LENGTH 100
 
 /**
- Minimum PIN length to be able to get reasonable result.
+ Minimum PIN length to be able to get reasonable results.
  */
 #define MIN_PIN_LENGTH 4
 
@@ -55,14 +54,14 @@ static const char* mostUsedPin[] =
 };
 
 /**
- Takes 2 integer arrays and comapres each element between them from different starting points
+ Takes 2 integer arrays and compares each element between them from different starting points.
  
  @param ar1 Array with numbers
- @param ar1start Index where beginning of the compared part should be
+ @param ar1start Index where the beginning of the compared part should be
  @param ar2 Array with numbers
- @param ar2start Index where beginning of the compared part should be
+ @param ar2start Index where the beginning of the compared part should be
  @param length Length of both array slices (needs to be same)
- @return Returns if arrays are equal
+ @return Returns If arrays are equal
  */
 static bool arrayEquals(const char *ar1, const size_t ar1start, const char *ar2, const size_t ar2start, const size_t length)
 {
@@ -76,15 +75,15 @@ static bool arrayEquals(const char *ar1, const size_t ar1start, const char *ar2,
 }
 
 /**
- Takes 2 char arrays and comapres each element between them from different starting points. The 2nd array is
+ Takes 2 char arrays and compares each element between them from different starting points. The 2nd array is
  processed in reverse order.
  
  @param ar1 Array with numbers
- @param ar1start Index where beginning of the compared part should be
+ @param ar1start Index where the beginning of the compared part should be
  @param ar2 Array with numbers
- @param ar2start Index where beginning of the compared part should be
+ @param ar2start Index where the beginning of the compared part should be
  @param length Length of both array slices (needs to be same)
- @return Returns if arrays are equal
+ @return Returns If arrays are equal
  */
 static bool arrayEqualsInv(const char *ar1, const size_t ar1start, const char *ar2, const size_t ar2start, const size_t length)
 {
@@ -98,34 +97,38 @@ static bool arrayEqualsInv(const char *ar1, const size_t ar1start, const char *a
 }
 
 /**
- Checks, if the the year in the date should be considered as pattern.
+ Checks if the year in the date should be considered as a pattern.
  
- @param date Date with year
+ @param date Date with a year
  @return Is the year ok?
  */
 static bool isYearOK(const struct tm *date, bool fromShortFormat)
 {
-    time_t t = time(NULL);
+    #ifdef CONSISTENCY_TEST_TIME
+        time_t t = CONSISTENCY_TEST_TIME; // When the consistency test reference file was generated.
+    #else
+        time_t t = time(NULL); // In other cases, use the current time.
+    #endif
     struct tm *currentDate = localtime(&t);
     int year = date->tm_year;
-    // when short format for date was used (for example 90 for 1990)
-    // and date is bigger than current, just assume user thinks about date in past
+    // When a short format for the date was used (for example 90 for 1990)
+    // and date is bigger than current, just assume user thinks about the date in past.
     if (fromShortFormat && year > currentDate->tm_year) {
         year -= 100;
     }
-    // check if year is more than curreny year on less then current-90
+    // Check if the year is more than the current year on less than current minus 90.
     return year < currentDate->tm_year - 90 || year > currentDate->tm_year;
 }
 
 
 /**
- Parsing given date in chosen format. Parsing is sucessful only when
- whole string is used.
+ Parsing given date in chosen format. Parsing is successful only when
+ the whole string is used.
 
- @param format format of date
- @param date date  string
- @param r structure to fill
- @return if parsing was successful
+ @param format Format of the date
+ @param date Date string
+ @param r Structure to fill
+ @return If parsing was successful
  */
 static bool parseDate(const char *format, const char *date, struct tm *r) {
     char *ptr = strptime(date, format, r);
@@ -138,21 +141,21 @@ static bool parseDate(const char *format, const char *date, struct tm *r) {
 
 /**
  Calculates how many different digits are in the array.
- For example in array {1,5,6,5} there are 3 unique intiger 1,5,6
+ For example in array {1,5,6,5} there are 3 unique integer 1,5,6.
  
- @param digits Array wirh digits
+ @param digits Array with digits
  @param digitsCount Length of the array
- @return returns count of unique digits
+ @return Returns count of unique digits
  */
 static size_t uniqueDigitsCount(const char *digits, size_t digitsCount)
 {
-    // first assumption is all digits are unique
+    // The first assumption is that all digits are unique.
     size_t uniqueDigits = digitsCount;
     
-    // check every digit with the following digits
+    // Verify every digit with the following digits.
     for (size_t i = 0; i < digitsCount; i++) {
         for (size_t u = i + 1; u < digitsCount; u++) {
-            // if same digits is found, mark this digit as not unique
+            // If the same digits are found, mark this digit as not unique
             if (digits[i] == digits[u]) {
                 uniqueDigits--;
                 break;
@@ -179,11 +182,11 @@ static bool isUniqueOK(const char *digits, size_t pinLength)
 
 /**
  Searches for repeating digits in the pin.
- For example 692692 is repeating.
+ For example, 692692 is repeating.
  
- @param digits Array with pin
- @param pinLength Length of the pin
- @return Returns if there are not repeating digits
+ @param digits Array with the PIN
+ @param pinLength Length of the PIN
+ @return Returns If there are not repeating digits
  */
 static bool isRepeatingOK(const char *digits, size_t pinLength) {
     
@@ -195,10 +198,10 @@ static bool isRepeatingOK(const char *digits, size_t pinLength) {
         size_t length;
     } groupsTested[MAX_PIN_LENGTH/2];
     
-    // this is biggest length of possible repeating pattern
+    // this is the biggest length of a possible repeating pattern
     const size_t maxLength = pinLength / 2;
     
-    // start searchin for patterns with various lengths
+    // start searching for patterns with various lengths
     for (size_t length = 2; length <= maxLength; length++) {
         
         // start searching for parts of the pin that could be repeated
@@ -230,14 +233,14 @@ static bool isRepeatingOK(const char *digits, size_t pinLength) {
             
             bool lastRepeatingFound = false;
             
-            // now start moving after first group to search for repeating patterns
+            // now start moving after the first group to search for repeating patterns
             size_t searchStart = start + length;
             while (searchStart + length <= pinLength) {
                 
-                // now check, if the two groups are equals
-                // for first loop {3,1}, they wont. for second {1,2}, they will. Also, we're checking for inverted order of second group to pottentiinaly match {1,2,3,2,1}
+                // now check if the two groups are equals
+                // for the first loop {3,1}, they won't. for second {1,2}, they will. Also, we're checking for inverted order of the second group to potentially match {1,2,3,2,1}
                 if (arrayEquals(digits, start, digits, searchStart, length) || arrayEqualsInv(digits, start, digits, searchStart, length)) {
-                    // we found repeating pattern! save how many digits are part of this pattern
+                    // we found a repeating pattern! save how many digits are part of this pattern
                     digitsRepeating += length;
                     // move searchStart behind this pattern we just found
                     searchStart = searchStart + length;
@@ -263,37 +266,37 @@ static bool isRepeatingOK(const char *digits, size_t pinLength) {
  Searches for patterns in the pin.
  Patterns can be 1234, 3579, 5331, 2580, ...
  
- @param digits Array with the pin
- @param pinLength Length of the pin
- @return Returns in no patterns were found
+ @param digits Array with the PIN
+ @param pinLength Length of the PIN
+ @return Returns if no patterns were found
  */
 static bool isPatternOK(const char *digits, const size_t pinLength)
 {
     size_t totalSequence = 0;
     
-    // start searching for pattern for where each digit can be start of the pattern
-    // search to pinLength-2, because pattern needs to be at least 3 digit long
+    // start searching for a pattern for where each digit can be the start of the pattern
+    // search to pinLength-2, because the pattern needs to be at least 3 digits long
     size_t index = 0;
     while (index < pinLength-2) {
         
         // next number in the pattern. Adding 2 here to skip the first following.
-        // 2 numbers cannot be an pattern, they just sets  how big the 'gap' in the pattern is
+        // 2 numbers cannot be a pattern, they just set how big the 'gap' in the pattern is
         size_t following = index + 2;
-        size_t sequence = 0; // how many numbers are involed in the pattern
-        size_t repeating = 0; // when number in pattern is repeated (like 4556)
+        size_t sequence = 0; // how many numbers are involved in the pattern
+        size_t repeating = 0; // when the number in the pattern is repeated (like 4556)
         
-        int shift = digits[index + 1] - digits[index]; // gap between two digits of pattern (it will be 4 for 1,5,9)
+        int shift = digits[index + 1] - digits[index]; // the gap between two digits of the pattern (it will be 4 for 1,5,9)
         
         while (following < pinLength) {
-            // if  the third, fourth, ... number has the same gap, its a pattern
+            // if the third, fourth, ... number has the same gap, it's a pattern
             if (digits[following] - digits[following - 1] == shift) {
-                // if we found first number in pattern, add 3 as minimum length  for  pattern
+                // if we found the first number in the pattern, add 3 as the minimum length for the pattern
                 sequence += sequence == 0 ? 3 : 1;
                 // if the number is the same as previous, add it to patten too
             } else if (digits[following] == digits[following - 1]) {
                 repeating++;
             } else {
-                break; // stop if pattern is broken
+                break; // stop if the pattern is broken
             }
             
             following++;
@@ -303,7 +306,7 @@ static bool isPatternOK(const char *digits, const size_t pinLength)
             sequence += repeating;
         }
         
-        // if sequence was found (minimum sequence length is 3)
+        // if the sequence was found (minimum sequence length is 3)
         if (sequence >= 3) {
             index = following + 1; // move past the sequence
             totalSequence += sequence; // add to total sequence count
@@ -323,16 +326,16 @@ static bool isPatternOK(const char *digits, const size_t pinLength)
 }
 
 /**
- Checks, if the pin could be date in various format.
- This check should be presented to user only as mild warning,
+ Checks, if the pin could be a date in various formats.
+ This check should be presented to the user only as a mild warning,
  for example: "This pin looks like a date, is it your birthday?"
  
- It checks folowwing formats: mmdd,ddmm, mmddyy, ddmmyy, mmddyyyy, ddmmyyyy, yyyy.
- For years, it only check years between CURRENTYEAR-80
+ It checks following formats: mmdd,ddmm, mmddyy, ddmmyy, mmddyyyy, ddmmyyyy, yyyy.
+ For years, it only checks years between CURRENTYEAR-80
  
- @param pin String with the pin
- @param pinLength Length of the pin
- @return Returns if pin is not date
+ @param pin String with the PIN
+ @param pinLength Length of the PIN
+ @return Returns If the PIN is not a date
  */
 static bool isDateOK(const char *pin, const size_t pinLength) {
     
@@ -342,12 +345,12 @@ static bool isDateOK(const char *pin, const size_t pinLength) {
         
         struct tm r;
         
-        // if pin could be date like 0304 (3rd of April or 4th of March)
+        // If the PIN could be date like 0304 (3rd of April or 4th of March)
         if (parseDate("%d%m", pin, &r) || parseDate("%d%m", pin, &r)) {
             return false;
         }
         
-        // if pin could be valid year (like 1982), that could be year of birth
+        // If the PIN could be valid year (like 1982), that could be year of birth
         if (parseDate("%Y", pin, &r) && !isYearOK(&r, false)) {
             return false;
         }
@@ -355,7 +358,7 @@ static bool isDateOK(const char *pin, const size_t pinLength) {
     } else if (pinLength == 6) {
         
         struct tm r;
-        // if pin could be date with year (like 121091 that could be 12th of October or 10th of December 1991)
+        // If the PIN could be a date with a year (like 121091 that could be 12th of October or 10th of December 1991)
         if ((parseDate("%d%m%y", pin, &r) || parseDate("%m%d%y", pin, &r)) && !isYearOK(&r, true)) {
             return false;
         }
@@ -363,7 +366,7 @@ static bool isDateOK(const char *pin, const size_t pinLength) {
     } else if (pinLength == 8) {
         
         struct tm r;
-        // if pin could be date with year (like 12101991 that could be 12th of October or 10th of December 1991)
+        // If the PIN could be a date with a year (like 12101991 that could be 12th of October or 10th of December 1991)
         if ((parseDate("%d%m%Y", pin, &r) || parseDate("%m%d%Y", pin, &r)) && !isYearOK(&r, false)) {
             return false;
         }
@@ -374,10 +377,10 @@ static bool isDateOK(const char *pin, const size_t pinLength) {
 
 
 /**
- Determines if the pin is among most used ones
+ Determines if the PIN is among the most used ones
  
- @param pin String with the pin
- @return True if is among the most used ones
+ @param pin String with the PIN
+ @return True if the PIN is among the most used ones
  */
 static bool isFrequentlyUsed(const char *pin)
 {
@@ -394,9 +397,9 @@ static bool isFrequentlyUsed(const char *pin)
 /**
  Validates input string whether contains only digits and is within the "string size limit".
 
- @param pin string with PIN
- @param pinLength length of provided PIN
- @return true if PIN is not valid.
+ @param pin String with PIN
+ @param pinLength Length of the provided PIN
+ @return true If the PIN is not valid.
  */
 static bool isInvalidPIN(const char * pin, size_t pinLength) {
 	if (pinLength > MAX_PIN_LENGTH || pinLength < MIN_PIN_LENGTH) {

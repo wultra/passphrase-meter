@@ -9,3 +9,15 @@ end
 target 'PassMeterTester' do
   shared_pods
 end
+
+post_install do |installer_representation|
+  installer_representation.pods_project.targets.each do |target|
+    if target.name == "WultraPassphraseMeter"
+      target.build_configurations.each do |config|
+        if config.name == 'Test'
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'CONSISTENCY_TEST_TIME=1551049200']
+        end
+      end
+    end
+  end
+end
