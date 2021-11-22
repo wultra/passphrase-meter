@@ -27,17 +27,8 @@ final class PinTester {
         }
         
         var badPins = 0
-        var tested = 0.0
-        let total = Double(loadedPins.count)
         
         PinGenerator.pins(maxLength: testingPinLength) { pin, percent in
-            
-            tested += 1
-            
-            if tested.truncatingRemainder(dividingBy: 100000) == 0 {
-                print("  \((tested/total).rounded(toPlaces: 2))% done \r", terminator: "")
-                fflush(stdout)
-            }
             
             if let filePin = loadedPins.removeValue(forKey: pin.value) {
                 if pin.result != filePin.result {
