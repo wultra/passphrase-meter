@@ -50,8 +50,18 @@ final class PinGenerator {
         
         // we only need to test 20% of the numbers to get the full coverage of variants (the rest is just variants for 1234....,2345....,3456....)
         let capacity = Int(pow(10, Double(maxLength)))/5
+        var tested = 0.0
+        let total = Double(capacity)
         
         for pin in 0..<capacity {
+            
+            tested += 1
+            
+            if tested.truncatingRemainder(dividingBy: 100000) == 0 {
+                print("  \(((tested/total)*100).rounded(toPlaces: 2))% done \r", terminator: "")
+                fflush(stdout)
+            }
+            
             let digits = numberOfDigits(in: pin)
             for length in 4...maxLength {
                 if digits > length {

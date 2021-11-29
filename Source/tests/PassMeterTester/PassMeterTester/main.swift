@@ -48,8 +48,9 @@ if CommandLine.arguments[1] == "-generate" {
     }
 } else if CommandLine.arguments[1] == "-test" {
     print("Testing given file against current code...")
-    PinTester.test(url)
+    let exitCode = PinTester.test(url)
     print("Done!")
+    exit(exitCode)
 } else {
     print("Unkown parameter")
     exit(1)

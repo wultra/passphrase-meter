@@ -1,9 +1,11 @@
 #!/bin/bash
 
-#set -e # stop sript when error occures
+set -e # stop sript when error occures
 #set -x # print all execution (good for debugging)
 
-testfile=$(pwd)/testfile.txt
+SCRIPT_FOLDER=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+testfile=${SCRIPT_FOLDER}/testfile.txt
 
 function section { # prints section header
     echo -e "\033[0;32m\n ## ${1} ## \033[0m"
@@ -18,25 +20,22 @@ function error { # prints failed text to console and exits
     echo -e "\033[0;31m${1}\033[0m"
     exit 1
 }
-function qpopd { # quiet popd
-    popd > /dev/null
-}
-function qpushd { # quiet pushd
-    pushd "$1" > /dev/null
-}
 
-# This tests tests pins between 0000 - 1999999 if there was any change with current implementation
+# This checks if there is a change with current implementation between PINs 0000 - 1999999
 function consistencytest { 
-    qpushd "PassMeterTester"
+    pushd "${SCRIPT_FOLDER}/PassMeterTester"
+    buildfolder="build/Test"
     section "CONSISTENCY TESTS ON PIN SAMPLES"
     subtask "cleaning project"
-    xcodebuild -workspace PassMeterTester.xcworkspace -scheme PassMeterTester clean > /dev/null 2>&1
+    xcodebuild -workspace PassMeterTester.xcworkspace -scheme PassMeterTester clean
+    rm -rf "${buildfolder}"
+    rm -rf "Pods"
     subtask "running cocoapods"
-    pod install > /dev/null
+    pod install
     subtask "building test project"
-    xcodebuild -quiet -workspace PassMeterTester.xcworkspace -configuration Debug -sdk macosx10.14 -scheme PassMeterTester build OBJROOT=$(PWD)/build SYMROOT=$(PWD)/build > /dev/null 2>&1
+    xcodebuild -workspace PassMeterTester.xcworkspace -configuration Test -sdk macosx12.0 -scheme PassMeterTester build OBJROOT=$(PWD)/build SYMROOT=$(PWD)/build
 
-    qpushd "build/Debug"
+    pushd "${buildfolder}"
 
     if [[ $1 = "generate" ]]; then
         section "RUNNING FILE GENERATING"
@@ -47,53 +46,46 @@ function consistencytest {
         ./PassMeterTester "-test" "${testfile}"
     fi
 
-    qpopd
-    qpopd
+    popd
+    popd
 }
 
-# Builds and runs ios test
+# Build and run iOS tests
 function iostest {
-    qpushd "../examples/iOS/PassMeterExample"
+    pushd "${SCRIPT_FOLDER}/../examples/iOS/PassMeterExample"
     section "iOS TESTS"
     subtask "cleaning project"
-    xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample clean > /dev/null 2>&1
+    xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample clean
     subtask "running cocoapods"
-    pod install > /dev/null
+    pod install
     subtask "running tests"
-    xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample -destination 'platform=iOS Simulator,name=iPhone SE,OS=12.2' test > /dev/null 2>&1
+    xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample -destination 'platform=iOS Simulator,name=iPhone 12 mini,OS=15.0' test
     if [[ $? != 0 ]]; then
         error "iOS TESTS FAILED"
     else
         success "iOS TESTS OK"
     fi
-    qpopd
+    popd
 }
 
-# Builds and runs android test
+# Build and run Android tests
 function androidtest {
     section "ANDROID TESTS"
     subtask "Publishing library to local maven"
-    sh "../src_android/scripts/build-publish-local.sh" > /dev/null 2>&1
+    sh "${SCRIPT_FOLDER}/../src_android/scripts/build-publish-local.sh"
     if [[ $? != 0 ]]; then
         error "ANDROID LIB BUILD FAILED"
     fi
-    qpushd "$HOME/Library/Android/sdk/tools/"
-    subtask "starting emulator"
-    name=$(./emulator -list-avds | head -n1)
-    ./emulator "@${name}" &
-    adb wait-for-device
-    qpopd
-    qpushd "../examples/Android/PassMeterExample"
+    # Note that at this point, android simulator should be running
+    pushd "${SCRIPT_FOLDER}/../examples/Android/PassMeterExample"
     subtask "running tests"
-    ./gradlew "clean" "cAT" > /dev/null 2>&1
+    ./gradlew "clean" "cAT" #> /dev/null 2>&1
     if [[ $? != 0 ]]; then
         error "ANDROID TESTS FAILED"
     else
         success "ANDROID TESTS OK"
     fi
 }
-
-echo -e "\n!! All scripts are running in silent mode (no output). In case of test fail, modify this script to be able to debug."
 
 consistencytest $1
 iostest

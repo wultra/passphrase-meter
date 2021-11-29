@@ -21,19 +21,19 @@
 extern "C" {
 #endif
 
-/// Result of WPM_testPasscode function that can result with multiple issues.
+/// Result of WPM_testPasscode function that can result in multiple issues.
 typedef enum _WPM_PasscodeResult {
-    /// Passcode is OK, no issues found
+    /// The passcode is OK, no issues found
     WPM_PasscodeResult_Ok             = 1 << 0,
-    /// Passcode doesn't have enough unique digits
+    /// The passcode doesn't have enough unique digits
     WPM_PasscodeResult_NotUnique      = 1 << 1,
-    /// There is significant amount of repeating characters in the passcode
+    /// There is a significant amount of repeating characters in the passcode
     WPM_PasscodeResult_RepeatingChars = 1 << 2,
-    /// Repeating pattern was found in the passcode
+    /// A repeating pattern was found in the passcode
     WPM_PasscodeResult_HasPattern     = 1 << 3,
-    /// This passcode can be date (and possible birthday of the user)
+    /// This passcode can be a date (and possible birthday of the user)
     WPM_PasscodeResult_PossiblyDate   = 1 << 4,
-    /// Passcode is in most used passcodes
+    /// The passcode is in most used passcodes
     WPM_PasscodeResult_FrequentlyUsed = 1 << 5,
     /// Wrong input
     WPM_PasscodeResult_WrongInput     = 1 << 6
