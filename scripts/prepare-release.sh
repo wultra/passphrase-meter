@@ -24,8 +24,9 @@ BUILD_DIR="${TOP}/Lib"
 function USAGE
 {
     echo ""
-    echo "Usage:  $CMD version"
+    echo "Usage: $CMD version"
     echo ""
+    echo "  -p | --publish    creates tag and commit message"
     echo ""
     echo "  -v0               turn off all prints to stdout"
     echo "  -v1               print only basic log about build progress"
@@ -45,7 +46,7 @@ function PATCH_LIBRARY_VERSION
     
     PUSH_DIR "$SRC_ROOT"
     
-    local FW_VERSION_FILE="AppProtection/AppProtection/Configs/FwVersion.xcconfig"
+    local FW_VERSION_FILE="Source/proj_ios/FwVersion.xcconfig"
 
     # Revert possible changes in version file, to do not increase version if build has not been published
     git checkout -- $FW_VERSION_FILE
@@ -72,7 +73,7 @@ function PATCH_LIBRARY_VERSION
 # -----------------------------------------------------------------------------
 function PREPARE_BUILD
 {
-    #PATCH_LIBRARY_VERSION
+    PATCH_LIBRARY_VERSION
     
     LOG_LINE
     LOG "Building library..."
@@ -90,24 +91,27 @@ function PREPARE_RELEASE
     LOG_LINE
     LOG "Preparing repository for distribution..."
 
-    cp "${TOP}/Package.swift.tpl" "${SRC_ROOT}/Package.swift"
-        
     PUSH_DIR "${BUILD_DIR}"
 
-    for target in "${TARGETS[@]}"; do
-        LOG "- Preparing artifact archives..."
+    local TPL_CONTENT=$(cat "$TOP/Package.swift.tpl")
+    local PACKAGE_CONTENT=$(echo "$TPL_CONTENT")
+    
+    for TARGET in "${TARGETS[@]}"; do
+        LOG "- Preparing ${TARGET} archive..."
         local ZIP_FILE="${TARGET}-${VERSION}.xcframework.zip"
         local ZIP_URL="https://github.com/wultra/powerauth-mobile-sdk-spm/releases/download/${VERSION}/${ZIP_FILE}"
         
-        zip -9yrq "$ZIP_FILE" "${LIB}.xcframework"
+        zip -9yrq "${ZIP_FILE}" "${TARGET}.xcframework"
         
         local ZIP_HASH=$(SHA256 "$ZIP_FILE")
         
-        LOG "- Preparing Package.swift..."
-        sed -e "s|%ZIP_URL_${TARGET}%|$ZIP_URL|g" "${SRC_ROOT}/Package.swift" | sed -e "s/%ZIP_HASH_${TARGET}%/$ZIP_HASH/g" > "${SRC_ROOT}/Package.swift"
+        LOG "   - Patching Package.swift with ${TARGET} data..."
+        PACKAGE_CONTENT=$(echo "$PACKAGE_CONTENT" | sed -e "s|%ZIP_URL_${TARGET}%|$ZIP_URL|g" | sed -e "s|%ZIP_HASH_${TARGET}%|$ZIP_HASH|g")
     done
+
+    echo "$PACKAGE_CONTENT" > "${SRC_ROOT}/Package.swift"
     
-    LOG "- Prepare podspec..."
+    LOG "- Preparing podspec..."
     sed -e "s/%DEPLOY_VERSION%/$VERSION/g" "${TOP}/WultraPassphraseMeter.podspec.tpl" > "${SRC_ROOT}/WultraPassphraseMeter.podspec" 
         
     POP_DIR
@@ -121,10 +125,8 @@ function CREATE_AND_PUSH_TAG
     local XCVER=$(GET_XCODE_VERSION --full)
     local RELEASE_MSG="Version $VERSION, compiled with Xcode $XCVER"
     
-    PUSH_DIR "$RELEASE_DIR"
-    
     LOG_LINE
-    LOG "Publishing library into release repository..."
+    LOG "Creating release..."
     
     LOG "- Adding changed files..."
     git add .
@@ -133,30 +135,9 @@ function CREATE_AND_PUSH_TAG
     LOG "- Creating release tag..."
     git tag "${VERSION}"
     
-    LOG "- Pushing changes to release repository..."
+    LOG "- Pushing changes to repository..."
     git push --tags $GIT_VERBOSE
     git push $GIT_VERBOSE
-    
-    POP_DIR
-    
-    LOG_LINE
-    LOG "Final publishing to private repository..."
-    
-    PUSH_DIR "$SRC_ROOT"
-       
-    LOG "- Adding changed files..."
-    git add .
-    LOG "- Commiting changes..."
-    git commit -m "$RELEASE_MSG" $GIT_VERBOSE
-    
-    LOG "- Creating tag for version $VERSION"
-    git tag "${VERSION}"
-    LOG "- Pushing changes to private git..."
-    
-	git push --tags $GIT_VERBOSE
-    git push $GIT_VERBOSE
-    
-    POP_DIR
 }
 
 ###############################################################################

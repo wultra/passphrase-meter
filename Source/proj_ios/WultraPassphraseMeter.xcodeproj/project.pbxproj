@@ -64,6 +64,7 @@
 		DC5FBBB027A44B55008AAFDE /* WultraPassphraseMeterCZSKDictionary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WultraPassphraseMeterCZSKDictionary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC5FBBB727A44C6E008AAFDE /* PasswordTester_czsk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordTester_czsk.swift; path = ../../src_ios/PasswordTester_czsk.swift; sourceTree = "<group>"; };
 		DC5FBBB927A44C8C008AAFDE /* czsk.dct */ = {isa = PBXFileReference; lastKnownFileType = file; name = czsk.dct; path = ../../../dictionaries/czsk.dct; sourceTree = "<group>"; };
+		DC5FBBBD27A48A3A008AAFDE /* FwVersion.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FwVersion.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +96,7 @@
 		DC5FBB6527A41533008AAFDE = {
 			isa = PBXGroup;
 			children = (
+				DC5FBBBD27A48A3A008AAFDE /* FwVersion.xcconfig */,
 				DC5FBB7127A41533008AAFDE /* WultraPassphraseMeter */,
 				DC5FBB8F27A443F6008AAFDE /* WultraPassphraseMeterCore */,
 				DC5FBBB127A44B55008AAFDE /* WultraPassphraseMeterCZSKDictionary */,
@@ -332,6 +334,7 @@
 /* Begin XCBuildConfiguration section */
 		DC5FBB7427A41533008AAFDE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5FBBBD27A48A3A008AAFDE /* FwVersion.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -383,7 +386,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -397,6 +400,7 @@
 		};
 		DC5FBB7527A41533008AAFDE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5FBBBD27A48A3A008AAFDE /* FwVersion.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -442,7 +446,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -468,6 +472,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -477,6 +482,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wultra.WultraPassphraseMeter;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -498,6 +504,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -507,6 +514,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wultra.WultraPassphraseMeter;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -555,6 +563,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -585,6 +594,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
