@@ -1,3 +1,3 @@
 #!/bin/bash
 
-TARGETS=( "WultraPassphraseMeter" "WultraPassphraseMeterCZSKDictionary" )
+TARGETS=( "WultraPassphraseMeter" "WultraPassphraseMeterCZSKDictionary" "WultraPassphraseMeterENDictionary" )

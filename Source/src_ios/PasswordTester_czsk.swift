@@ -24,7 +24,7 @@ import WultraPassphraseMeter
 
 public extension PasswordTesterDictionary  {
     /// Dictionary with Czech and Slovak common words for password testing
-	static var czsk: PasswordTesterDictionary { return PasswordTesterDictionary(Bundle(for: BundleLocator.self).path(forResource: "czsk", ofType: "dct")!) }
+	static var czsk: PasswordTesterDictionary { return PasswordTesterDictionary(Bundle(for: CZSKBundleLocator.self).path(forResource: "czsk", ofType: "dct")!) }
 }
 
-private class BundleLocator { }
+private class CZSKBundleLocator { }
