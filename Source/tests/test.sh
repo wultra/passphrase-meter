@@ -59,7 +59,7 @@ function iostest {
     subtask "running cocoapods"
     pod install
     subtask "running tests"
-    xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample -destination 'platform=iOS Simulator,name=iPhone 12 mini,OS=15.0' test
+    xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample -destination 'platform=iOS Simulator,name=iPhone 12 mini,OS=15.2' test
     if [[ $? != 0 ]]; then
         error "iOS TESTS FAILED"
     else
