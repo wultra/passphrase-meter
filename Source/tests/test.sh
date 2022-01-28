@@ -33,7 +33,7 @@ function consistencytest {
     subtask "running cocoapods"
     pod install
     subtask "building test project"
-    xcodebuild -workspace PassMeterTester.xcworkspace -configuration Test -sdk macosx12.0 -scheme PassMeterTester build OBJROOT=$(PWD)/build SYMROOT=$(PWD)/build
+    xcodebuild -workspace PassMeterTester.xcworkspace -configuration Test -sdk macosx12.1-scheme PassMeterTester build OBJROOT=$(PWD)/build SYMROOT=$(PWD)/build
 
     pushd "${buildfolder}"
 
