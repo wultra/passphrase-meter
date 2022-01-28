@@ -15,8 +15,16 @@
 //
 
 import Foundation
+// import is not needed when built by Cocoapods
+// as the code is built together
+#if COCOAPODS
+#else
+import WultraPassphraseMeter
+#endif
 
 public extension PasswordTesterDictionary  {
-    /// Dictionary with czech and slovak common words for password testing
-	static var czsk: PasswordTesterDictionary { return PasswordTesterDictionary(Bundle(for: PasswordTester.self).path(forResource: "czsk", ofType: "dct")!) }
+    /// Dictionary with Czech and Slovak common words for password testing
+	static var czsk: PasswordTesterDictionary { return PasswordTesterDictionary(Bundle(for: BundleLocator.self).path(forResource: "czsk", ofType: "dct")!) }
 }
+
+private class BundleLocator { }
