@@ -99,7 +99,7 @@ function PREPARE_RELEASE
     for TARGET in "${TARGETS[@]}"; do
         LOG "- Preparing ${TARGET} archive..."
         local ZIP_FILE="${TARGET}-${VERSION}.xcframework.zip"
-        local ZIP_URL="https://github.com/wultra/powerauth-mobile-sdk-spm/releases/download/${VERSION}/${ZIP_FILE}"
+        local ZIP_URL="https://github.com/wultra/passphrase-meter/releases/download/${VERSION}/${ZIP_FILE}"
         
         zip -9yrq "${ZIP_FILE}" "${TARGET}.xcframework"
         
