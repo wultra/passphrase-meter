@@ -9,6 +9,7 @@ let package = Package(
     ],
     products: [
         .library(name: "WultraPassphraseMeter", targets: ["WultraPassphraseMeter"]),
+        .library(name: "WultraPassphraseMeterCore", targets: ["WultraPassphraseMeterCore"]),
         .library(name: "WultraPassphraseMeterCZSKDictionary", targets: ["WultraPassphraseMeterCZSKDictionary"]),
         .library(name: "WultraPassphraseMeterENDictionary", targets: ["WultraPassphraseMeterENDictionary"])
     ],
@@ -17,6 +18,10 @@ let package = Package(
             name: "WultraPassphraseMeter",
             url: "%ZIP_URL_WultraPassphraseMeter%",
             checksum: "%ZIP_HASH_WultraPassphraseMeter%"),
+        .binaryTarget(
+            name: "WultraPassphraseMeterCore",
+            url: "%ZIP_URL_WultraPassphraseMeterCore%",
+            checksum: "%ZIP_HASH_WultraPassphraseMeterCore%"),
         .binaryTarget(
             name: "WultraPassphraseMeterCZSKDictionary",
             url: "%ZIP_URL_WultraPassphraseMeterCZSKDictionary%",
