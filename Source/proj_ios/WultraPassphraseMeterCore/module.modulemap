@@ -1,0 +1,4 @@
+framework module WultraPassphraseMeterCore {
+ umbrella header "WultraPassphraseMeterCore.h"
+ export *
+}
