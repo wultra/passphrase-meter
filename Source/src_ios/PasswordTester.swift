@@ -15,7 +15,12 @@
 //
 
 import Foundation
-import PasswordMeter
+// the C module is named differently in CocoaPods
+#if COCOAPODS
+import PasswordMeter // Static library build by CocoaPods
+#else
+import WultraPassphraseMeterCore // SPM dynamic framework
+#endif
 
 /// Class that provides functionality for testing strength of passwords and PINs.
 /// Only `sharedInstance` singleton is available.
