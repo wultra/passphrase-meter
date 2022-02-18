@@ -75,7 +75,9 @@ function BUILD_LIB
         -archivePath "${ios_archive}" \
         -configuration "Release" \
         -sdk iphoneos \
-        SKIP_INSTALL=NO
+        SKIP_INSTALL=NO \
+        SWIFT_SERIALIZE_DEBUGGING_OPTIONS=NO \
+        BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
     # build for ios simulator
     xcodebuild archive \
@@ -84,7 +86,9 @@ function BUILD_LIB
         -archivePath "${sim_archive}" \
         -configuration "Release" \
         -sdk iphonesimulator \
-        SKIP_INSTALL=NO
+        SKIP_INSTALL=NO \
+        SWIFT_SERIALIZE_DEBUGGING_OPTIONS=NO \
+        BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
     # create xcframwork
     xcodebuild -create-xcframework \
