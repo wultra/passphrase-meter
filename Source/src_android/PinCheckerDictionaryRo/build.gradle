@@ -25,28 +25,12 @@ android {
         }
     }
 
-    // TODO currently doesn't work through flavors
-    // it doesn't release all artifacts, adjustments needed
-//    def dictionaryFlavors = [
-//            "en.dct"
-//    ]
-//    flavorDimensions "language"
-//    productFlavors {
-//        dictionaryFlavors.each { dictionaryFile ->
-//            def flavorName = "${dictionaryFile.replace(".dct","")}"
-//            "${flavorName}" {
-//                dimension "language"
-//                ext.artifactId = "ARTIFACT_ID_PREFIX${flavorName}"
-//            }
-//        }
-//    }
-
     sourceSets {
         main.assets.srcDirs = ["../../../dictionaries"]
     }
 
     aaptOptions {
-        ignoreAssetsPattern "!czsk.dct:!ro.dct"
+        ignoreAssetsPattern "!en.dct:!czsk"
     }
 }
 

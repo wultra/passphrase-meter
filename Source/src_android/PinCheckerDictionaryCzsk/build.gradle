@@ -30,7 +30,7 @@ android {
     }
 
     aaptOptions {
-        ignoreAssetsPattern "!en.dct"
+        ignoreAssetsPattern "!en.dct:!ro.dct"
     }
 }
 
