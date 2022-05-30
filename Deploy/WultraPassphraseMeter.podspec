@@ -35,4 +35,16 @@ Pod::Spec.new do |s|
     sub.dependency 'WultraPassphraseMeter/Core'
   end
 
+  s.subspec 'Dictionary_ru' do |sub|
+    sub.resources = 'dictionaries/ru.dct'
+    sub.source_files = 'Source/src_ios/PasswordTester_ru.swift'
+    sub.dependency 'WultraPassphraseMeter/Core'
+  end
+
+  s.subspec 'Dictionary_ro' do |sub|
+    sub.resources = 'dictionaries/ro.dct'
+    sub.source_files = 'Source/src_ios/PasswordTester_ro.swift'
+    sub.dependency 'WultraPassphraseMeter/Core'
+  end
+
 end

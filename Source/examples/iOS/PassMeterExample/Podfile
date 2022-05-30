@@ -4,6 +4,8 @@ def shared_pods
   pod 'WultraPassphraseMeter', :path => '../../../../'
   pod 'WultraPassphraseMeter/Dictionary_czsk', :path => '../../../../'
   pod 'WultraPassphraseMeter/Dictionary_en', :path => '../../../../'
+  pod 'WultraPassphraseMeter/Dictionary_ro', :path => '../../../../'
+  pod 'WultraPassphraseMeter/Dictionary_ru', :path => '../../../../'
 end
 
 target 'PassMeterExample' do
