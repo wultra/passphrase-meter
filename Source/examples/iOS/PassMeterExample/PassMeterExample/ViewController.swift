@@ -182,12 +182,11 @@ class ViewController: UIViewController {
     
     private struct Language {
         
-        static let all = [en, czsk, ro, ru]
+        static let all = [en, czsk, ro]
         
         static let en = Language(name: "English", dictionary: .en)
         static let czsk = Language(name: "Czech & Slovak", dictionary: .czsk)
         static let ro = Language(name: "Romanian", dictionary: .ro)
-        static let ru = Language(name: "Russian", dictionary: .ru)
         
         let name: String
         let dictionary: PasswordTesterDictionary

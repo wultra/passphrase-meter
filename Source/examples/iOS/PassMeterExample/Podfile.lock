@@ -8,23 +8,20 @@ PODS:
     - WultraPassphraseMeter/Core
   - WultraPassphraseMeter/Dictionary_ro (1.0.1):
     - WultraPassphraseMeter/Core
-  - WultraPassphraseMeter/Dictionary_ru (1.0.1):
-    - WultraPassphraseMeter/Core
 
 DEPENDENCIES:
   - WultraPassphraseMeter (from `../../../../`)
   - WultraPassphraseMeter/Dictionary_czsk (from `../../../../`)
   - WultraPassphraseMeter/Dictionary_en (from `../../../../`)
   - WultraPassphraseMeter/Dictionary_ro (from `../../../../`)
-  - WultraPassphraseMeter/Dictionary_ru (from `../../../../`)
 
 EXTERNAL SOURCES:
   WultraPassphraseMeter:
     :path: "../../../../"
 
 SPEC CHECKSUMS:
-  WultraPassphraseMeter: 313fbcd01f6055fc72397b7544f20eb698f04aae
+  WultraPassphraseMeter: 4b99e31c984e99703730311a329142fca6712176
 
-PODFILE CHECKSUM: aa3aa930f0c6c4a51a192614b3ece9669f3b40ea
+PODFILE CHECKSUM: c1db52398eaa2c3a0ec3c764fea0305e91762ae1
 
 COCOAPODS: 1.11.3
