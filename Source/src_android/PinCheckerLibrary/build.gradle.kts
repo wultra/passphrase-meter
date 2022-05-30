@@ -26,8 +26,6 @@ android {
     defaultConfig {
         minSdkVersion(Constants.minSdkVersion)
         targetSdkVersion(Constants.targetSdkVersion)
-        versionName = properties["VERSION_NAME"] as String
-        versionCode = 1
 
         vectorDrawables.useSupportLibrary = true
 
@@ -39,8 +37,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     dependencies {
@@ -52,7 +50,6 @@ android {
 
     buildTypes {
         getByName("release") {
-            minifyEnabled(false)
             consumerProguardFiles("proguard-rules.pro")
         }
     }
