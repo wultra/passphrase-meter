@@ -19,7 +19,6 @@ buildscript {
         mavenLocal()
         mavenCentral()
         google()
-        jcenter()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.2.1")
@@ -32,6 +31,5 @@ allprojects {
         mavenLocal()
         mavenCentral()
         google()
-        jcenter()
      }
 }

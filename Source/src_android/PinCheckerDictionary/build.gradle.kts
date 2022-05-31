@@ -23,11 +23,11 @@ plugins {
 
 android {
 
-    compileSdkVersion(Constants.compileSdkVersion)
+    compileSdk = Constants.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion(Constants.minSdkVersion)
-        targetSdkVersion(Constants.targetSdkVersion)
+        minSdk = Constants.minSdkVersion
+        targetSdk = Constants.targetSdkVersion
     }
 
     compileOptions {
@@ -46,7 +46,7 @@ android {
 
     sourceSets["main"].assets.srcDirs("../../../dictionaries")
 
-    aaptOptions {
+    androidResources {
         ignoreAssetsPattern = "!czsk.dct"
     }
 }
