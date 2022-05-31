@@ -10,7 +10,7 @@ on:
 
 jobs:
   android:
-    name: Build
+    name: Build Android
     runs-on: macos-latest
     steps:
       - name: Checkout the repo
@@ -18,7 +18,7 @@ jobs:
       - name: Build the Android aars
         run: ./Source/src_android/gradlew clean build
   ios:
-    name: Build
+    name: Build iOS
     runs-on: macos-latest
     steps:
       - name: Checkout the repo
