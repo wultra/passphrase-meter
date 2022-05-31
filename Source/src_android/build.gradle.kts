@@ -23,6 +23,8 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:7.2.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Constants.kotlinVersion}")
+        // releasing
+        classpath("com.github.dcendents:android-maven-gradle-plugin:2.1")
     }
 }
 
@@ -32,4 +34,8 @@ allprojects {
         mavenCentral()
         google()
      }
+}
+
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }

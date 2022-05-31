@@ -41,6 +41,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
     dependencies {
         implementation("com.android.support:support-annotations:28.0.0")
     }
@@ -60,3 +64,5 @@ android {
         }
     }
 }
+
+apply("../android-release-aar.gradle")
