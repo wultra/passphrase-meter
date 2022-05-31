@@ -63,6 +63,10 @@ android {
             path = File("${projectDir}/jni/Android.mk")
         }
     }
+
+    lint {
+        checkDependencies = true
+    }
 }
 
 apply("../android-release-aar.gradle")

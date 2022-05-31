@@ -53,6 +53,10 @@ android {
     androidResources {
         ignoreAssetsPattern = "!czsk.dct"
     }
+
+    lint {
+        checkDependencies = true
+    }
 }
 
 apply("../android-release-aar.gradle")
