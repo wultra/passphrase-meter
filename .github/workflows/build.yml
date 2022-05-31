@@ -16,7 +16,7 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v2
       - name: Build the Android aars
-        run: ./Source/src_android/gradlew clean build
+        run: pushd Source/src_android && ./gradlew clean build
   ios:
     name: Build iOS
     runs-on: macos-latest
