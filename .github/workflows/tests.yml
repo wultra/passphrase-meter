@@ -7,8 +7,6 @@ on:
       - master
       - releases/*
   pull_request:
-  schedule:
-    - cron: '25 6 * * *'
 
 jobs:
   tests:

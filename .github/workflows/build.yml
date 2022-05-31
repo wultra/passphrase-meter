@@ -1,0 +1,27 @@
+name: build
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+      - releases/*
+  pull_request:
+
+jobs:
+  android:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Build the Android aars
+        run: ./Source/src_android/gradlew clean build
+  ios:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Build the iOS xcframeworks
+        run: ./scripts/build.sh
