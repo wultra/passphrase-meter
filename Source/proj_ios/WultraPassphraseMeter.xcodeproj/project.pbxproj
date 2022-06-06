@@ -15,11 +15,11 @@
 		DC1AE0FF27A80D7A00CC0018 /* zxcvbn.h in Headers */ = {isa = PBXBuildFile; fileRef = DC5FBBA127A444FA008AAFDE /* zxcvbn.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC1AE10027A80D7A00CC0018 /* wpm_types.h in Headers */ = {isa = PBXBuildFile; fileRef = DC5FBB9F27A444FA008AAFDE /* wpm_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC1AE11227A828DC00CC0018 /* WultraPassphraseMeterCore.h in Headers */ = {isa = PBXBuildFile; fileRef = DC1AE11127A828DC00CC0018 /* WultraPassphraseMeterCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC1BA7E8284E59D600325092 /* en.dct in Resources */ = {isa = PBXBuildFile; fileRef = DC1BA7E7284E59D600325092 /* en.dct */; };
+		DC1BA7EB284E59F600325092 /* czsk.dct in Resources */ = {isa = PBXBuildFile; fileRef = DC1BA7EA284E59F100325092 /* czsk.dct */; };
 		DC5FBB7A27A442AD008AAFDE /* PasswordTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5FBB7927A442AD008AAFDE /* PasswordTester.swift */; };
 		DC5FBBB827A44C6E008AAFDE /* PasswordTester_czsk.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5FBBB727A44C6E008AAFDE /* PasswordTester_czsk.swift */; };
-		DC5FBBBA27A44C8C008AAFDE /* czsk.dct in Resources */ = {isa = PBXBuildFile; fileRef = DC5FBBB927A44C8C008AAFDE /* czsk.dct */; };
 		DC5FBBCB27A48F56008AAFDE /* PasswordTester_en.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5FBBCA27A48F56008AAFDE /* PasswordTester_en.swift */; };
-		DC5FBBCD27A48F63008AAFDE /* en.dct in Resources */ = {isa = PBXBuildFile; fileRef = DC5FBBCC27A48F63008AAFDE /* en.dct */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,11 +48,12 @@
 
 /* Begin PBXFileReference section */
 		DC1AE0F327A80D5300CC0018 /* WultraPassphraseMeterCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WultraPassphraseMeterCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC1AE0F527A80D5300CC0018 /* WultraPassphraseMeterCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WultraPassphraseMeterCore.h; sourceTree = "<group>"; };
 		DC1AE10327A80EB100CC0018 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		DC1AE11127A828DC00CC0018 /* WultraPassphraseMeterCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WultraPassphraseMeterCore.h; sourceTree = "<group>"; };
+		DC1BA7E7284E59D600325092 /* en.dct */ = {isa = PBXFileReference; lastKnownFileType = file; name = en.dct; path = ../../dictionaries/en.dct; sourceTree = "<group>"; };
+		DC1BA7EA284E59F100325092 /* czsk.dct */ = {isa = PBXFileReference; lastKnownFileType = file; name = czsk.dct; path = ../../dictionaries/czsk.dct; sourceTree = "<group>"; };
 		DC5FBB6F27A41533008AAFDE /* WultraPassphraseMeter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WultraPassphraseMeter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC5FBB7927A442AD008AAFDE /* PasswordTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordTester.swift; path = ../../src_ios/PasswordTester.swift; sourceTree = "<group>"; };
+		DC5FBB7927A442AD008AAFDE /* PasswordTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordTester.swift; path = ../src_ios/PasswordTester.swift; sourceTree = "<group>"; };
 		DC5FBB9A27A444FA008AAFDE /* zxcvbn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zxcvbn.c; path = ../../src_native/zxcvbn.c; sourceTree = "<group>"; };
 		DC5FBB9C27A444FA008AAFDE /* pin_tester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pin_tester.h; path = ../../src_native/pin_tester.h; sourceTree = "<group>"; };
 		DC5FBB9D27A444FA008AAFDE /* wultra_pass_meter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wultra_pass_meter.h; path = ../../src_native/wultra_pass_meter.h; sourceTree = "<group>"; };
@@ -61,12 +62,10 @@
 		DC5FBBA027A444FA008AAFDE /* wultra_pass_meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = wultra_pass_meter.c; path = ../../src_native/wultra_pass_meter.c; sourceTree = "<group>"; };
 		DC5FBBA127A444FA008AAFDE /* zxcvbn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zxcvbn.h; path = ../../src_native/zxcvbn.h; sourceTree = "<group>"; };
 		DC5FBBB027A44B55008AAFDE /* WultraPassphraseMeterCZSKDictionary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WultraPassphraseMeterCZSKDictionary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC5FBBB727A44C6E008AAFDE /* PasswordTester_czsk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordTester_czsk.swift; path = ../../src_ios/PasswordTester_czsk.swift; sourceTree = "<group>"; };
-		DC5FBBB927A44C8C008AAFDE /* czsk.dct */ = {isa = PBXFileReference; lastKnownFileType = file; name = czsk.dct; path = ../../../dictionaries/czsk.dct; sourceTree = "<group>"; };
+		DC5FBBB727A44C6E008AAFDE /* PasswordTester_czsk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordTester_czsk.swift; path = ../src_ios/PasswordTester_czsk.swift; sourceTree = "<group>"; };
 		DC5FBBBD27A48A3A008AAFDE /* FwVersion.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FwVersion.xcconfig; sourceTree = "<group>"; };
 		DC5FBBC327A48F3E008AAFDE /* WultraPassphraseMeterENDictionary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WultraPassphraseMeterENDictionary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC5FBBCA27A48F56008AAFDE /* PasswordTester_en.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordTester_en.swift; path = ../../src_ios/PasswordTester_en.swift; sourceTree = "<group>"; };
-		DC5FBBCC27A48F63008AAFDE /* en.dct */ = {isa = PBXFileReference; lastKnownFileType = file; name = en.dct; path = ../../../dictionaries/en.dct; sourceTree = "<group>"; };
+		DC5FBBCA27A48F56008AAFDE /* PasswordTester_en.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordTester_en.swift; path = ../src_ios/PasswordTester_en.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,23 +100,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DC1AE0F427A80D5300CC0018 /* WultraPassphraseMeterCore */ = {
+		DC1BA7E5284E597E00325092 /* WultraPassphraseMeterENDictionary */ = {
 			isa = PBXGroup;
 			children = (
-				DC1AE0F527A80D5300CC0018 /* WultraPassphraseMeterCore.h */,
+				DC1BA7E7284E59D600325092 /* en.dct */,
+				DC5FBBCA27A48F56008AAFDE /* PasswordTester_en.swift */,
 			);
-			path = WultraPassphraseMeterCore;
+			name = WultraPassphraseMeterENDictionary;
+			sourceTree = "<group>";
+		};
+		DC1BA7E9284E59E300325092 /* WultraPassphraseMeterCZSKDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				DC1BA7EA284E59F100325092 /* czsk.dct */,
+				DC5FBBB727A44C6E008AAFDE /* PasswordTester_czsk.swift */,
+			);
+			name = WultraPassphraseMeterCZSKDictionary;
+			sourceTree = "<group>";
+		};
+		DC1BA7EC284E5A0200325092 /* WultraPassphraseMeter */ = {
+			isa = PBXGroup;
+			children = (
+				DC5FBB7927A442AD008AAFDE /* PasswordTester.swift */,
+			);
+			name = WultraPassphraseMeter;
+			sourceTree = "<group>";
+		};
+		DC1BA7ED284E5A3B00325092 /* WultraPassphraseMeterRODictionary */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = WultraPassphraseMeterRODictionary;
 			sourceTree = "<group>";
 		};
 		DC5FBB6527A41533008AAFDE = {
 			isa = PBXGroup;
 			children = (
-				DC5FBBBD27A48A3A008AAFDE /* FwVersion.xcconfig */,
-				DC5FBB7127A41533008AAFDE /* WultraPassphraseMeter */,
+				DC1BA7ED284E5A3B00325092 /* WultraPassphraseMeterRODictionary */,
+				DC1BA7EC284E5A0200325092 /* WultraPassphraseMeter */,
 				DC5FBB8F27A443F6008AAFDE /* WultraPassphraseMeterCore */,
-				DC5FBBB127A44B55008AAFDE /* WultraPassphraseMeterCZSKDictionary */,
-				DC5FBBC427A48F3E008AAFDE /* WultraPassphraseMeterENDictionary */,
-				DC1AE0F427A80D5300CC0018 /* WultraPassphraseMeterCore */,
+				DC1BA7E9284E59E300325092 /* WultraPassphraseMeterCZSKDictionary */,
+				DC1BA7E5284E597E00325092 /* WultraPassphraseMeterENDictionary */,
+				DC5FBBBD27A48A3A008AAFDE /* FwVersion.xcconfig */,
 				DC5FBB7027A41533008AAFDE /* Products */,
 				DC5FBBA927A44711008AAFDE /* Frameworks */,
 			);
@@ -132,14 +156,6 @@
 				DC1AE0F327A80D5300CC0018 /* WultraPassphraseMeterCore.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		DC5FBB7127A41533008AAFDE /* WultraPassphraseMeter */ = {
-			isa = PBXGroup;
-			children = (
-				DC5FBB7927A442AD008AAFDE /* PasswordTester.swift */,
-			);
-			path = WultraPassphraseMeter;
 			sourceTree = "<group>";
 		};
 		DC5FBB8F27A443F6008AAFDE /* WultraPassphraseMeterCore */ = {
@@ -163,24 +179,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DC5FBBB127A44B55008AAFDE /* WultraPassphraseMeterCZSKDictionary */ = {
-			isa = PBXGroup;
-			children = (
-				DC5FBBB927A44C8C008AAFDE /* czsk.dct */,
-				DC5FBBB727A44C6E008AAFDE /* PasswordTester_czsk.swift */,
-			);
-			path = WultraPassphraseMeterCZSKDictionary;
-			sourceTree = "<group>";
-		};
-		DC5FBBC427A48F3E008AAFDE /* WultraPassphraseMeterENDictionary */ = {
-			isa = PBXGroup;
-			children = (
-				DC5FBBCC27A48F63008AAFDE /* en.dct */,
-				DC5FBBCA27A48F56008AAFDE /* PasswordTester_en.swift */,
-			);
-			path = WultraPassphraseMeterENDictionary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,7 +361,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC5FBBBA27A44C8C008AAFDE /* czsk.dct in Resources */,
+				DC1BA7EB284E59F600325092 /* czsk.dct in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +369,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC5FBBCD27A48F63008AAFDE /* en.dct in Resources */,
+				DC1BA7E8284E59D600325092 /* en.dct in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
