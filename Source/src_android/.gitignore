@@ -1,9 +1,5 @@
 # Android specific ignores
 
-# NDK build temp folders
-PowerAuthLibrary/libs
-PowerAuthLibrary/obj
-
 #IntelliJ IDEA
 .idea
 *.iml
@@ -29,8 +25,10 @@ local/
 *.o
 *.o.d
 *.so
+.cxx
 gdbserver
 gdb.setup
+*.hprof
 
 # Gradle files
 .gradle/
