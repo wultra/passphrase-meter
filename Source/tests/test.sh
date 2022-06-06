@@ -73,8 +73,9 @@ function androidtest {
     section "ANDROID TESTS"
     subtask "Publishing library to local maven"
     sh "${SCRIPT_FOLDER}/../src_android/scripts/build-publish-local.sh"
+    cat "~/.m2/repository/com/wultra/android/passphrasemeter/passphrasemeter-dictionary-czsk/1.1.0-SNAPSHOT/passphrasemeter-dictionary-czsk-1.1.0-SNAPSHOT.pom"
     if [[ $? != 0 ]]; then
-        error "ANDROID LIB BUILD FAILED"
+        error "ANDROID LIB BUILD FAILED WITH RESULT: ${?}"
     fi
     # Note that at this point, android simulator should be running
     pushd "${SCRIPT_FOLDER}/../examples/Android/PassMeterExample"
@@ -87,6 +88,6 @@ function androidtest {
     fi
 }
 
-consistencytest $1
-iostest
 androidtest
+iostest
+consistencytest $1
