@@ -40,6 +40,8 @@ function USAGE
     echo "  --out-dir path    changes directory where final framework"
     echo "                    will be stored"
     echo ""
+    echo "  --sim-only        will build simulator only only"
+    echo ""
     echo "  -v0               turn off all prints to stdout"
     echo "  -v1               print only basic log about build progress"
     echo "  -v2               print full build log with rich debug info"
@@ -76,6 +78,8 @@ function BUILD_LIB
         -configuration "Release" \
         -sdk iphoneos \
         SKIP_INSTALL=NO \
+        CODE_SIGN_IDENTITY="" \
+        CODE_SIGNING_REQUIRED=NO \
         SWIFT_SERIALIZE_DEBUGGING_OPTIONS=NO \
         BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
@@ -87,6 +91,8 @@ function BUILD_LIB
         -configuration "Release" \
         -sdk iphonesimulator \
         SKIP_INSTALL=NO \
+        CODE_SIGN_IDENTITY="" \
+        CODE_SIGNING_REQUIRED=NO \
         SWIFT_SERIALIZE_DEBUGGING_OPTIONS=NO \
         BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
