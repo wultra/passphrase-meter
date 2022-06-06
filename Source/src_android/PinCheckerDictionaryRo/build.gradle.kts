@@ -14,8 +14,6 @@
  * and limitations under the License.
  */
 
-import com.android.build.gradle.internal.dsl.DefaultConfig
-
 plugins {
     id("com.android.library")
     id("kotlin-android")
@@ -51,7 +49,7 @@ android {
     sourceSets["main"].assets.srcDirs("../../../dictionaries")
 
     androidResources {
-        ignoreAssetsPattern = "!czsk.dct:!ro.dct"
+        ignoreAssetsPattern = "!en.dct:!czsk.dct"
     }
 
     lint {
