@@ -19,12 +19,15 @@ buildscript {
         mavenLocal()
         mavenCentral()
         google()
+        maven {
+            url = java.net.URI("https://plugins.gradle.org/m2/")
+        }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.2.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Constants.kotlinVersion}")
         // releasing
-        classpath("com.github.dcendents:android-maven-gradle-plugin:2.1")
+        classpath("io.github.gradle-nexus:publish-plugin:1.1.0")
     }
 }
 
