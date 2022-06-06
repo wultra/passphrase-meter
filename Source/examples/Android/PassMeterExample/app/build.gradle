@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -34,6 +33,7 @@ dependencies {
     implementation "com.wultra.android.passphrasemeter:passphrasemeter-core:${wultraPassphraseMeterVersion}"
     implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-en:${wultraPassphraseMeterVersion}"
     implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-czsk:${wultraPassphraseMeterVersion}"
+    implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-ro:${wultraPassphraseMeterVersion}"
 
     implementation 'com.wultra.android.sslpinning:wultra-ssl-pinning:0.9.2'
 }

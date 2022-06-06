@@ -2,74 +2,83 @@ package com.wultra.passmeterexample
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.annotation.WorkerThread
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
-import android.widget.TextView
-import com.wultra.android.passphrasemeter.*;
-import com.wultra.android.passphrasemeter.exceptions.*;
+import android.widget.*
+import com.wultra.android.passphrasemeter.*
+import com.wultra.android.passphrasemeter.exceptions.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var input: EditText
-    private lateinit var passStrength: TextView
-    private lateinit var pinIssues: TextView
-    private lateinit var warningText: TextView
+    private val input: EditText by lazy { findViewById(R.id.input) }
+    private val passStrength: TextView by lazy { findViewById(R.id.strengthText) }
+    private val pinIssues: TextView by lazy { findViewById(R.id.issuesText) }
+    private val warningText: TextView by lazy { findViewById(R.id.warning) }
+    private val dropdown: Spinner by lazy { findViewById(R.id.dropdown) }
+
+    private val languages = arrayOf(
+        Language("English", "en.dct"),
+        Language("Czech & Slovak", "czsk.dct"),
+        Language("Romanian", "ro.dct")
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        input = findViewById(R.id.input)
-        passStrength = findViewById(R.id.strengthText)
-        pinIssues = findViewById(R.id.issuesText)
-        warningText = findViewById(R.id.warning)
-
-        PasswordTester.getInstance().loadDictionary(assets, "en.dct")
-
-        processText("")
-
         input.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
             override fun afterTextChanged(s: Editable) {
                 processText(s.toString())
             }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { }
         })
+
+        dropdown.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, languages)
+        dropdown.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                prepareLanguage(languages[position])
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) { }
+        }
+        dropdown.setSelection(0) // select first item
+    }
+
+    @WorkerThread
+    private fun prepareLanguage(language: Language) {
+        if (PasswordTester.getInstance().hasLoadedDictionary()) {
+            PasswordTester.getInstance().freeLoadedDictionary()
+        }
+        PasswordTester.getInstance().loadDictionary(assets, language.dictionaryAsset)
+        input.setText("")
     }
 
     private fun processText(text: String) {
-        processPasssword(text)
+        processPassword(text)
         processPin(text)
     }
 
-    private fun processPasssword(password: String) {
+    private fun processPassword(password: String) {
 
-        var text: String
+        val text: String
 
         if (password.isNotEmpty()) {
 
-            try {
+            text = try {
 
-                val result = PasswordTester.getInstance().testPassword(password)
-
-                when (result) {
-                    PasswordStrength.STRONG -> text = "Strong 💪"
-                    PasswordStrength.GOOD -> text = "Good 👍"
-                    PasswordStrength.MODERATE -> text = "Moderate 🤔"
-                    PasswordStrength.WEAK -> text = "Weak 🙄"
-                    PasswordStrength.VERY_WEAK -> text = "Very Weak 🤦‍"
+                when (PasswordTester.getInstance().testPassword(password)) {
+                    PasswordStrength.STRONG -> "Strong 💪"
+                    PasswordStrength.GOOD -> "Good 👍"
+                    PasswordStrength.MODERATE -> "Moderate 🤔"
+                    PasswordStrength.WEAK -> "Weak 🙄"
+                    PasswordStrength.VERY_WEAK, null -> "Very Weak 🤦‍"
                 }
             } catch (e: WrongPasswordException) {
-                text = "Password format exception"
+                "Password format exception"
             }
 
         } else {
@@ -110,12 +119,12 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                if (pin.length == 4) {
-                    warnUser = result.contains(PinTestResult.FREQUENTLY_USED) || result.contains(PinTestResult.NOT_UNIQUE)
+                warnUser = if (pin.length == 4) {
+                    result.contains(PinTestResult.FREQUENTLY_USED) || result.contains(PinTestResult.NOT_UNIQUE)
                 } else if (pin.length <= 6) {
-                    warnUser = result.contains(PinTestResult.FREQUENTLY_USED) || result.contains(PinTestResult.NOT_UNIQUE) || result.contains(PinTestResult.REPEATING_CHARACTERS)
+                    result.contains(PinTestResult.FREQUENTLY_USED) || result.contains(PinTestResult.NOT_UNIQUE) || result.contains(PinTestResult.REPEATING_CHARACTERS)
                 } else {
-                    warnUser = result.contains(PinTestResult.FREQUENTLY_USED) || result.contains(PinTestResult.NOT_UNIQUE) || result.contains(PinTestResult.REPEATING_CHARACTERS) || result.contains(PinTestResult.HAS_PATTERN)
+                    result.contains(PinTestResult.FREQUENTLY_USED) || result.contains(PinTestResult.NOT_UNIQUE) || result.contains(PinTestResult.REPEATING_CHARACTERS) || result.contains(PinTestResult.HAS_PATTERN)
                 }
 
             } catch (e: WrongPinException) {
@@ -130,6 +139,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isPin(text: String): Boolean {
-        return text.isEmpty() == false && text.all { "0987654321".contains(it) }
+        return text.isNotEmpty() && text.all { "0987654321".contains(it) }
+    }
+
+    data class Language(val name: String, val dictionaryAsset: String) {
+        override fun toString(): String {
+            return name
+        }
     }
 }
