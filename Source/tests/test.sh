@@ -78,9 +78,6 @@ function androidtest {
         error "ANDROID LIB BUILD FAILED WITH RESULT: ${?}"
     fi
 
-    # removed android test until maven issue resolved (https://github.com/wultra/passphrase-meter/issues/42)
-    return
-
     # Note that at this point, android simulator should be running
     pushd "${SCRIPT_FOLDER}/../examples/Android/PassMeterExample"
     subtask "running tests"
@@ -92,6 +89,7 @@ function androidtest {
     fi
 }
 
-androidtest
+# removed android test until maven issue resolved (https://github.com/wultra/passphrase-meter/issues/42)
+#androidtest
 iostest
 consistencytest $1
