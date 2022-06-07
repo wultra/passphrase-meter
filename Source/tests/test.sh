@@ -72,7 +72,7 @@ function iostest {
 function androidtest {
     section "ANDROID TESTS"
     subtask "Publishing library to local maven"
-    sh "${SCRIPT_FOLDER}/../src_android/scripts/build-publish-local.sh"
+    sh "${SCRIPT_FOLDER}/../../scripts/build-publish-local.sh"
     cat "~/.m2/repository/com/wultra/android/passphrasemeter/passphrasemeter-dictionary-czsk/1.1.0-SNAPSHOT/passphrasemeter-dictionary-czsk-1.1.0-SNAPSHOT.pom"
     if [[ $? != 0 ]]; then
         error "ANDROID LIB BUILD FAILED WITH RESULT: ${?}"
