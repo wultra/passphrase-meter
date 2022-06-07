@@ -38,25 +38,25 @@ class PassMeterExampleTests: XCTestCase {
     
     func testWrongInputPin() {
         let result = PasswordTester.shared.testPin("asdf")
-        XCTAssert(result == .pinFormatError)
+        XCTAssert(result.issues == .pinFormatError)
     }
     
     func testPinIssues() {
         let frequent = PasswordTester.shared.testPin("1111")
-        XCTAssert(frequent.contains(.frequentlyUsed))
+        XCTAssert(frequent.issues.contains(.frequentlyUsed))
         let pattern = PasswordTester.shared.testPin("1357")
-        XCTAssert(pattern.contains(.patternFound))
+        XCTAssert(pattern.issues.contains(.patternFound))
         let date = PasswordTester.shared.testPin("1990")
-        XCTAssert(date.contains(.possiblyDate))
+        XCTAssert(date.issues.contains(.possiblyDate))
         let unique = PasswordTester.shared.testPin("1112")
-        XCTAssert(unique.contains(.notUnique))
+        XCTAssert(unique.issues.contains(.notUnique))
         let repeating = PasswordTester.shared.testPin("1111")
-        XCTAssert(repeating.contains(.repeatingCharacters))
+        XCTAssert(repeating.issues.contains(.repeatingCharacters))
     }
     
     func testOKPin() {
         let pin = PasswordTester.shared.testPin("9562")
-        XCTAssert(pin.isEmpty)
+        XCTAssert(pin.issues.isEmpty)
     }
     
     func testPinDates() {
@@ -64,11 +64,11 @@ class PassMeterExampleTests: XCTestCase {
         let noDates = ["1313", "0028", "1287", "9752", "151590", "001297", "41121987"]
         
         for date in dates {
-            XCTAssert(PasswordTester.shared.testPin(date).contains(.possiblyDate), date)
+            XCTAssert(PasswordTester.shared.testPin(date).issues.contains(.possiblyDate), date)
         }
         
         for nodate in noDates {
-            XCTAssert(PasswordTester.shared.testPin(nodate).contains(.possiblyDate) == false, nodate)
+            XCTAssert(PasswordTester.shared.testPin(nodate).issues.contains(.possiblyDate) == false, nodate)
         }
     }
     

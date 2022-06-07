@@ -30,14 +30,16 @@ let package = Package(
             targets: ["YourLibrary"]),
     ],
     dependencies: [
-        .package(name: "WultraPassphraseMeter", url: "https://github.com/wultra/passphrase-meter.git", .from("1.0.2")),
-        .package(name: "WultraPassphraseMeterCore", url: "https://github.com/wultra/passphrase-meter.git", .from("1.0.2")),
-        .package(name: "WultraPassphraseMeterENDictionary", url: "https://github.com/wultra/passphrase-meter.git", .from("1.0.2")),
+        .package(name: "WultraPassphraseMeter", url: "https://github.com/wultra/passphrase-meter.git", .from("1.1.0")),
+        .package(name: "WultraPassphraseMeterCore", url: "https://github.com/wultra/passphrase-meter.git", .from("1.1.0")),
+        .package(name: "WultraPassphraseMeterENDictionary", url: "https://github.com/wultra/passphrase-meter.git", .from("1.1.0")),
+        .package(name: "WultraPassphraseMeterCZSKDictionary", url: "https://github.com/wultra/passphrase-meter.git", .from("1.1.0")),
+        .package(name: "WultraPassphraseMeterRODictionary", url: "https://github.com/wultra/passphrase-meter.git", .from("1.1.0")),
     ],
     targets: [
         .target(
             name: "YourLibrary",
-            dependencies: ["WultraPassphraseMeter", "WultraPassphraseMeterCore", "WultraPassphraseMeterENDictionary"])
+            dependencies: ["WultraPassphraseMeter", "WultraPassphraseMeterCore", "WultraPassphraseMeterENDictionary", "WultraPassphraseMeterCZSKDictionary", "WultraPassphraseMeterRODictionary"])
     ]
 )
 ```
@@ -60,8 +62,9 @@ To achieve more accurate password testing results, you can add a dependency to a
 
 | Additional pod | Region or Language |
 |----------------|--------------------|
-| `pod 'WultraPassphraseMeter/Dictionary_en'`   | For english speaking people |
+| `pod 'WultraPassphraseMeter/Dictionary_en'`   | For English speaking people |
 | `pod 'WultraPassphraseMeter/Dictionary_czsk'` | For people speaking in Czech or Slovak |
+| `pod 'WultraPassphraseMeter/Dictionary_ro'`   | For Romanian speaking people |
 
 
 Then, run the following command:
@@ -132,14 +135,19 @@ The PIN testing is slightly different to password testing, because the result of
 ```swift
 let passcode = "1456"
 let result = PasswordTester.shared.testPin(passcode)
-if result.isEmpty {
+if result.issues.isEmpty {
     // No issues were found. 
-    // Note that this is typically very strict evaluation, so please read the rest
-    // of this chapter. 
+    // Note that this is typically very strict evaluation.
+}
+
+if result.shouldWarnUserAboutWeakPin {
+	// Warn the user that the PIN is weak.
+	// Be aware that this property is just a hint based on simple rules. 
+	// Consider implementing your own logic based on the `issues` property.
 }
 ```
 
-You can evaluate any PIN. The result of the testing is a collection of issues that were found in a PIN. These issues can be:
+The result of the testing is a collection of issues that were found in a PIN. These issues can be:
 
 - **Not Unique** - the passcode doesn't have enough unique digits.
 - **Repeating Digits** - there is a significant amount of repeating digits in the passcode.
@@ -147,30 +155,6 @@ You can evaluate any PIN. The result of the testing is a collection of issues th
 - **Possibly Date** - this passcode can be a date and possibly the birthday of the user.
 - **Frequently Used** - the passcode is in the list of most used passcodes.
 - **Wrong Input** - wrong input - the passcode must contain digits only.
-
-Note that you should implement your additional logic, based on the sensitivity of the data you're protecting with the passcode and on other security measures. Here's an example what such evaluation may look like:
-
-```swift
-let passcode = "1456"
-let result = PasswordTester.shared.testPin(passcode)
-            
-// We want different classifications for different pin length
-// to not eliminate too many pins (to keep good pins around 95%)
-    
-if passcode.count <= 4 {
-    if result.contains(.frequentlyUsed) || result.contains(.notUnique) {
-        // warn the user
-    }
-} else if passcode.count <= 6 {
-    if result.contains(.frequentlyUsed) || result.contains(.notUnique) || result.contains(.repeatingCharacters) {
-        // warn the user
-    } 
-} else {
-    if result.contains(.frequentlyUsed) || result.contains(.notUnique) || result.contains(.repeatingCharacters) || result.contains(.patternFound) {
-        // warn the user
-    }
-}
-```
 
 ### Example project
 

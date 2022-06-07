@@ -16,28 +16,70 @@
 
 package com.wultra.android.passphrasemeter;
 
+import java.util.Set;
+
 /**
- * Result of PIN testing
+ * Result of the PIN test
  */
-public enum PinTestResult {
+public class PinTestResult {
+
+    private final String pin;
+    private final Set<PinTestIssue> issues;
+
+    public PinTestResult(String pin, Set<PinTestIssue> issues) {
+        this.pin = pin;
+        this.issues = issues;
+    }
+
     /**
-     * PIN doesn't have enough unique digits
+     * Issues with the tested PIN.
+     * @return set of issues
      */
-    NOT_UNIQUE,
+    public Set<PinTestIssue> getIssues() {
+        return issues;
+    }
+
     /**
-     * There is significant amount of repeating characters in the PIN
+     * Originally tested PIN.
+     * @return tested PIN.
      */
-    REPEATING_CHARACTERS,
+    public String getPin() {
+        return pin;
+    }
+
     /**
-     * Repeating pattern was found in the PIN
+     * If the user should be warned that the PIN is weak. Be aware that this property is just a hint based on simple
+     * rules explained below. Consider implementing your own logic.
+     * <br><br>
+     *
+     * <table>
+     *  <caption>List of returned values</caption>
+     *  <tr>
+     *     <th>PIN&nbsp;length</th><th>Returns true when</th>
+     *  </tr>
+     *   <tr>
+     *     <td>&lt; 4</td><td>never</td>
+     *   </tr>
+     *   <tr>
+     *     <td>4</td><td>FREQUENTLY_USED or NOT_UNIQUE</td>
+     *   </tr>
+     *   <tr>
+     *      <td>5,6</td><td>FREQUENTLY_USED or NOT_UNIQUE or REPEATING_CHARACTERS</td>
+     *   </tr>
+     *   <tr>
+     *      <td>6+</td><td>FREQUENTLY_USED or NOT_UNIQUE or REPEATING_CHARACTERS or HAS_PATTERN</td>
+     *   </tr>
+     * </table>
+     *
+     * @return If the user should be warned that the pin is weak.
      */
-    HAS_PATTERN,
-    /**
-     * This PIN can be date (and possible birthday of the user)
-     */
-    POSSIBLY_DATE,
-    /**
-     * PIN is in database of the most used PINs
-     */
-    FREQUENTLY_USED
+    public boolean shouldWarnUserAboutWeakPin() {
+        if (this.pin.length() <= 4) { // future proofing in case we would evaluate short PINs.
+            return issues.contains(PinTestIssue.FREQUENTLY_USED) || issues.contains(PinTestIssue.NOT_UNIQUE);
+        } else if (this.pin.length() <= 6) {
+            return issues.contains(PinTestIssue.FREQUENTLY_USED) || issues.contains(PinTestIssue.NOT_UNIQUE) || issues.contains(PinTestIssue.REPEATING_CHARACTERS);
+        } else {
+            return issues.contains(PinTestIssue.FREQUENTLY_USED) || issues.contains(PinTestIssue.NOT_UNIQUE) || issues.contains(PinTestIssue.REPEATING_CHARACTERS) || issues.contains(PinTestIssue.HAS_PATTERN);
+        }
+    }
 }

@@ -17,6 +17,8 @@
 		DC1AE11227A828DC00CC0018 /* WultraPassphraseMeterCore.h in Headers */ = {isa = PBXBuildFile; fileRef = DC1AE11127A828DC00CC0018 /* WultraPassphraseMeterCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC1BA7E8284E59D600325092 /* en.dct in Resources */ = {isa = PBXBuildFile; fileRef = DC1BA7E7284E59D600325092 /* en.dct */; };
 		DC1BA7EB284E59F600325092 /* czsk.dct in Resources */ = {isa = PBXBuildFile; fileRef = DC1BA7EA284E59F100325092 /* czsk.dct */; };
+		DC1BA7FC284F3DBB00325092 /* PasswordTester_ro.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BA7FB284F3DBB00325092 /* PasswordTester_ro.swift */; };
+		DC1BA7FE284F401800325092 /* ro.dct in Resources */ = {isa = PBXBuildFile; fileRef = DC1BA7FD284F401800325092 /* ro.dct */; };
 		DC5FBB7A27A442AD008AAFDE /* PasswordTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5FBB7927A442AD008AAFDE /* PasswordTester.swift */; };
 		DC5FBBB827A44C6E008AAFDE /* PasswordTester_czsk.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5FBBB727A44C6E008AAFDE /* PasswordTester_czsk.swift */; };
 		DC5FBBCB27A48F56008AAFDE /* PasswordTester_en.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5FBBCA27A48F56008AAFDE /* PasswordTester_en.swift */; };
@@ -29,6 +31,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DC1AE0F227A80D5300CC0018;
 			remoteInfo = WultraPassphraseMeterCore;
+		};
+		DC1BA7F0284F3D8B00325092 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC5FBB6627A41533008AAFDE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC5FBB6E27A41533008AAFDE;
+			remoteInfo = WultraPassphraseMeter;
 		};
 		DC5FBBBB27A44CAB008AAFDE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +61,9 @@
 		DC1AE11127A828DC00CC0018 /* WultraPassphraseMeterCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WultraPassphraseMeterCore.h; sourceTree = "<group>"; };
 		DC1BA7E7284E59D600325092 /* en.dct */ = {isa = PBXFileReference; lastKnownFileType = file; name = en.dct; path = ../../dictionaries/en.dct; sourceTree = "<group>"; };
 		DC1BA7EA284E59F100325092 /* czsk.dct */ = {isa = PBXFileReference; lastKnownFileType = file; name = czsk.dct; path = ../../dictionaries/czsk.dct; sourceTree = "<group>"; };
+		DC1BA7FA284F3D8B00325092 /* WultraPassphraseMeterRODictionary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WultraPassphraseMeterRODictionary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC1BA7FB284F3DBB00325092 /* PasswordTester_ro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordTester_ro.swift; path = ../src_ios/PasswordTester_ro.swift; sourceTree = "<group>"; };
+		DC1BA7FD284F401800325092 /* ro.dct */ = {isa = PBXFileReference; lastKnownFileType = file; name = ro.dct; path = ../../dictionaries/ro.dct; sourceTree = "<group>"; };
 		DC5FBB6F27A41533008AAFDE /* WultraPassphraseMeter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WultraPassphraseMeter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC5FBB7927A442AD008AAFDE /* PasswordTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordTester.swift; path = ../src_ios/PasswordTester.swift; sourceTree = "<group>"; };
 		DC5FBB9A27A444FA008AAFDE /* zxcvbn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zxcvbn.c; path = ../../src_native/zxcvbn.c; sourceTree = "<group>"; };
@@ -70,6 +82,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		DC1AE0F027A80D5300CC0018 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC1BA7F4284F3D8B00325092 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -129,6 +148,8 @@
 		DC1BA7ED284E5A3B00325092 /* WultraPassphraseMeterRODictionary */ = {
 			isa = PBXGroup;
 			children = (
+				DC1BA7FB284F3DBB00325092 /* PasswordTester_ro.swift */,
+				DC1BA7FD284F401800325092 /* ro.dct */,
 			);
 			name = WultraPassphraseMeterRODictionary;
 			sourceTree = "<group>";
@@ -154,6 +175,7 @@
 				DC5FBBB027A44B55008AAFDE /* WultraPassphraseMeterCZSKDictionary.framework */,
 				DC5FBBC327A48F3E008AAFDE /* WultraPassphraseMeterENDictionary.framework */,
 				DC1AE0F327A80D5300CC0018 /* WultraPassphraseMeterCore.framework */,
+				DC1BA7FA284F3D8B00325092 /* WultraPassphraseMeterRODictionary.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,6 +215,13 @@
 				DC1AE0FA27A80D7A00CC0018 /* pin_tester.h in Headers */,
 				DC1AE10027A80D7A00CC0018 /* wpm_types.h in Headers */,
 				DC1AE11227A828DC00CC0018 /* WultraPassphraseMeterCore.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC1BA7F1284F3D8B00325092 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +265,25 @@
 			name = WultraPassphraseMeterCore;
 			productName = WultraPassphraseMeterCore;
 			productReference = DC1AE0F327A80D5300CC0018 /* WultraPassphraseMeterCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DC1BA7EE284F3D8B00325092 /* WultraPassphraseMeterRODictionary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC1BA7F7284F3D8B00325092 /* Build configuration list for PBXNativeTarget "WultraPassphraseMeterRODictionary" */;
+			buildPhases = (
+				DC1BA7F1284F3D8B00325092 /* Headers */,
+				DC1BA7F2284F3D8B00325092 /* Sources */,
+				DC1BA7F4284F3D8B00325092 /* Frameworks */,
+				DC1BA7F5284F3D8B00325092 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC1BA7EF284F3D8B00325092 /* PBXTargetDependency */,
+			);
+			name = WultraPassphraseMeterRODictionary;
+			productName = WultraPassphraseMeterENDictionary;
+			productReference = DC1BA7FA284F3D8B00325092 /* WultraPassphraseMeterRODictionary.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DC5FBB6E27A41533008AAFDE /* WultraPassphraseMeter */ = {
@@ -307,6 +355,9 @@
 					DC1AE0F227A80D5300CC0018 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					DC1BA7EE284F3D8B00325092 = {
+						LastSwiftMigration = 1340;
+					};
 					DC5FBB6E27A41533008AAFDE = {
 						CreatedOnToolsVersion = 13.2.1;
 						LastSwiftMigration = 1320;
@@ -338,6 +389,7 @@
 				DC1AE0F227A80D5300CC0018 /* WultraPassphraseMeterCore */,
 				DC5FBBAF27A44B55008AAFDE /* WultraPassphraseMeterCZSKDictionary */,
 				DC5FBBC227A48F3E008AAFDE /* WultraPassphraseMeterENDictionary */,
+				DC1BA7EE284F3D8B00325092 /* WultraPassphraseMeterRODictionary */,
 			);
 		};
 /* End PBXProject section */
@@ -347,6 +399,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC1BA7F5284F3D8B00325092 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC1BA7FE284F401800325092 /* ro.dct in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +446,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC1BA7F2284F3D8B00325092 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC1BA7FC284F3DBB00325092 /* PasswordTester_ro.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DC5FBB6B27A41533008AAFDE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -417,6 +485,11 @@
 			isa = PBXTargetDependency;
 			target = DC1AE0F227A80D5300CC0018 /* WultraPassphraseMeterCore */;
 			targetProxy = DC1AE10127A80DB700CC0018 /* PBXContainerItemProxy */;
+		};
+		DC1BA7EF284F3D8B00325092 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC5FBB6E27A41533008AAFDE /* WultraPassphraseMeter */;
+			targetProxy = DC1BA7F0284F3D8B00325092 /* PBXContainerItemProxy */;
 		};
 		DC5FBBBC27A44CAB008AAFDE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -486,6 +559,69 @@
 				MODULEMAP_FILE = "${SRCROOT}/WultraPassphraseMeterCore/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wultra.WultraPassphraseMeterCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DC1BA7F8284F3D8B00325092 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5FBBBD27A48A3A008AAFDE /* FwVersion.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "${CURRENT_PROJECT_VERSION}";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = KTT9G859MR;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = "${CURRENT_PROJECT_VERSION_STRING}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wultra.WultraPassphraseMeterENDictionary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DC1BA7F9284F3D8B00325092 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5FBBBD27A48A3A008AAFDE /* FwVersion.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "${CURRENT_PROJECT_VERSION}";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = KTT9G859MR;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = "${CURRENT_PROJECT_VERSION_STRING}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wultra.WultraPassphraseMeterENDictionary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -822,6 +958,15 @@
 			buildConfigurations = (
 				DC1AE0F827A80D5300CC0018 /* Debug */,
 				DC1AE0F927A80D5300CC0018 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC1BA7F7284F3D8B00325092 /* Build configuration list for PBXNativeTarget "WultraPassphraseMeterRODictionary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC1BA7F8284F3D8B00325092 /* Debug */,
+				DC1BA7F9284F3D8B00325092 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
