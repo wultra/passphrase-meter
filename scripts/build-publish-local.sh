@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TOP=$(dirname $0)
+TOP=$(dirname "$(readlink "$BASH_SOURCE")")
 opt=${1:--ns}
 "${TOP}/../scripts/android-publish-build.sh" ${opt} local
 
