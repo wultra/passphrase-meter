@@ -49,7 +49,7 @@ android {
     sourceSets["main"].assets.srcDirs("../../../dictionaries")
 
     androidResources {
-        ignoreAssetsPattern = "!en.dct"
+        ignoreAssetsPattern = "!en.dct:!ro.dct"
     }
 
     lint {

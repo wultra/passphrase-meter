@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     @IBOutlet private weak var passwordHeader: UILabel!
     @IBOutlet private weak var pinHeader: UILabel!
     @IBOutlet private weak var pinWarning: UILabel!
+    @IBOutlet private weak var languageButton: UIButton!
     
     private var queue: OperationQueue =  {
        let q = OperationQueue()
@@ -36,10 +37,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        passwordLabel.text = ""
-        pinLabel.text = ""
-        
+        selectLanguage(.en)
         textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        languageButton.addTarget(self, action: #selector(languageButtonTaped), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +55,17 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
         // Free the memory
         PasswordTester.shared.freeLoadedDictionary()
+    }
+    
+    @objc private func languageButtonTaped() {
+        let v = UIAlertController(title: "Select language", message: nil, preferredStyle: .actionSheet)
+        
+        for l in Language.all {
+            v.addAction(UIAlertAction(title: l.name, style: .default, handler: { _ in
+                self.selectLanguage(l)
+            }))
+        }
+        present(v, animated: true)
     }
     
     @objc private func textDidChange() {
@@ -88,7 +99,7 @@ class ViewController: UIViewController {
             text = "Type some text 🙏"
         }
         
-        DispatchQueue.main.sync {
+        runOnMain {
             self.passwordLabel.text = text
         }
     }
@@ -144,7 +155,7 @@ class ViewController: UIViewController {
             
         }
         
-        DispatchQueue.main.sync {
+        runOnMain {
             self.pinWarning.isHidden = !warnUser
             self.pinLabel.text = text
         }
@@ -155,5 +166,39 @@ class ViewController: UIViewController {
             return false
         }
         return text.allSatisfy({ "0987654321".contains($0) })
+    }
+    
+    private func selectLanguage(_ l: Language) {
+        languageButton.setTitle("Language selected: \(l.name)", for: .normal)
+        textField.text = ""
+        processPin("")
+        processPassword("")
+        if PasswordTester.shared.hasLoadedDictionary {
+            PasswordTester.shared.freeLoadedDictionary()
+        }
+        
+        PasswordTester.shared.loadDictionary(l.dictionary)
+    }
+    
+    private struct Language {
+        
+        static let all = [en, czsk, ro]
+        
+        static let en = Language(name: "English", dictionary: .en)
+        static let czsk = Language(name: "Czech & Slovak", dictionary: .czsk)
+        static let ro = Language(name: "Romanian", dictionary: .ro)
+        
+        let name: String
+        let dictionary: PasswordTesterDictionary
+    }
+}
+
+private func runOnMain(_ closure: @escaping () -> Void) {
+    if OperationQueue.current == .main {
+        closure()
+    } else {
+        OperationQueue.main.addOperation {
+            closure()
+        }
     }
 }
