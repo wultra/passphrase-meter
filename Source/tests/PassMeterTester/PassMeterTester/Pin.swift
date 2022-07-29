@@ -20,13 +20,13 @@ import WultraPassphraseMeter
 struct Pin {
     
     let value: String
-    let result: PinTestResult
+    let result: PinTestIssue
     
     var fileValue: String {
         return "\(value)-\(result.rawValue)"
     }
     
-    init(value: String, result: PinTestResult) {
+    init(value: String, result: PinTestIssue) {
         self.value = value
         self.result = result
     }
@@ -34,6 +34,6 @@ struct Pin {
     init(fromFileFormat: String) {
         let parts = fromFileFormat.split(separator: "-")
         value = String(parts[0])
-        result = PinTestResult(rawValue: Int(String(parts[1]))!)
+        result = PinTestIssue(rawValue: Int(String(parts[1]))!)
     }
 }

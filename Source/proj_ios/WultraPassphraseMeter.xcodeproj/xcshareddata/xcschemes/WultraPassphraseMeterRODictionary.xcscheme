@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DC1BA7EE284F3D8B00325092"
-               BuildableName = "WultraPassphraseMeterENDictionary copy.framework"
+               BuildableName = "WultraPassphraseMeterRODictionary.framework"
                BlueprintName = "WultraPassphraseMeterRODictionary"
                ReferencedContainer = "container:WultraPassphraseMeter.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DC1BA7EE284F3D8B00325092"
-            BuildableName = "WultraPassphraseMeterENDictionary copy.framework"
+            BuildableName = "WultraPassphraseMeterRODictionary.framework"
             BlueprintName = "WultraPassphraseMeterRODictionary"
             ReferencedContainer = "container:WultraPassphraseMeter.xcodeproj">
          </BuildableReference>
