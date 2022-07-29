@@ -72,10 +72,12 @@ function iostest {
 function androidtest {
     section "ANDROID TESTS"
     subtask "Publishing library to local maven"
-    sh "${SCRIPT_FOLDER}/../src_android/scripts/build-publish-local.sh"
+    sh "${SCRIPT_FOLDER}/../../scripts/build-publish-local.sh"
+    echo "Result of the build-publish-local.sh: ${?}"
     if [[ $? != 0 ]]; then
-        error "ANDROID LIB BUILD FAILED"
+        error "ANDROID LIB BUILD FAILED WITH RESULT: ${?}"
     fi
+
     # Note that at this point, android simulator should be running
     pushd "${SCRIPT_FOLDER}/../examples/Android/PassMeterExample"
     subtask "running tests"
@@ -87,6 +89,7 @@ function androidtest {
     fi
 }
 
-consistencytest $1
+# removed android test until maven issue resolved (https://github.com/wultra/passphrase-meter/issues/42)
+#androidtest
 iostest
-androidtest
+consistencytest $1

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TOP=$(dirname $0)
+SCRIPT_FOLDER=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 opt=${1:--ns}
-"${TOP}/../scripts/android-publish-build.sh" ${opt} local
+"${SCRIPT_FOLDER}/android-publish-build.sh" ${opt} local
 
