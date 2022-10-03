@@ -6,11 +6,11 @@ To get Wultra Passphrase Meter for Android up and running in your app, add follo
 
 ```groovy
 repositories {
-    jcenter() // if not defined elsewhere...
+    mavenCentral() // if not defined elsewhere...
 }
 
 dependencies {
-    implementation "com.wultra.android.passphrasemeter:passphrasemeter-core:1.0.0"
+    implementation "com.wultra.android.passphrasemeter:passphrasemeter-core:1.1.0"
 }
 ```
 Note that this documentation is using version `1.0.0` as an example. You can find the latest version in our [List of Releases](https://github.com/wultra/passphrase-meter/releases). The Android Studio IDE can also find and offer updates for your application's dependencies.
@@ -19,8 +19,9 @@ To achieve more accurate password testing results, you can add a dependency to a
 
 | Additional dependency | Region or Language |
 |----------------|--------------------|
-| `implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-en:1.0.0"`   | For english speaking people |
-| `implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-czsk:1.0.0"` | For people speaking in Czech or Slovak |
+| `implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-en:1.1.0"`   | For English speaking people |
+| `implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-czsk:1.1.0"` | For people speaking in Czech or Slovak |
+| `implementation "com.wultra.android.passphrasemeter:passphrasemeter-dictionary-ro:1.1.0"` | For Romanian speaking people |
 
 
 ## Usage
@@ -28,8 +29,8 @@ To achieve more accurate password testing results, you can add a dependency to a
 Before you start using the library, you need to add several imports into your Kotlin source codes:
 
 ```kotlin
-import com.wultra.android.passphrasemeter.*;
-import com.wultra.android.passphrasemeter.exceptions.*;
+import com.wultra.android.passphrasemeter.*
+import com.wultra.android.passphrasemeter.exceptions.*
 ```
 
 ### Password testing
@@ -79,10 +80,14 @@ The PIN testing is slightly different to password testing, because the result of
 try {
     val passcode = "1456"
     val result = PasswordTester.getInstance().testPin(passcode)
-    if (result.isEmpty()) {
+    if (result.issues.isEmpty()) {
         // No issues were found. 
-        // Note that this is typically very strict evaluation, so please read the rest
-        // of this chapter. 
+    }
+    
+    if (result.result.shouldWarnUserAboutWeakPin()) {
+    	// Warn the user that the PIN is weak.
+		// Be aware that this property is just a hint based on simple rules. 
+		// Consider implementing your own logic based on the `issues` property.
     }
 } catch (e: WrongPinException) {
     // PIN format error
@@ -97,36 +102,6 @@ You can evaluate any PIN. The result of the testing is a collection of issues th
 - **Possibly Date** - this passcode can be a date and possibly birthday of the user.
 - **Frequently Used** - the passcode is in list of most used passcodes.
 - **Wrong Input** - wrong input - the passcode must contain digits only.
-
-Note that you should implement your own additional logic, based on the sensitivity of the data you're protecting with the passcode and on other security measures. Here's an example how such evaluation may look like:
-
-```kotlin
-try {
-    val passcode = "1456"
-    val result = PasswordTester.getInstance().testPin(passcode)
-    
-    // We want different classification for different pin length
-    // to not eliminate too much pins (too keep good pins around 95%)
-    
-    var warnUser = false
-    if (pin.length == 4) {
-        warnUser = result.contains(PinTestResult.FREQUENTLY_USED) || 
-                   result.contains(PinTestResult.NOT_UNIQUE)
-    } else if (pin.length <= 6) {
-        warnUser = result.contains(PinTestResult.FREQUENTLY_USED) || 
-                   result.contains(PinTestResult.NOT_UNIQUE) || 
-                   result.contains(PinTestResult.REPEATING_CHARACTERS)
-    } else {
-        warnUser = result.contains(PinTestResult.FREQUENTLY_USED) || 
-                   result.contains(PinTestResult.NOT_UNIQUE) || 
-                   result.contains(PinTestResult.REPEATING_CHARACTERS) || 
-                   result.contains(PinTestResult.HAS_PATTERN)
-    }
-
-} catch (e: WrongPinException) {
-    // PIN format error
-}
-```
 
 ### Example project
 

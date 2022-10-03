@@ -98,33 +98,26 @@ class MainActivity : AppCompatActivity() {
             try {
 
                 val result = PasswordTester.getInstance().testPin(pin)
+                warnUser = result.shouldWarnUserAboutWeakPin()
 
-                if (result.isEmpty()) {
+                if (result.issues.isEmpty()) {
                     text = "Good PIN 👍"
                 } else {
-                    if (result.contains(PinTestResult.FREQUENTLY_USED)) {
+                    if (result.issues.contains(PinTestIssue.FREQUENTLY_USED)) {
                         text += "- frequently used\n"
                     }
-                    if (result.contains(PinTestResult.NOT_UNIQUE)) {
+                    if (result.issues.contains(PinTestIssue.NOT_UNIQUE)) {
                         text += "- not enough unique characters\n"
                     }
-                    if (result.contains(PinTestResult.HAS_PATTERN)) {
+                    if (result.issues.contains(PinTestIssue.HAS_PATTERN)) {
                         text += "- repeating pattern\n"
                     }
-                    if (result.contains(PinTestResult.POSSIBLY_DATE)) {
+                    if (result.issues.contains(PinTestIssue.POSSIBLY_DATE)) {
                         text += "- could be a date\n"
                     }
-                    if (result.contains(PinTestResult.REPEATING_CHARACTERS)) {
+                    if (result.issues.contains(PinTestIssue.REPEATING_CHARACTERS)) {
                         text += "- too much repeating characters\n"
                     }
-                }
-
-                warnUser = if (pin.length == 4) {
-                    result.contains(PinTestResult.FREQUENTLY_USED) || result.contains(PinTestResult.NOT_UNIQUE)
-                } else if (pin.length <= 6) {
-                    result.contains(PinTestResult.FREQUENTLY_USED) || result.contains(PinTestResult.NOT_UNIQUE) || result.contains(PinTestResult.REPEATING_CHARACTERS)
-                } else {
-                    result.contains(PinTestResult.FREQUENTLY_USED) || result.contains(PinTestResult.NOT_UNIQUE) || result.contains(PinTestResult.REPEATING_CHARACTERS) || result.contains(PinTestResult.HAS_PATTERN)
                 }
 
             } catch (e: WrongPinException) {

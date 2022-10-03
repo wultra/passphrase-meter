@@ -118,11 +118,11 @@ public class PasswordTester {
      * Scans PIN for possible issues.
      *
      * @param pin PIN to scan.
-     * @return Immutable set of issues.
+     * @return Result of the scan.
      * @throws WrongPinException if provided PIN contains some invalid characters,
      * is too short or long (minimum length for PIN is 4 and maximum 100).
      */
-    public Set<PinTestResult> testPin(@NonNull String pin) throws WrongPinException {
+    public PinTestResult testPin(@NonNull String pin) throws WrongPinException {
 
         final @PinResultCode int result = testPinJNI(pin);
 
@@ -130,27 +130,27 @@ public class PasswordTester {
             throw new WrongPinException();
         }
 
-        final EnumSet<PinTestResult> set = EnumSet.noneOf(PinTestResult.class);
+        final EnumSet<PinTestIssue> set = EnumSet.noneOf(PinTestIssue.class);
 
         if ((result & PinResultCode.OK) == 0) {
             if ((result & PinResultCode.NOT_UNIQUE) != 0) {
-                set.add(PinTestResult.NOT_UNIQUE);
+                set.add(PinTestIssue.NOT_UNIQUE);
             }
             if ((result & PinResultCode.REPEATING_CHARACTERS) != 0) {
-                set.add(PinTestResult.REPEATING_CHARACTERS);
+                set.add(PinTestIssue.REPEATING_CHARACTERS);
             }
             if ((result & PinResultCode.HAS_PATTERN) != 0) {
-                set.add(PinTestResult.HAS_PATTERN);
+                set.add(PinTestIssue.HAS_PATTERN);
             }
             if ((result & PinResultCode.POSSIBLY_DATE) != 0) {
-                set.add(PinTestResult.POSSIBLY_DATE);
+                set.add(PinTestIssue.POSSIBLY_DATE);
             }
             if ((result & PinResultCode.FREQUENTLY_USED) != 0) {
-                set.add(PinTestResult.FREQUENTLY_USED);
+                set.add(PinTestIssue.FREQUENTLY_USED);
             }
         }
 
-        return Collections.unmodifiableSet(set);
+        return new PinTestResult(pin, set);
     }
 
     // Private methods & constants

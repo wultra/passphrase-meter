@@ -33,21 +33,21 @@ class PassMeterInstrumentedTest {
     @Test
     fun testPinIssues() {
         val frequent = PasswordTester.getInstance().testPin("1111")
-        assertTrue(frequent.contains(PinTestResult.FREQUENTLY_USED))
+        assertTrue(frequent.issues.contains(PinTestIssue.FREQUENTLY_USED))
         val pattern = PasswordTester.getInstance().testPin("1357")
-        assertTrue(pattern.contains(PinTestResult.HAS_PATTERN))
+        assertTrue(pattern.issues.contains(PinTestIssue.HAS_PATTERN))
         val date = PasswordTester.getInstance().testPin("1990")
-        assertTrue(date.contains(PinTestResult.POSSIBLY_DATE))
+        assertTrue(date.issues.contains(PinTestIssue.POSSIBLY_DATE))
         val unique = PasswordTester.getInstance().testPin("1112")
-        assertTrue(unique.contains(PinTestResult.NOT_UNIQUE))
+        assertTrue(unique.issues.contains(PinTestIssue.NOT_UNIQUE))
         val repeating = PasswordTester.getInstance().testPin("1111")
-        assertTrue(repeating.contains(PinTestResult.REPEATING_CHARACTERS))
+        assertTrue(repeating.issues.contains(PinTestIssue.REPEATING_CHARACTERS))
     }
 
     @Test
     fun testOKPin() {
-        val pin = PasswordTester.getInstance().testPin("9562")
-        assertTrue(pin.isEmpty())
+        val result = PasswordTester.getInstance().testPin("9562")
+        assertTrue(result.issues.isEmpty())
     }
 
     @Test
@@ -56,11 +56,11 @@ class PassMeterInstrumentedTest {
         val noDates = arrayOf("1313", "0028", "1287", "9752", "151590", "001297", "41121987")
 
         for (date in dates) {
-            assertTrue(date, PasswordTester.getInstance().testPin(date).contains(PinTestResult.POSSIBLY_DATE))
+            assertTrue(date, PasswordTester.getInstance().testPin(date).issues.contains(PinTestIssue.POSSIBLY_DATE))
         }
 
         for (nodate in noDates) {
-            assertTrue(nodate, PasswordTester.getInstance().testPin(nodate).contains(PinTestResult.POSSIBLY_DATE) == false)
+            assertTrue(nodate, PasswordTester.getInstance().testPin(nodate).issues.contains(PinTestIssue.POSSIBLY_DATE) == false)
         }
     }
 

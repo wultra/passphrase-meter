@@ -36,7 +36,7 @@ final class PinTester {
                     badPins += 1
                 }
             } else if pin.result.isEmpty == false {
-                print("\(pin.value) changed from OK to \(pin.result)", terminator: ", ")
+                print("\(pin.value) changed from OK to ", terminator: ", ")
                 badPins += 1
             }
         }

@@ -68,7 +68,7 @@ final class PinGenerator {
                     continue
                 }
                 let formatted =  String(format: "%0\(length)d", pin)
-                handle(Pin(value: formatted, result: PasswordTester.shared.testPin(formatted)), Double(pin)/Double(capacity))
+                handle(Pin(value: formatted, result: PasswordTester.shared.testPin(formatted).issues), Double(pin)/Double(capacity))
             }
         }
     }

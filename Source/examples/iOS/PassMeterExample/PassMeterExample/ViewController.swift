@@ -114,45 +114,35 @@ class ViewController: UIViewController {
             text = "PIN has to be at least 4 characters long"
             
         } else if isPin(pin) {
-            let result = PasswordTester.shared.testPin(pin)
             
-            if result.isEmpty {
+            let result = PasswordTester.shared.testPin(pin)
+            warnUser = result.shouldWarnUserAboutWeakPin
+            
+            if result.issues.isEmpty {
                 text += "Good pin 👍"
             } else {
-                if result.contains(.frequentlyUsed) {
+                if result.issues.contains(.frequentlyUsed) {
                     text += "- frequently used\n"
                 }
-                if result.contains(.notUnique) {
+                if result.issues.contains(.notUnique) {
                     text += "- not enough unique characters\n"
                 }
-                if result.contains(.patternFound) {
+                if result.issues.contains(.patternFound) {
                     text += "- repeating pattern\n"
                 }
-                if result.contains(.possiblyDate) {
+                if result.issues.contains(.possiblyDate) {
                     text += "- could be a date\n"
                 }
-                if result.contains(.repeatingCharacters) {
+                if result.issues.contains(.repeatingCharacters) {
                     text += "- too much repeating characters\n"
                 }
-                if result.contains(.pinFormatError) {
+                if result.issues.contains(.pinFormatError) {
                     text = "- format error!"
                 }
             }
             
-            // We want to warn the user only in some cases. Otherwise, we could eliminate too much pin codes and that could be anoying
-            
-            if pin.count == 4 {
-                warnUser = result.contains(.frequentlyUsed) || result.contains(.notUnique)
-            } else if pin.count <= 6 {
-                warnUser = result.contains(.frequentlyUsed) || result.contains(.notUnique) || result.contains(.repeatingCharacters)
-            } else {
-                warnUser = result.contains(.frequentlyUsed) || result.contains(.notUnique) || result.contains(.repeatingCharacters) || result.contains(.patternFound)
-            }
-            
         } else {
-            
             text = "Not a PIN"
-            
         }
         
         runOnMain {

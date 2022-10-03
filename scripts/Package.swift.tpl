@@ -11,7 +11,8 @@ let package = Package(
         .library(name: "WultraPassphraseMeter", targets: ["WultraPassphraseMeter"]),
         .library(name: "WultraPassphraseMeterCore", targets: ["WultraPassphraseMeterCore"]),
         .library(name: "WultraPassphraseMeterCZSKDictionary", targets: ["WultraPassphraseMeterCZSKDictionary"]),
-        .library(name: "WultraPassphraseMeterENDictionary", targets: ["WultraPassphraseMeterENDictionary"])
+        .library(name: "WultraPassphraseMeterENDictionary", targets: ["WultraPassphraseMeterENDictionary"]),
+        .library(name: "WultraPassphraseMeterRODictionary", targets: ["WultraPassphraseMeterRODictionary"])
     ],
     targets: [
         .binaryTarget(
@@ -29,7 +30,11 @@ let package = Package(
         .binaryTarget(
             name: "WultraPassphraseMeterENDictionary",
             url: "%ZIP_URL_WultraPassphraseMeterENDictionary%",
-            checksum: "%ZIP_HASH_WultraPassphraseMeterENDictionary%")
+            checksum: "%ZIP_HASH_WultraPassphraseMeterENDictionary%"),
+        .binaryTarget(
+            name: "WultraPassphraseMeterRODictionary",
+            url: "%ZIP_URL_WultraPassphraseMeterRODictionary%",
+            checksum: "%ZIP_HASH_WultraPassphraseMeterRODictionary%")
     ],
     swiftLanguageVersions: [.v5]
 )

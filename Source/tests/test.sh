@@ -33,7 +33,10 @@ function consistencytest {
     subtask "running cocoapods"
     pod install
     subtask "building test project"
-    xcodebuild -workspace PassMeterTester.xcworkspace -configuration Test -sdk macosx12.1 -scheme PassMeterTester build OBJROOT=$(PWD)/build SYMROOT=$(PWD)/build
+    # we're running this twice because of the output error in xcde
+    sdkversion=$(xcrun --sdk macosx --show-sdk-version)
+    sdkversion=$(xcrun --sdk macosx --show-sdk-version)
+    xcodebuild -workspace PassMeterTester.xcworkspace -configuration Test -sdk "macosx${sdkversion}" -scheme PassMeterTester build OBJROOT=$(PWD)/build SYMROOT=$(PWD)/build
 
     pushd "${buildfolder}"
 
@@ -59,7 +62,11 @@ function iostest {
     subtask "running cocoapods"
     pod install
     subtask "running tests"
-    xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample -destination 'platform=iOS Simulator,name=iPhone 12 mini,OS=15.2' test
+    # we're running this twice because of the output error in xcde
+    iosversion=$(xcrun --sdk iphoneos --show-sdk-version)
+    iosversion=$(xcrun --sdk iphoneos --show-sdk-version)
+    destination="platform=iOS Simulator,OS=${iosversion},name=iPhone 13 mini"
+    xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample -destination "${destination}" test
     if [[ $? != 0 ]]; then
         error "iOS TESTS FAILED"
     else
