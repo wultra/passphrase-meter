@@ -56,26 +56,33 @@ JNIEXPORT jboolean JNICALL Java_com_wultra_android_passphrasemeter_PasswordTeste
 }
 
 
-JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPasswordJNI(JNIEnv *jenv, jobject self, jstring password)
+#define TAG "JNI TEST PASS"
+JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPasswordJNI(JNIEnv *jenv, jobject self,
+                                                                                                  jobject buffer, jint length)
 {
     jint result = WPM_PasscodeResult_WrongInput;
-    if (password != NULL) {
-        const char * cppPassword = jenv->GetStringUTFChars(password, JNI_FALSE);
-        if (cppPassword != NULL) {
-            result = WPM_testPassword(cppPassword);
-            jenv->ReleaseStringUTFChars(password, cppPassword);
+    char* pw_buf = (char*) jenv->GetDirectBufferAddress(buffer);
+
+    if (pw_buf != NULL) {
+        result = WPM_testPassword(pw_buf);
+        for(int i = 0; i < length; i++) {
+            *(pw_buf + i) = 0;
         }
     }
     return result;
 }
 
-JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPinJNI(JNIEnv *jenv, jobject self, jstring pin)
+JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPinJNI(JNIEnv *jenv, jobject self,
+                                                                                             jobject buffer, jint length)
 {
-    const char * cppPin = jenv->GetStringUTFChars(pin, JNI_FALSE);
+    char* pin_buf = (char*) jenv->GetDirectBufferAddress(buffer);
     jint result;
-    if (cppPin) {
-        result = WPM_testPasscode(cppPin);
-        jenv->ReleaseStringUTFChars(pin, cppPin);
+
+    if (pin_buf) {
+        result = WPM_testPasscode(pin_buf);
+        for(int i = 0; i < length; i++) {
+            *(pin_buf + i) = 0;
+        }
     } else {
         result = WPM_PasscodeResult_WrongInput;
     }
