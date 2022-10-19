@@ -62,9 +62,9 @@ public class PasswordTester {
     ///
     /// - Parameter pin: PIN to evaluate..
     /// - Returns: Result of the testing
-    public func testPin(_ pin: String) -> PinTestResult {
+    public func testPin(_ passcodePtr: UnsafePointer<Int8>) -> PinTestResult {
 		
-        let code = WPM_testPasscode(pin).rawValue
+        let code = WPM_testPasscode(passcodePtr).rawValue
         var issues: PinTestIssue = []
 		
         if code & WPM_PasscodeResult_Ok.rawValue == 0 {
@@ -87,8 +87,8 @@ public class PasswordTester {
                 issues.insert(.frequentlyUsed)
             }
         }
-        
-        return PinTestResult(pin: pin, issues: issues)
+
+        return PinTestResult(pin: "passwordPtr", issues: issues)
     }
     
     /// Tests strength of the password.
@@ -97,9 +97,8 @@ public class PasswordTester {
     ///
     /// - Parameter password: Password to test
     /// - Returns: Strength of the password
-    public func testPassword(_ password: String) -> PasswordStrength {
-        guard password.count > 0 else { return .veryWeak }
-        return PasswordStrength(WPM_testPassword(password))
+    public func testPassword(_ passwordPtr: UnsafePointer<Int8>) -> PasswordStrength {
+        return PasswordStrength(WPM_testPassword(passwordPtr))
     }
 }
 
