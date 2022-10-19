@@ -60,32 +60,6 @@ JNIEXPORT jboolean JNICALL Java_com_wultra_android_passphrasemeter_PasswordTeste
     return (jboolean) WPM_hasPasswordDictionary();
 }
 
-JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPasswordJNI(JNIEnv *jenv, jobject self, jstring password)
-{
-    jint result = WPM_PasscodeResult_WrongInput;
-    if (password != NULL) {
-        const char * cppPassword = jenv->GetStringUTFChars(password, JNI_FALSE);
-        if (cppPassword != NULL) {
-            result = WPM_testPassword(cppPassword);
-            jenv->ReleaseStringUTFChars(password, cppPassword);
-        }
-    }
-    return result;
-}
-
-JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPinJNI(JNIEnv *jenv, jobject self, jstring pin)
-{
-    const char * cppPin = jenv->GetStringUTFChars(pin, JNI_FALSE);
-    jint result;
-    if (cppPin) {
-        result = WPM_testPasscode(cppPin);
-        jenv->ReleaseStringUTFChars(pin, cppPin);
-    } else {
-        result = WPM_PasscodeResult_WrongInput;
-    }
-    return result;
-}
-
 void test_value(JNIEnv *jenv, TestScenario test_scenario, jint& result, jbyteArray array) {
     jsize arr_length = jenv->GetArrayLength(array);
     jboolean isCopyFlag;
@@ -97,9 +71,7 @@ void test_value(JNIEnv *jenv, TestScenario test_scenario, jint& result, jbyteArr
 
         if (isCopyFlag) {
             // clean-up copy - just to be sure
-            for(int i = 0; i < arr_length; i++) {
-                *(value_original + i) = 0;
-            }
+            memset(value_original, 0, arr_length);
         }
         jenv->ReleaseByteArrayElements(array, (jbyte *) value_original, JNI_ABORT);
 
@@ -115,9 +87,7 @@ void test_value(JNIEnv *jenv, TestScenario test_scenario, jint& result, jbyteArr
         }
 
         // clean-up
-        for(int i = 0; i < arr_length; i++) {
-            *(value_to_test + i) = 0;
-        }
+        memset(value_to_test, 0, arr_length);
         free(value_to_test);
     }
 }

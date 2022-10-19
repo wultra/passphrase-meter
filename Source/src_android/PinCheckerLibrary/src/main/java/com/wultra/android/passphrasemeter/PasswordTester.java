@@ -27,6 +27,7 @@ import com.wultra.android.passphrasemeter.exceptions.WrongPinException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -98,22 +99,11 @@ public class PasswordTester {
      *         to C-string.
      */
     public PasswordStrength testPassword(@NonNull String password) throws WrongPasswordException {
-        switch (testPasswordJNI(password)) {
-            case PassResultCode.VERY_WEAK:
-                return PasswordStrength.VERY_WEAK;
-            case PassResultCode.WEAK:
-                return PasswordStrength.WEAK;
-            case PassResultCode.MODERATE:
-                return PasswordStrength.MODERATE;
-            case PassResultCode.GOOD:
-                return PasswordStrength.GOOD;
-            case PassResultCode.STRONG:
-                return PasswordStrength.STRONG;
-            case PassResultCode.WRONG_INPUT:
-                throw new WrongPasswordException();
-            default:
-                throw new WrongPasswordException("Unknown result returned.");
-        }
+
+        byte[] passwordByteArray = password.getBytes(StandardCharsets.UTF_8);
+        final PasswordStrength result = testPassword(passwordByteArray);
+        Arrays.fill(passwordByteArray, (byte) 0);
+        return result;
     }
 
     /**
@@ -155,33 +145,10 @@ public class PasswordTester {
      */
     public PinTestResult testPin(@NonNull String pin) throws WrongPinException {
 
-        final @PinResultCode int result = testPinJNI(pin);
-
-        if ((result & PinResultCode.WRONG_INPUT_PIN) != 0) {
-            throw new WrongPinException();
-        }
-
-        final EnumSet<PinTestIssue> set = EnumSet.noneOf(PinTestIssue.class);
-
-        if ((result & PinResultCode.OK) == 0) {
-            if ((result & PinResultCode.NOT_UNIQUE) != 0) {
-                set.add(PinTestIssue.NOT_UNIQUE);
-            }
-            if ((result & PinResultCode.REPEATING_CHARACTERS) != 0) {
-                set.add(PinTestIssue.REPEATING_CHARACTERS);
-            }
-            if ((result & PinResultCode.HAS_PATTERN) != 0) {
-                set.add(PinTestIssue.HAS_PATTERN);
-            }
-            if ((result & PinResultCode.POSSIBLY_DATE) != 0) {
-                set.add(PinTestIssue.POSSIBLY_DATE);
-            }
-            if ((result & PinResultCode.FREQUENTLY_USED) != 0) {
-                set.add(PinTestIssue.FREQUENTLY_USED);
-            }
-        }
-
-        return new PinTestResult(pin.length(), set);
+        byte[] pinByteArray = pin.getBytes(StandardCharsets.UTF_8);
+        final PinTestResult result = testPin(pinByteArray);
+        Arrays.fill(pinByteArray, (byte) 0);
+        return result;
     }
 
     /**
@@ -277,22 +244,4 @@ public class PasswordTester {
      */
     @PinResultCode
     private native int testPinByteJNI(@NonNull byte[] byteArray);
-
-    /**
-     * Tests the strength of the password.
-     *
-     * @param password Password to test
-     * @return Integer comparable to constants from {@link PassResultCode} private class.
-     */
-    @PassResultCode
-    private native int testPasswordJNI(@NonNull String password);
-
-    /**
-     * Tests the PIN properties.
-     *
-     * @param pin String with PIN
-     * @return Integer with combination of factors from {@link PinResultCode} private interface.
-     */
-    @PinResultCode
-    private native int testPinJNI(@NonNull String pin);
 }
