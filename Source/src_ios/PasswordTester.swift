@@ -87,8 +87,15 @@ public class PasswordTester {
                 issues.insert(.frequentlyUsed)
             }
         }
+        
+        var pinLength : Int = 0
+        while(passcodePtr[pinLength] != 0) {
+            pinLength += 1
+        }
 
-        return PinTestResult(pin: "passwordPtr", issues: issues)
+        print(pinLength)
+        
+        return PinTestResult(pinLength: pinLength, issues: issues)
     }
     
     /// Tests strength of the password.
@@ -116,7 +123,7 @@ public struct PasswordTesterDictionary {
 public struct PinTestResult {
     
     /// Tested pin
-    public let pin: String
+    public let pinLength: Int
     
     /// Issues found
     public let issues: PinTestIssue
@@ -136,9 +143,9 @@ public struct PinTestResult {
     public var shouldWarnUserAboutWeakPin: Bool {
         if issues.contains(.pinFormatError) {
             return false
-        } else if pin.count <= 4 { // future proofing in case we would evaluate short PINs.
+        } else if pinLength <= 4 { // future proofing in case we would evaluate short PINs.
             return issues.contains(.frequentlyUsed) || issues.contains(.notUnique)
-        } else if pin.count <= 6 {
+        } else if pinLength <= 6 {
             return issues.contains(.frequentlyUsed) || issues.contains(.notUnique) || issues.contains(.repeatingCharacters)
         } else {
             return issues.contains(.frequentlyUsed) || issues.contains(.notUnique) || issues.contains(.repeatingCharacters) || issues.contains(.patternFound)
