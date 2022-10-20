@@ -92,8 +92,6 @@ public class PasswordTester {
         while(passcodePtr[pinLength] != 0) {
             pinLength += 1
         }
-
-        print(pinLength)
         
         return PinTestResult(pinLength: pinLength, issues: issues)
     }
