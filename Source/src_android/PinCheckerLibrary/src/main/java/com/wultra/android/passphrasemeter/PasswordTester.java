@@ -26,12 +26,9 @@ import com.wultra.android.passphrasemeter.exceptions.WrongPinException;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.EnumSet;
-import java.util.Set;
 
 /**
  * Class that provides methods for testing strength of passwords and PINs. You cannot instantiate
