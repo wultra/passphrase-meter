@@ -60,11 +60,11 @@ public class PasswordTester {
     ///
     /// Minimum length for PIN is 4 and maximum 100.
     ///
-    /// - Parameter pin: PIN to evaluate..
+    /// - Parameter pinPtr: PIN to evaluate
     /// - Returns: Result of the testing
-    public func testPin(_ passcodePtr: UnsafePointer<Int8>) -> PinTestResult {
+    public func testPin(_ pinPtr: UnsafePointer<Int8>) -> PinTestResult {
 		
-        let code = WPM_testPasscode(passcodePtr).rawValue
+        let code = WPM_testPasscode(pinPtr).rawValue
         var issues: PinTestIssue = []
 		
         if code & WPM_PasscodeResult_Ok.rawValue == 0 {
@@ -89,7 +89,7 @@ public class PasswordTester {
         }
         
         var pinLength : Int = 0
-        while(passcodePtr[pinLength] != 0) {
+        while(pinPtr[pinLength] != 0) {
             pinLength += 1
         }
         
@@ -100,7 +100,7 @@ public class PasswordTester {
     ///
     /// Note that result is affected by dictionary that was set in `init` method.
     ///
-    /// - Parameter password: Password to test
+    /// - Parameter passwordPtr: Password to test
     /// - Returns: Strength of the password
     public func testPassword(_ passwordPtr: UnsafePointer<Int8>) -> PasswordStrength {
         return PasswordStrength(WPM_testPassword(passwordPtr))
