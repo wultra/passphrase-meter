@@ -26,9 +26,9 @@ import com.wultra.android.passphrasemeter.exceptions.WrongPinException;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.Collections;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.Set;
 
 /**
  * Class that provides methods for testing strength of passwords and PINs. You cannot instantiate
@@ -96,7 +96,25 @@ public class PasswordTester {
      *         to C-string.
      */
     public PasswordStrength testPassword(@NonNull String password) throws WrongPasswordException {
-        switch (testPasswordJNI(password)) {
+
+        byte[] passwordByteArray = password.getBytes(StandardCharsets.UTF_8);
+        final PasswordStrength result = testPassword(passwordByteArray);
+        Arrays.fill(passwordByteArray, (byte) 0);
+        return result;
+    }
+
+    /**
+     * Tests the strength of the password. Before you test the passwords, you should load a right
+     * dictionary by calling {@link #loadDictionary(AssetManager, String)} method.
+     *
+     * @param passwordBytes Password to scan as byte array.
+     * @return Strength of the password
+     * @throws WrongPasswordException if provided password is {@code null} or cannot be converted
+     *         to C-string.
+     */
+    public PasswordStrength testPassword(@NonNull byte[] passwordBytes) throws WrongPasswordException {
+
+        switch (testPasswordByteJNI(passwordBytes)) {
             case PassResultCode.VERY_WEAK:
                 return PasswordStrength.VERY_WEAK;
             case PassResultCode.WEAK:
@@ -124,7 +142,23 @@ public class PasswordTester {
      */
     public PinTestResult testPin(@NonNull String pin) throws WrongPinException {
 
-        final @PinResultCode int result = testPinJNI(pin);
+        byte[] pinByteArray = pin.getBytes(StandardCharsets.UTF_8);
+        final PinTestResult result = testPin(pinByteArray);
+        Arrays.fill(pinByteArray, (byte) 0);
+        return result;
+    }
+
+    /**
+     * Scans PIN for possible issues.
+     *
+     * @param pinBytes PIN to scan as byte array.
+     * @return Result of the scan.
+     * @throws WrongPinException if provided PIN contains some invalid characters,
+     * is too short or long (minimum length for PIN is 4 and maximum 100).
+     */
+    public PinTestResult testPin(@NonNull byte[] pinBytes) throws WrongPinException {
+
+        final @PinResultCode int result = testPinByteJNI(pinBytes);
 
         if ((result & PinResultCode.WRONG_INPUT_PIN) != 0) {
             throw new WrongPinException();
@@ -150,13 +184,13 @@ public class PasswordTester {
             }
         }
 
-        return new PinTestResult(pin, set);
+        return new PinTestResult(pinBytes.length, set);
     }
 
     // Private methods & constants
 
     /**
-     * Defines constants returned from {@link #testPasswordJNI(String)} method.
+     * Defines constants returned from {@link #testPasswordByteJNI(byte[])} method.
      * The constants must match values from {@code WPM_PasswordResult} C enumeration.
      */
     @Retention(RetentionPolicy.SOURCE)
@@ -172,17 +206,7 @@ public class PasswordTester {
     }
 
     /**
-     * Tests the strength of the password.
-     *
-     * @param password Password to test
-     * @return Integer comparable to constants from {@link PassResultCode} private class.
-     */
-    @PassResultCode
-    private native int testPasswordJNI(@NonNull String password);
-
-
-    /**
-     * Defines constants returned from {@link #testPinJNI(String)} method.
+     * Defines constants returned from {@link #testPinByteJNI(byte[])} method.
      * The constants must match values from {@code WPM_PasscodeResult} C enumeration.
      */
     @Retention(RetentionPolicy.SOURCE)
@@ -201,11 +225,20 @@ public class PasswordTester {
     }
 
     /**
+     * Tests the strength of the password.
+     *
+     * @param byteArray Password as byte array
+     * @return Integer comparable to constants from {@link PassResultCode} private class.
+     */
+    @PassResultCode
+    private native int testPasswordByteJNI(@NonNull byte[] byteArray);
+
+    /**
      * Tests the PIN properties.
      *
-     * @param pin String with PIN
+     * @param byteArray PIN as byte array
      * @return Integer with combination of factors from {@link PinResultCode} private interface.
      */
     @PinResultCode
-    private native int testPinJNI(@NonNull String pin);
+    private native int testPinByteJNI(@NonNull byte[] byteArray);
 }

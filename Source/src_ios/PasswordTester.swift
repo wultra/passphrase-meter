@@ -60,11 +60,11 @@ public class PasswordTester {
     ///
     /// Minimum length for PIN is 4 and maximum 100.
     ///
-    /// - Parameter pin: PIN to evaluate..
+    /// - Parameter pinPtr: PIN to evaluate
     /// - Returns: Result of the testing
-    public func testPin(_ pin: String) -> PinTestResult {
+    public func testPin(_ pinPtr: UnsafePointer<Int8>) -> PinTestResult {
 		
-        let code = WPM_testPasscode(pin).rawValue
+        let code = WPM_testPasscode(pinPtr).rawValue
         var issues: PinTestIssue = []
 		
         if code & WPM_PasscodeResult_Ok.rawValue == 0 {
@@ -88,18 +88,22 @@ public class PasswordTester {
             }
         }
         
-        return PinTestResult(pin: pin, issues: issues)
+        var pinLength : Int = 0
+        while(pinPtr[pinLength] != 0) {
+            pinLength += 1
+        }
+        
+        return PinTestResult(pinLength: pinLength, issues: issues)
     }
     
     /// Tests strength of the password.
     ///
     /// Note that result is affected by dictionary that was set in `init` method.
     ///
-    /// - Parameter password: Password to test
+    /// - Parameter passwordPtr: Password to test
     /// - Returns: Strength of the password
-    public func testPassword(_ password: String) -> PasswordStrength {
-        guard password.count > 0 else { return .veryWeak }
-        return PasswordStrength(WPM_testPassword(password))
+    public func testPassword(_ passwordPtr: UnsafePointer<Int8>) -> PasswordStrength {
+        return PasswordStrength(WPM_testPassword(passwordPtr))
     }
 }
 
@@ -117,7 +121,7 @@ public struct PasswordTesterDictionary {
 public struct PinTestResult {
     
     /// Tested pin
-    public let pin: String
+    public let pinLength: Int
     
     /// Issues found
     public let issues: PinTestIssue
@@ -137,9 +141,9 @@ public struct PinTestResult {
     public var shouldWarnUserAboutWeakPin: Bool {
         if issues.contains(.pinFormatError) {
             return false
-        } else if pin.count <= 4 { // future proofing in case we would evaluate short PINs.
+        } else if pinLength <= 4 { // future proofing in case we would evaluate short PINs.
             return issues.contains(.frequentlyUsed) || issues.contains(.notUnique)
-        } else if pin.count <= 6 {
+        } else if pinLength <= 6 {
             return issues.contains(.frequentlyUsed) || issues.contains(.notUnique) || issues.contains(.repeatingCharacters)
         } else {
             return issues.contains(.frequentlyUsed) || issues.contains(.notUnique) || issues.contains(.repeatingCharacters) || issues.contains(.patternFound)

@@ -23,11 +23,11 @@ import java.util.Set;
  */
 public class PinTestResult {
 
-    private final String pin;
+    private final int pinLength;
     private final Set<PinTestIssue> issues;
 
-    public PinTestResult(String pin, Set<PinTestIssue> issues) {
-        this.pin = pin;
+    public PinTestResult(int pinLength, Set<PinTestIssue> issues) {
+        this.pinLength = pinLength;
         this.issues = issues;
     }
 
@@ -40,11 +40,11 @@ public class PinTestResult {
     }
 
     /**
-     * Originally tested PIN.
+     * Originally tested PIN length.
      * @return tested PIN.
      */
-    public String getPin() {
-        return pin;
+    public int getPinLength() {
+        return pinLength;
     }
 
     /**
@@ -74,9 +74,9 @@ public class PinTestResult {
      * @return If the user should be warned that the pin is weak.
      */
     public boolean shouldWarnUserAboutWeakPin() {
-        if (this.pin.length() <= 4) { // future proofing in case we would evaluate short PINs.
+        if (this.pinLength <= 4) { // future proofing in case we would evaluate short PINs.
             return issues.contains(PinTestIssue.FREQUENTLY_USED) || issues.contains(PinTestIssue.NOT_UNIQUE);
-        } else if (this.pin.length() <= 6) {
+        } else if (this.pinLength <= 6) {
             return issues.contains(PinTestIssue.FREQUENTLY_USED) || issues.contains(PinTestIssue.NOT_UNIQUE) || issues.contains(PinTestIssue.REPEATING_CHARACTERS);
         } else {
             return issues.contains(PinTestIssue.FREQUENTLY_USED) || issues.contains(PinTestIssue.NOT_UNIQUE) || issues.contains(PinTestIssue.REPEATING_CHARACTERS) || issues.contains(PinTestIssue.HAS_PATTERN);

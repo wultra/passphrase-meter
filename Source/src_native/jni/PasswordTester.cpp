@@ -24,10 +24,15 @@
 #include <android/asset_manager_jni.h>
 #include "wultra_pass_meter.h"
 
+
 extern "C" {
 	
 // Java package : com.wultra.android.passphrasemeter
 // Java class   : PasswordTester
+
+enum class TestScenario {
+    PASSWORD, PASSCODE
+};
 
 JNIEXPORT jboolean JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_loadDictionary(JNIEnv *jenv, jobject self, jobject manager, jstring dictionaryAsset)
 {
@@ -55,30 +60,51 @@ JNIEXPORT jboolean JNICALL Java_com_wultra_android_passphrasemeter_PasswordTeste
     return (jboolean) WPM_hasPasswordDictionary();
 }
 
+void test_value(JNIEnv *jenv, TestScenario test_scenario, jint& result, jbyteArray array) {
+    jsize arr_length = jenv->GetArrayLength(array);
+    jboolean isCopyFlag;
+    char* value_original = (char*) jenv->GetByteArrayElements(array, &isCopyFlag);
 
-JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPasswordJNI(JNIEnv *jenv, jobject self, jstring password)
-{
-    jint result = WPM_PasscodeResult_WrongInput;
-    if (password != NULL) {
-        const char * cppPassword = jenv->GetStringUTFChars(password, JNI_FALSE);
-        if (cppPassword != NULL) {
-            result = WPM_testPassword(cppPassword);
-            jenv->ReleaseStringUTFChars(password, cppPassword);
+    if (value_original != NULL) {
+        char* value_to_test = (char*) calloc(arr_length + 1, 1);
+        memcpy(value_to_test, value_original, arr_length);
+
+        if (isCopyFlag) {
+            // clean-up copy - just to be sure
+            memset(value_original, 0, arr_length);
         }
+        jenv->ReleaseByteArrayElements(array, (jbyte *) value_original, JNI_ABORT);
+
+        switch (test_scenario) {
+            case TestScenario::PASSCODE:{
+                result = WPM_testPasscode(value_to_test);
+            }
+            break;
+            case TestScenario::PASSWORD:{
+                result = WPM_testPassword(value_to_test);
+            }
+            break;
+        }
+
+        // clean-up
+        memset(value_to_test, 0, arr_length);
+        free(value_to_test);
     }
+}
+
+JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPasswordByteJNI(JNIEnv *jenv, jobject self,
+                                                                                                  jbyteArray array)
+{
+    jint result = WPM_PasswordResult_WrongInput;
+    test_value(jenv, TestScenario::PASSWORD, result, array);
     return result;
 }
 
-JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPinJNI(JNIEnv *jenv, jobject self, jstring pin)
+JNIEXPORT jint JNICALL Java_com_wultra_android_passphrasemeter_PasswordTester_testPinByteJNI(JNIEnv *jenv, jobject self,
+                                                                                             jbyteArray array)
 {
-    const char * cppPin = jenv->GetStringUTFChars(pin, JNI_FALSE);
-    jint result;
-    if (cppPin) {
-        result = WPM_testPasscode(cppPin);
-        jenv->ReleaseStringUTFChars(pin, cppPin);
-    } else {
-        result = WPM_PasscodeResult_WrongInput;
-    }
+    jint result = WPM_PasscodeResult_WrongInput;
+    test_value(jenv, TestScenario::PASSCODE, result, array);
     return result;
 }
 

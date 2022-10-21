@@ -67,10 +67,8 @@ class MainActivity : AppCompatActivity() {
         val text: String
 
         if (password.isNotEmpty()) {
-
             text = try {
-
-                when (PasswordTester.getInstance().testPassword(password)) {
+                when (PasswordTester.getInstance().testPassword(password.toByteArray())) {
                     PasswordStrength.STRONG -> "Strong 💪"
                     PasswordStrength.GOOD -> "Good 👍"
                     PasswordStrength.MODERATE -> "Moderate 🤔"
@@ -80,7 +78,6 @@ class MainActivity : AppCompatActivity() {
             } catch (e: WrongPasswordException) {
                 "Password format exception"
             }
-
         } else {
             text = "Type some text 🙏"
         }
@@ -96,8 +93,7 @@ class MainActivity : AppCompatActivity() {
             text = "PIN has to be at least 4 characters long"
         } else if (isPin(pin)) {
             try {
-
-                val result = PasswordTester.getInstance().testPin(pin)
+                val result = PasswordTester.getInstance().testPin(pin.toByteArray())
                 warnUser = result.shouldWarnUserAboutWeakPin()
 
                 if (result.issues.isEmpty()) {
