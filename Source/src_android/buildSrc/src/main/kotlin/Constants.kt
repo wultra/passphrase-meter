@@ -14,4 +14,5 @@ object Constants {
     const val minSdkVersion = 19
     const val targetSdkVersion = 32
     const val compileSdkVersion = 32
+    const val ndkVersion = "25.1.8937393"  // r25b
 }

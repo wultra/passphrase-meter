@@ -1,3 +1,5 @@
+rootProject.name = "PassphraseMeter"
+
 include ':PinCheckerLibrary'
 include ':PinCheckerDictionary'
 include ':PinCheckerDictionaryCzsk'
