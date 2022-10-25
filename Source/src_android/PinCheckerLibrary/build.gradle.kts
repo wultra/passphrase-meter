@@ -22,6 +22,7 @@ plugins {
 android {
 
     compileSdk = Constants.compileSdkVersion
+    ndkVersion = Constants.ndkVersion
 
     defaultConfig {
         minSdk = Constants.minSdkVersion
