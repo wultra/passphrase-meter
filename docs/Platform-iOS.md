@@ -169,6 +169,35 @@ If everything works fine, then you can test your passwords in the simulator (or 
 
 ![iOS Example App](./images/ios-tester.png)
 
+### Integration with secure password objects
+
+If your application is using a custom objects, such as `PowerAuthCorePassword` from [PowerAuth mobile SDK](https://github.com/wultra/powerauth-mobile-sdk) for keeping user's password securely in the memory, then you can easily test PIN or password without a leaking plaintext password in the memory. This is due to fact, that both `testPin()` and `testPassword()` functions accept `UnsafePointer<Int8>` at input. It's expected that you provide nul-terminated UTF8 encoded string to both functions to work correctly. If you provide a regular swift's string, then this is achieved by implicit conversion to such array of bytes by swift compiler.
+
+The following example shows how to ingegrate this library with `PowerAuthCorePassword` object:
+```swift
+import PowerAuthCore
+
+extension PowerAuthCorePassword {
+    func testPin() -> PinTestResult {
+        var result = PinTestResult(pinLength: 0, issues: .pinFormatError)
+        _ = validateComplexity { ptr, _ in
+            result = PasswordTester.shared.testPin(ptr)
+            return 0
+        }
+        return result
+    }
+    
+    func testPassword() -> PasswordStrength {
+        var result = PasswordStrength.veryWeak
+        _ = validateComplexity { ptr, _ in
+            result = PasswordTester.shared.testPassword(ptr)
+            return 0
+        }
+        return result
+    }
+}
+```
+
 ## Contact
 
 If you need any assistance, do not hesitate to drop us a line at [hello@wultra.com](mailto:hello@wultra.com) or our official [gitter.im/wultra](https://gitter.im/wultra) channel.

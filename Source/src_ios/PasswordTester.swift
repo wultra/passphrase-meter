@@ -120,7 +120,7 @@ public struct PasswordTesterDictionary {
 /// Result of the PIN testing.
 public struct PinTestResult {
     
-    /// Tested pin
+    /// Length of PIN
     public let pinLength: Int
     
     /// Issues found
@@ -148,6 +148,15 @@ public struct PinTestResult {
         } else {
             return issues.contains(.frequentlyUsed) || issues.contains(.notUnique) || issues.contains(.repeatingCharacters) || issues.contains(.patternFound)
         }
+    }
+    
+    /// Construct structure from provided parameters.
+    /// - Parameters:
+    ///   - pinLength: Length of PIN
+    ///   - issues: Issues found.
+    public init(pinLength: Int, issues: PinTestIssue) {
+        self.pinLength = pinLength
+        self.issues = issues
     }
 }
 

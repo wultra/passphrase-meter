@@ -114,6 +114,32 @@ If everything works fine, then you can test your passwords in the simulator (or 
 
 ![Android Example App](./images/android-tester.png)
 
+### Integration with secure password objects
+
+If your application is using a custom objects, such as `Password` from [PowerAuth mobile SDK](https://github.com/wultra/powerauth-mobile-sdk) for keeping user's password securely in the memory, then you can easily test PIN or password without a leaking plaintext password in the memory. This is due to fact, that library provide variants of `testPin()` and `testPassword()` functions with byte array at input. It's expected that you provide UTF8 encoded string to both functions to work correctly.
+
+```kotlin
+import io.getlime.security.powerauth.core.Password
+
+fun Password.testPin() : PinTestResult {
+    var result = PinTestResult(0, emptySet())
+    validatePasswordComplexity { 
+        result = PasswordTester.getInstance().testPin(it)
+        0
+    }
+    return result
+}
+
+fun Password.testPassword(): PasswordStrength {
+    var result = PasswordStrength.VERY_WEAK
+    validatePasswordComplexity { 
+        result = PasswordTester.getInstance().testPassword(it)
+        0
+    }
+    return result
+}
+```
+
 ## Contact
 
 If you need any assistance, do not hesitate to drop us a line at [hello@wultra.com](mailto:hello@wultra.com) or our official [gitter.im/wultra](https://gitter.im/wultra) channel.
