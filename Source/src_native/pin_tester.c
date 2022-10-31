@@ -346,7 +346,7 @@ static bool isDateOK(const char *pin, const size_t pinLength) {
         struct tm r;
         
         // If the PIN could be date like 0304 (3rd of April or 4th of March)
-        if (parseDate("%d%m", pin, &r) || parseDate("%d%m", pin, &r)) {
+        if (parseDate("%d%m", pin, &r) || parseDate("%m%d", pin, &r)) {
             return false;
         }
         
