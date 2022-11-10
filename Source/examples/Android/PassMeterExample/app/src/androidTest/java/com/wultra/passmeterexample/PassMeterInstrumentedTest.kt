@@ -1,7 +1,7 @@
 package com.wultra.passmeterexample
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.wultra.android.passphrasemeter.*
 import com.wultra.android.passphrasemeter.exceptions.*
 
@@ -19,7 +19,7 @@ class PassMeterInstrumentedTest {
     @Test
     fun testLibraryLoad() {
         assertFalse(PasswordTester.getInstance().hasLoadedDictionary())
-        assertTrue(PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getTargetContext().assets, "czsk.dct"))
+        assertTrue(PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getInstrumentation().targetContext.assets, "czsk.dct"))
         assertTrue(PasswordTester.getInstance().hasLoadedDictionary())
         PasswordTester.getInstance().freeLoadedDictionary()
         assertFalse(PasswordTester.getInstance().hasLoadedDictionary())
@@ -87,7 +87,7 @@ class PassMeterInstrumentedTest {
             assertTrue(word, result == PasswordStrength.GOOD || result == PasswordStrength.STRONG)
         }
 
-        PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getTargetContext().assets,"en.dct")
+        PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getInstrumentation().targetContext.assets,"en.dct")
 
         for (word in words) {
             val result = PasswordTester.getInstance().testPassword(word.toByteArray())
@@ -120,7 +120,7 @@ class PassMeterInstrumentedTest {
             assertTrue(result == PasswordStrength.GOOD || result == PasswordStrength.STRONG)
         }
 
-        PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getTargetContext().assets,"czsk.dct")
+        PasswordTester.getInstance().loadDictionary(InstrumentationRegistry.getInstrumentation().targetContext.assets,"czsk.dct")
 
         for (word in words) {
             val result = PasswordTester.getInstance().testPassword(word.toByteArray())
