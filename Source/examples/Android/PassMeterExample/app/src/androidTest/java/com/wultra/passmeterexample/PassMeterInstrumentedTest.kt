@@ -52,8 +52,8 @@ class PassMeterInstrumentedTest {
 
     @Test
     fun testPinDates() {
-        val dates = arrayOf("0304", "1012", "0101", "1998", "2005", "150990", "241065", "16021998", "03122001")
-        val noDates = arrayOf("1313", "0028", "1287", "9752", "151590", "001297", "41121987")
+        val dates = arrayOf("0304", "1012", "0101", "1998", "2005", "150990", "241065", "16021998", "03122001", "2901", "2802")
+        val noDates = arrayOf("1313", "0028", "1287", "9752", "151590", "001297", "41121987", "3002", "3102")
 
         for (date in dates) {
             assertTrue(date, PasswordTester.getInstance().testPin(date.toByteArray()).issues.contains(PinTestIssue.POSSIBLY_DATE))

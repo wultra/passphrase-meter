@@ -28,12 +28,12 @@ final class PinGenerator {
         
         var started = true
         
-        pins(maxLength: testingPinLength) { pin, percent in
+        pins(maxLength: testingPinLength) { pin, _ in
             
             //print(String(format: "%.2f%% evaluated \(pin)", percent*100))
             
             if pin.result.isEmpty == false {
-                h.write("\(started ? "" : ",")\(pin.fileValue)".data(using: .utf8)!)
+                h.write("\(started ? "" : "\n")\(pin.fileValue)".data(using: .utf8)!)
             }
             
             if started {
@@ -51,24 +51,24 @@ final class PinGenerator {
         // we only need to test 20% of the numbers to get the full coverage of variants (the rest is just variants for 1234....,2345....,3456....)
         let capacity = Int(pow(10, Double(maxLength)))/5
         var tested = 0.0
-        let total = Double(capacity)
+        let total = 1.0/Double(capacity)
         
         for pin in 0..<capacity {
             
             tested += 1
             
             if tested.truncatingRemainder(dividingBy: 100000) == 0 {
-                print("  \(((tested/total)*100).rounded(toPlaces: 2))% done \r", terminator: "")
+                print("  \(((tested*total)*100).rounded(toPlaces: 2))% done \r", terminator: "")
                 fflush(stdout)
             }
             
             let digits = numberOfDigits(in: pin)
             for length in 4...maxLength {
-                if digits > length {
+            if digits > length {
                     continue
                 }
                 let formatted =  String(format: "%0\(length)d", pin)
-                handle(Pin(value: formatted, result: PasswordTester.shared.testPin(formatted).issues), Double(pin)/Double(capacity))
+                handle(Pin(value: formatted, result: PasswordTester.shared.testPin(formatted).issues), Double(pin)*total)
             }
         }
     }
