@@ -28,7 +28,7 @@ final class PinTester {
         
         var badPins = 0
         
-        PinGenerator.pins(maxLength: testingPinLength) { pin, percent in
+        PinGenerator.pins(maxLength: testingPinLength) { pin, _ in
             
             if let filePin = loadedPins.removeValue(forKey: pin.value) {
                 if pin.result != filePin.result {
@@ -66,7 +66,7 @@ final class PinTester {
             return nil
         }
         
-        let items = content.split(separator: ",").map { Pin(fromFileFormat: String($0)) }
+        let items = content.split(separator: "\n").map { Pin(fromFileFormat: String($0)) }
         
         return Dictionary(uniqueKeysWithValues: items.map({ ($0.value, $0) }))
     }
