@@ -60,8 +60,8 @@ class PassMeterExampleTests: XCTestCase {
     }
     
     func testPinDates() {
-        let dates = ["0304", "1012", "3101", "1998", "2005", "150990", "241065", "16021998", "03122001"]
-        let noDates = ["1313", "0028", "1287", "9752", "151590", "001297", "41121987"]
+        let dates = ["0304", "1012", "3101", "1998", "2005", "150990", "241065", "16021998", "03122001", "2901", "2802"]
+        let noDates = ["1313", "0028", "1287", "9752", "151590", "001297", "41121987", "3002", "3102"]
         
         for date in dates {
             XCTAssert(PasswordTester.shared.testPin(date).issues.contains(.possiblyDate), date)

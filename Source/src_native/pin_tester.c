@@ -131,7 +131,7 @@ int parseInt(const char * date, int size)
 {
     int value = 0;
     while (*date && size-- > 0) {
-        if (!isnumber(*date)) {
+        if (!isdigit(*date)) {
             break;
         }
         int digit = *date++ - '0';
