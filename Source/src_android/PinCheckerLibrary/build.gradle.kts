@@ -23,6 +23,7 @@ android {
 
     compileSdk = Constants.compileSdkVersion
     ndkVersion = Constants.ndkVersion
+    namespace = "com.wultra.android.pinchecker.core"
 
     defaultConfig {
         minSdk = Constants.minSdkVersion

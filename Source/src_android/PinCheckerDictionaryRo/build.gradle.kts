@@ -22,6 +22,7 @@ plugins {
 android {
 
     compileSdk = Constants.compileSdkVersion
+    namespace = "com.wultra.android.pinchecker.dictionary.ro"
 
     defaultConfig {
         minSdk = Constants.minSdkVersion
