@@ -10,9 +10,9 @@
  */
 
 object Constants {
-    const val kotlinVersion = "1.6.10"
+    const val kotlinVersion = "1.7.20"
     const val minSdkVersion = 19
-    const val targetSdkVersion = 32
-    const val compileSdkVersion = 32
+    const val targetSdkVersion = 33
+    const val compileSdkVersion = 33
     const val ndkVersion = "25.1.8937393"  // r25b
 }

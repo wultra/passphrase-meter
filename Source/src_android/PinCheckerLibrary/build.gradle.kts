@@ -23,6 +23,7 @@ android {
 
     compileSdk = Constants.compileSdkVersion
     ndkVersion = Constants.ndkVersion
+    namespace = "com.wultra.android.pinchecker.core"
 
     defaultConfig {
         minSdk = Constants.minSdkVersion
@@ -47,7 +48,7 @@ android {
     }
 
     dependencies {
-        implementation("com.android.support:support-annotations:28.0.0")
+        implementation("androidx.annotation:annotation:1.5.0")
     }
 
     sourceSets["main"].jniLibs.srcDirs("libs")

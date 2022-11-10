@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2018 Wultra s.r.o.
+  ~ Copyright 2022 Wultra s.r.o.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,4 +15,4 @@
   ~ and limitations under the License.
   -->
 
-<manifest package="com.wultra.android.pinchecker.dictionary.czsk" />
+<manifest />

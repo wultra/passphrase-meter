@@ -17,9 +17,9 @@
 package com.wultra.android.passphrasemeter;
 
 import android.content.res.AssetManager;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 
 import com.wultra.android.passphrasemeter.exceptions.WrongPasswordException;
 import com.wultra.android.passphrasemeter.exceptions.WrongPinException;

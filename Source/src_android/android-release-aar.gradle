@@ -156,6 +156,13 @@ signing {
     sign publishing.publications
 }
 
+// Patch dependency order
+
+afterEvaluate {
+    publishReleasePublicationToMavenLocal.dependsOn bundleReleaseAar
+    publishReleasePublicationToSonatypeRepository.dependsOn bundleReleaseAar
+}
+
 // Helper functions
 
 def isReleaseBuild() {
