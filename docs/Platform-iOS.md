@@ -22,7 +22,7 @@ import PackageDescription
 let package = Package(
     name: "YourLibrary",
     platforms: [
-        .iOS(.v9)
+        .iOS(.v11)
     ],
     products: [
         .library(
