@@ -84,7 +84,7 @@ try {
         // No issues were found. 
     }
     
-    if (result.result.shouldWarnUserAboutWeakPin()) {
+    if (result.shouldWarnUserAboutWeakPin()) {
     	// Warn the user that the PIN is weak.
 		// Be aware that this property is just a hint based on simple rules. 
 		// Consider implementing your own logic based on the `issues` property.
