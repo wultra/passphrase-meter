@@ -36,7 +36,10 @@ function USAGE
     echo "options:"
     echo ""
     echo "    -s version | --snapshot version"
-    echo "                      Set version to version-SNAPSHOT and exit"
+    echo "                      Set version to 'version-SNAPSHOT' and exit"
+    echo ""
+    echo "    -r version | --release version"
+    echo "                      Set version to 'version' and exit"
     echo ""
     echo "    -ns | --no-sign"
     echo "                      Don't sign artifacts when publishing"
@@ -54,21 +57,27 @@ function USAGE
 }
 
 # -----------------------------------------------------------------------------
-# MAKE_SNAPSHOT_VER sets version-SNAPSHOT to gradle.properties file
+# MAKE_VER sets version or version-SNAPSHOT to gradle.properties file
 # Parameters:
 #   $1   - version to set
+#   $2   - version suffix, for example "SNAPSHOT", or empty
 # -----------------------------------------------------------------------------
-function MAKE_SNAPSHOT_VER
+function MAKE_VER
 {
     local VER=$1
+    local VER_SUFFIX=$2
+    if [ ! -z "$VER_SUFFIX" ]; then
+        VER_SUFFIX="-$VER_SUFFIX"
+    fi
+    local NEW_VER=${VER}${VER_SUFFIX}
     
     VALIDATE_AND_SET_VERSION_STRING "$VER"
-    VER=$VER-SNAPSHOT
+    VER=$NEW_VER
     
     PUSH_DIR "${SRC_ROOT}"
     ####
     LOG "Modifying version to $VER ..."
-    sed -e "s/%DEPLOY_VERSION%/$VER/g" "${TOP}/templates/gradle.properties" > "$SRC_ROOT/${GRADLE_PROP}" 
+    sed -e "s/%DEPLOY_VERSION%/$VER/g" "${TOP}/../Deploy/gradle.properties" > "$SRC_ROOT/${GRADLE_PROP}" 
     git add ${GRADLE_PROP}
     ####
     POP_DIR
@@ -128,7 +137,11 @@ do
     opt="$1"
     case "$opt" in
         -s | --snapshot)
-            MAKE_SNAPSHOT_VER "$2"
+            MAKE_VER "$2" "SNAPSHOT"
+            EXIT_SUCCESS
+            ;;
+        -r | --release)
+            MAKE_VER "$2" ""
             EXIT_SUCCESS
             ;;
         -nc | --no-clean)

@@ -60,8 +60,11 @@ function PATCH_LIBRARY_VERSION
         DEPLOY_BUILD=$(expr $DEPLOY_BUILD + 1)
     fi
     
-    # Patch version file
+    # Patch iOS version file
     sed -e "s/%DEPLOY_VERSION%/$VERSION/g" "${TOP}/FwVersion.xcconfig.tpl" | sed -e "s/%DEPLOY_BUILD%/$DEPLOY_BUILD/g" > $FW_VERSION_FILE
+    
+    # Patch Android version file
+    "${TOP}/android-publish-build.sh" -r $VERSION
     
     POP_DIR
     
