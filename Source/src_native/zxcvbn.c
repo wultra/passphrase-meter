@@ -148,7 +148,7 @@ static int Cardinality(const uint8_t *Str, int Len)
 /**********************************************************************************
  * Allocate a ZxcMatch_t struct, clear it to zero
  */
-static ZxcMatch_t *AllocMatch()
+static ZxcMatch_t *AllocMatch(void)
 {
     ZxcMatch_t *p = MallocFn(ZxcMatch_t, 1);
     memset(p, 0, sizeof *p);
@@ -343,7 +343,7 @@ int _ZxcvbnInit(FILE * f)
 /**********************************************************************************
  * Free the data allocated by ZxcvbnInit().
  */
-void ZxcvbnUnInit()
+void ZxcvbnUnInit(void)
 {
     if (DictNodes)
         FreeFn(DictNodes);

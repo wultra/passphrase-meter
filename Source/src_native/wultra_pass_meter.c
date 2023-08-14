@@ -49,13 +49,13 @@ static bool s_HasDictionary = false;
 
 static bool WPM_setPasswordDictionaryFile(FILE * file);
 
-void WPM_freePasswordDictionary()
+void WPM_freePasswordDictionary(void)
 {
     ZxcvbnUnInit();
 	s_HasDictionary = false;
 }
 
-bool WPM_hasPasswordDictionary()
+bool WPM_hasPasswordDictionary(void)
 {
 	return s_HasDictionary;
 }
