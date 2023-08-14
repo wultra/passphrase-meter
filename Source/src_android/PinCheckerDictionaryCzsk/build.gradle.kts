@@ -16,7 +16,7 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
+    kotlin("android")
 }
 
 android {
@@ -26,7 +26,6 @@ android {
 
     defaultConfig {
         minSdk = Constants.minSdkVersion
-        targetSdk = Constants.targetSdkVersion
     }
 
     compileOptions {
