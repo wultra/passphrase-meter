@@ -68,7 +68,7 @@ You can use them with no restriction. If you are using this library, please let 
 
 ## Contact
 
-If you need any assistance, do not hesitate to drop us a line at [hello@wultra.com](mailto:hello@wultra.com) or our official [gitter.im/wultra](https://gitter.im/wultra) channel.
+If you need any assistance, do not hesitate to drop us a line at [hello@wultra.com](mailto:hello@wultra.com) or our official [wultra.com/discord](https://wultra.com/discord) channel.
 
 
 ### Security Disclosure
