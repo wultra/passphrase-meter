@@ -10,7 +10,7 @@
  */
 
 object Constants {
-    const val kotlinVersion = "1.7.20"
+    const val kotlinVersion = "1.8.20"
     const val minSdkVersion = 19
     const val targetSdkVersion = 33
     const val compileSdkVersion = 33
