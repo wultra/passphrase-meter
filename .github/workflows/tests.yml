@@ -11,14 +11,14 @@ on:
 jobs:
   tests:
     name: Tests
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '11'
+          distribution: 'temurin'
+          java-version: '17'
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
