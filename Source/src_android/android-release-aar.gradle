@@ -159,6 +159,7 @@ signing {
 // Patch dependency order
 
 afterEvaluate {
+    signReleasePublication.dependsOn bundleReleaseAar
     publishReleasePublicationToMavenLocal.dependsOn bundleReleaseAar
     publishReleasePublicationToSonatypeRepository.dependsOn bundleReleaseAar
 }
