@@ -97,6 +97,6 @@ function androidtest {
 }
 
 # removed android test until maven issue resolved (https://github.com/wultra/passphrase-meter/issues/42)
-#androidtest
+androidtest
 iostest
 consistencytest $1
