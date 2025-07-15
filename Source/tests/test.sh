@@ -65,7 +65,7 @@ function iostest {
     # we're running this twice because of the output error in xcde
     iosversion=$(xcrun --sdk iphoneos --show-sdk-version)
     iosversion=$(xcrun --sdk iphoneos --show-sdk-version)
-    destination="platform=iOS Simulator,OS=${iosversion},name=iPhone 13 mini"
+    destination="platform=iOS Simulator,name=iPhone 15"
     xcodebuild -workspace PassMeterExample.xcworkspace -scheme PassMeterExample -destination "${destination}" test
     if [[ $? != 0 ]]; then
         error "iOS TESTS FAILED"
@@ -97,6 +97,6 @@ function androidtest {
 }
 
 # removed android test until maven issue resolved (https://github.com/wultra/passphrase-meter/issues/42)
-androidtest
+#androidtest
 iostest
 consistencytest $1
