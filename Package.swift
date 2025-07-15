@@ -17,24 +17,24 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "WultraPassphraseMeter",
-            url: "https://github.com/wultra/passphrase-meter/releases/download/1.2.0/WultraPassphraseMeter-1.2.0.xcframework.zip",
-            checksum: "7c4aaa1f669aa254448e2aa461f5b2af653ce207dcef1b155dbfeb62a5855bc7"),
+            url: "https://github.com/wultra/passphrase-meter/releases/download/1.3.0/WultraPassphraseMeter-1.3.0.xcframework.zip",
+            checksum: "6e586de965b3e03f234dd056de5b2b71bec3da093e2fb2dd73b61c7470a35474"),
         .binaryTarget(
             name: "WultraPassphraseMeterCore",
-            url: "https://github.com/wultra/passphrase-meter/releases/download/1.2.0/WultraPassphraseMeterCore-1.2.0.xcframework.zip",
-            checksum: "113184771fae724761ce69493427b18a5d512f8dbc2a8f7676d16ebdbd40d26e"),
+            url: "https://github.com/wultra/passphrase-meter/releases/download/1.3.0/WultraPassphraseMeterCore-1.3.0.xcframework.zip",
+            checksum: "6b831a8bdd4ff745e5b85d9a7261c93a4b22f604c4cac406039d57fc23d2f315"),
         .binaryTarget(
             name: "WultraPassphraseMeterCZSKDictionary",
-            url: "https://github.com/wultra/passphrase-meter/releases/download/1.2.0/WultraPassphraseMeterCZSKDictionary-1.2.0.xcframework.zip",
-            checksum: "c408ee45322d1defe5818c15806683ba29c9e4e1cf423a35663596e65bf4fc6b"),
+            url: "https://github.com/wultra/passphrase-meter/releases/download/1.3.0/WultraPassphraseMeterCZSKDictionary-1.3.0.xcframework.zip",
+            checksum: "5d4b6241dcb1575131845db7b4b72c56a5430528e3d2f85b109b3de6b6149047"),
         .binaryTarget(
             name: "WultraPassphraseMeterENDictionary",
-            url: "https://github.com/wultra/passphrase-meter/releases/download/1.2.0/WultraPassphraseMeterENDictionary-1.2.0.xcframework.zip",
-            checksum: "d24cb28a116e5af136fbfa3b44c86f94d4dcbbe2d36081a56b01b78286cd3f01"),
+            url: "https://github.com/wultra/passphrase-meter/releases/download/1.3.0/WultraPassphraseMeterENDictionary-1.3.0.xcframework.zip",
+            checksum: "3028da6f1244b3024b372bdc0d1638feec7ab6493281a35205a1221fc7b9d401"),
         .binaryTarget(
             name: "WultraPassphraseMeterRODictionary",
-            url: "https://github.com/wultra/passphrase-meter/releases/download/1.2.0/WultraPassphraseMeterRODictionary-1.2.0.xcframework.zip",
-            checksum: "8d4d34db6ef441a0f199c4958b44d8ca736047366f3ec6fbc64bb661e631218a")
+            url: "https://github.com/wultra/passphrase-meter/releases/download/1.3.0/WultraPassphraseMeterRODictionary-1.3.0.xcframework.zip",
+            checksum: "8eb2e7017dd91385234461ea4b9a5d3a1ac3fb1b447351903a9e7dd990727e79")
     ],
     swiftLanguageVersions: [.v5]
 )
