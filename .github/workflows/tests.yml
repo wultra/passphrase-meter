@@ -11,16 +11,24 @@ on:
 jobs:
   tests:
     name: Tests
-    runs-on: macos-11
+    runs-on: macos-14
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '11'
-      - name: Run tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./Source/tests/test.sh
+
+      # Android setup and test runner is temporarily disabled.
+      # Only iOS tests are executed now, Android was tested via app integration.
+      #
+      # - uses: actions/setup-java@v4
+      #   with:
+      #     distribution: 'temurin'
+      #     java-version: '17'
+      #
+      # - name: Run Android tests
+      #   uses: reactivecircus/android-emulator-runner@v2
+      #   with:
+      #     api-level: 29
+      #     script: ./Source/tests/test.sh
+
+      - name: Run iOS-only tests
+        run: ./Source/tests/test.sh

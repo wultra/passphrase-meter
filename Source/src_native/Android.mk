@@ -31,5 +31,7 @@ LOCAL_SRC_FILES  := zxcvbn.c \
 LOCAL_CFLAGS	 := $(EXTERN_CFLAGS) -DANDROID
 LOCAL_CPPFLAGS   := $(LOCAL_CFLAGS) -std=c++11
 LOCAL_LDLIBS     += -landroid -llog
+LOCAL_LDFLAGS    += "-Wl,-z,max-page-size=16384"
+LOCAL_LDFLAGS    += "-Wl,-z,common-page-size=16384"
 
 include $(BUILD_SHARED_LIBRARY)
