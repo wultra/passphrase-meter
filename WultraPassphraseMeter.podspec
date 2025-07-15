@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name             = 'WultraPassphraseMeter'
-  s.version          = '1.2.0'
+  s.version          = '1.3.0'
   s.summary          = 'Streng tester for passwords and passcodes.'
   s.description      = 'A library that checks the strength of a pin or a password.'
-  s.social_media_url = 'https://twitter.com/wultra'
+
   s.homepage         = 'https://wultra.com'
   s.license          = { :type => 'Apache License, Version 2.0', :file => 'LICENSE' }
   s.author           = { 'Wultra s.r.o.' => 'support@wultra.com' }
